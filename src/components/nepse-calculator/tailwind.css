@@ -1,0 +1,14 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --nepse-blue: 210 100% 40%;
+    --nepse-gray: 220 10% 96%;
+    --nepse-darkgray: 220 15% 40%;
+    --nepse-green: 142 76% 36%;
+    --nepse-red: 0 84% 60%;
+  }
+}
