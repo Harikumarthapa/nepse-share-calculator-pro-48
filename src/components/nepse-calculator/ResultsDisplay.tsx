@@ -1,6 +1,5 @@
-
 import React, { useRef } from 'react';
-import { ArrowUp, ArrowDown, Info, FileImage, FilePdf } from "lucide-react";
+import { ArrowUp, ArrowDown, Info, FileImage, FileText } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import { CalculationInputs, CalculationResults } from './types';
@@ -87,7 +86,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, inputs }) => {
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button variant="outline" size="sm" onClick={exportToPDF}>
-                  <FilePdf className="h-4 w-4 mr-1" />
+                  <FileText className="h-4 w-4 mr-1" />
                   PDF
                 </Button>
               </TooltipTrigger>
