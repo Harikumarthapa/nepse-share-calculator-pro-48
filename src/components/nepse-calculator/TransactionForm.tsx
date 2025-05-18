@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Info } from "lucide-react";
 import { CalculationInputs } from './types';
+import { CAPITAL_GAINS_TAX, HOLDING_PERIOD_THRESHOLD } from './constants';
 
 interface TransactionFormProps {
   inputs: CalculationInputs;
@@ -21,6 +22,33 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
   handleInputChange,
   handleReset 
 }) => {
+  // Auto update capital gains tax rate based on investor type and holding duration
+  useEffect(() => {
+    let taxRate: number;
+    
+    if (inputs.investorType === 'individual') {
+      taxRate = inputs.holdingDuration >= HOLDING_PERIOD_THRESHOLD 
+        ? CAPITAL_GAINS_TAX.INDIVIDUAL.LONG_TERM 
+        : CAPITAL_GAINS_TAX.INDIVIDUAL.SHORT_TERM;
+    } else {
+      taxRate = CAPITAL_GAINS_TAX.INSTITUTIONAL;
+    }
+    
+    // Only update if the rate actually changed
+    if (inputs.capitalGainsTaxRate !== taxRate) {
+      handleInputChange('capitalGainsTaxRate', taxRate);
+    }
+  }, [inputs.investorType, inputs.holdingDuration]);
+
+  // Get the display percentage for the capital gains tax
+  const getCapitalGainsTaxDisplay = () => {
+    if (inputs.investorType === 'institutional') {
+      return '10%';
+    } else {
+      return inputs.holdingDuration >= HOLDING_PERIOD_THRESHOLD ? '5%' : '7.5%';
+    }
+  };
+
   return (
     <Tabs 
       defaultValue="buy" 
@@ -89,31 +117,58 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
           </div>
           
           {inputs.transactionType === 'sell' && (
-            <div className="space-y-2">
-              <Label htmlFor="holdingDuration">
-                Holding Duration (days)
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Info className="h-4 w-4 inline-block ml-1 text-nepse-darkgray" />
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>Duration affects capital gains tax rate:<br />
-                      ≥ 365 days: 5% for individuals<br />
-                      &lt; 365 days: 7.5% for individuals<br />
-                      Institutional: Always 10%</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </Label>
-              <Input 
-                id="holdingDuration" 
-                type="number"
-                min="1"
-                value={inputs.holdingDuration} 
-                onChange={(e) => handleInputChange('holdingDuration', parseInt(e.target.value) || 0)}
-              />
-            </div>
+            <>
+              <div className="space-y-2">
+                <Label htmlFor="holdingDuration">
+                  Holding Duration (days)
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Info className="h-4 w-4 inline-block ml-1 text-nepse-darkgray" />
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Duration affects capital gains tax rate:<br />
+                        ≥ 365 days: 5% for individuals<br />
+                        &lt; 365 days: 7.5% for individuals<br />
+                        Institutional: Always 10%</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </Label>
+                <Input 
+                  id="holdingDuration" 
+                  type="number"
+                  min="1"
+                  value={inputs.holdingDuration} 
+                  onChange={(e) => handleInputChange('holdingDuration', parseInt(e.target.value) || 0)}
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="capitalGainsTaxRate">
+                  Capital Gains Tax Rate
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Info className="h-4 w-4 inline-block ml-1 text-nepse-darkgray" />
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Capital gains tax rate is automatically calculated based on:<br />
+                        Individual, ≥365 days: 5%<br />
+                        Individual, &lt;365 days: 7.5%<br />
+                        Institutional: 10%</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </Label>
+                <Input 
+                  id="capitalGainsTaxRate"
+                  value={getCapitalGainsTaxDisplay()}
+                  readOnly
+                  className="bg-gray-100"
+                />
+              </div>
+            </>
           )}
         </div>
         

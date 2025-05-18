@@ -8,6 +8,7 @@ export interface CalculationInputs {
   investorType: 'individual' | 'institutional';
   holdingDuration: number;
   includeDpCharge: boolean;
+  capitalGainsTaxRate: number;
 }
 
 export interface CalculationResults {

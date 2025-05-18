@@ -6,6 +6,7 @@ import { calculateResults } from './nepse-calculator/utils';
 import TransactionForm from './nepse-calculator/TransactionForm';
 import ResultsDisplay from './nepse-calculator/ResultsDisplay';
 import EmbedInfo from './nepse-calculator/EmbedInfo';
+import { CAPITAL_GAINS_TAX } from './nepse-calculator/constants';
 
 const NEPSECalculator: React.FC = () => {
   // Initial state for inputs
@@ -17,6 +18,7 @@ const NEPSECalculator: React.FC = () => {
     investorType: 'individual',
     holdingDuration: 366,
     includeDpCharge: true,
+    capitalGainsTaxRate: CAPITAL_GAINS_TAX.INDIVIDUAL.LONG_TERM,  // Default to long-term rate for individuals
   });
 
   // State for calculation results
@@ -37,6 +39,7 @@ const NEPSECalculator: React.FC = () => {
       investorType: 'individual',
       holdingDuration: 366,
       includeDpCharge: true,
+      capitalGainsTaxRate: CAPITAL_GAINS_TAX.INDIVIDUAL.LONG_TERM,
     });
   };
 
