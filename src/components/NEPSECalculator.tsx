@@ -31,6 +31,8 @@ interface CalculationResults {
   profitLoss?: number;
   roi?: number;
   netReceivable?: number;
+  totalCostOfAcquisition?: number;
+  netSellingPrice?: number;
 }
 
 const NEPSECalculator: React.FC = () => {
@@ -107,7 +109,7 @@ const NEPSECalculator: React.FC = () => {
         return null;
       }
 
-      let totalAmount, brokerCommission, sebonFee, dpCharge, costPerShare, capitalGainsTax, profitLoss, roi, netReceivable;
+      let totalAmount, brokerCommission, sebonFee, dpCharge, costPerShare, capitalGainsTax, profitLoss, roi, netReceivable, totalCostOfAcquisition, netSellingPrice;
       
       // Calculate based on transaction type
       if (transactionType === 'buy') {
@@ -127,25 +129,35 @@ const NEPSECalculator: React.FC = () => {
           costPerShare,
         };
       } else { // Sell calculation
-        const sellAmount = quantity * sellPrice;
+        // Buy-side calculations
         const buyAmount = quantity * buyPrice;
+        const buyBrokerCommission = calculateBrokerCommission(buyAmount);
+        const buySebonFee = calculateSEBONFee(buyAmount);
+        const buyDpCharge = includeDpCharge ? 25 : 0;
         
-        // Calculate fees for sell transaction
+        // Total cost of acquisition
+        totalCostOfAcquisition = buyAmount + buyBrokerCommission + buySebonFee + buyDpCharge;
+        
+        // Sell-side calculations
+        const sellAmount = quantity * sellPrice;
         brokerCommission = calculateBrokerCommission(sellAmount);
         sebonFee = calculateSEBONFee(sellAmount);
         dpCharge = includeDpCharge ? 25 : 0;
         
-        // Calculate profit/loss (after deducting fees)
-        profitLoss = sellAmount - buyAmount - brokerCommission - sebonFee - dpCharge;
+        // Net selling price
+        netSellingPrice = sellAmount - brokerCommission - sebonFee - dpCharge;
+        
+        // Calculate profit/loss based on the correct capital gain formula
+        profitLoss = netSellingPrice - totalCostOfAcquisition;
         
         // Calculate capital gains tax if profit
         capitalGainsTax = calculateCGT(profitLoss, investorType, holdingDuration);
         
         // Final net receivable amount
-        netReceivable = sellAmount - brokerCommission - sebonFee - dpCharge - capitalGainsTax;
+        netReceivable = netSellingPrice - capitalGainsTax;
         
         // Calculate ROI
-        roi = ((netReceivable - buyAmount) / buyAmount) * 100;
+        roi = ((netReceivable - totalCostOfAcquisition) / totalCostOfAcquisition) * 100;
         
         return {
           totalAmount: sellAmount,
@@ -157,6 +169,8 @@ const NEPSECalculator: React.FC = () => {
           profitLoss,
           roi,
           netReceivable,
+          totalCostOfAcquisition,
+          netSellingPrice
         };
       }
     };
@@ -410,6 +424,22 @@ const NEPSECalculator: React.FC = () => {
                 <div className="mb-6">
                   <h4 className="text-sm font-medium text-nepse-darkgray mb-2">Tax Calculation</h4>
                   <div className="bg-nepse-gray p-4 rounded-md space-y-3 text-sm">
+                    {results.totalCostOfAcquisition && (
+                      <div className="flex justify-between">
+                        <span className="text-nepse-darkgray">Total Cost of Acquisition</span>
+                        <span className="font-medium">
+                          {formatCurrency(results.totalCostOfAcquisition)}
+                        </span>
+                      </div>
+                    )}
+                    {results.netSellingPrice && (
+                      <div className="flex justify-between">
+                        <span className="text-nepse-darkgray">Net Selling Price</span>
+                        <span className="font-medium">
+                          {formatCurrency(results.netSellingPrice)}
+                        </span>
+                      </div>
+                    )}
                     <div className="flex justify-between">
                       <span className="text-nepse-darkgray">Capital Gain/Loss</span>
                       <span className={`font-medium ${results.profitLoss && results.profitLoss > 0 ? 'text-nepse-green' : 'text-nepse-red'}`}>
