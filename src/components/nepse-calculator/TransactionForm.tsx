@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Info } from "lucide-react";
 import { CalculationInputs } from './types';
+import { CAPITAL_GAINS_TAX } from './constants';
 
 interface TransactionFormProps {
   inputs: CalculationInputs;
@@ -21,6 +22,17 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
   handleInputChange,
   handleReset 
 }) => {
+  // Calculate applicable tax rate based on investor type and holding duration
+  const getTaxRate = () => {
+    if (inputs.investorType === 'institutional') {
+      return CAPITAL_GAINS_TAX.INSTITUTIONAL * 100;
+    } else {
+      return inputs.holdingDuration >= 365 ? 
+        CAPITAL_GAINS_TAX.INDIVIDUAL.LONG_TERM * 100 : 
+        CAPITAL_GAINS_TAX.INDIVIDUAL.SHORT_TERM * 100;
+    }
+  };
+
   return (
     <Tabs 
       defaultValue="buy" 
@@ -89,31 +101,57 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
           </div>
           
           {inputs.transactionType === 'sell' && (
-            <div className="space-y-2">
-              <Label htmlFor="holdingDuration">
-                Holding Duration (days)
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Info className="h-4 w-4 inline-block ml-1 text-nepse-darkgray" />
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>Duration affects capital gains tax rate:<br />
-                      ≥ 365 days: 5% for individuals<br />
-                      &lt; 365 days: 7.5% for individuals<br />
-                      Institutional: Always 10%</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </Label>
-              <Input 
-                id="holdingDuration" 
-                type="number"
-                min="1"
-                value={inputs.holdingDuration} 
-                onChange={(e) => handleInputChange('holdingDuration', parseInt(e.target.value) || 0)}
-              />
-            </div>
+            <>
+              <div className="space-y-2">
+                <Label htmlFor="holdingDuration">
+                  Holding Period (days)
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Info className="h-4 w-4 inline-block ml-1 text-nepse-darkgray" />
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Duration affects capital gains tax rate:<br />
+                        ≥ 365 days: 5% for individuals<br />
+                        &lt; 365 days: 7.5% for individuals<br />
+                        Institutional: Always 10%</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </Label>
+                <Input 
+                  id="holdingDuration" 
+                  type="number"
+                  min="1"
+                  value={inputs.holdingDuration} 
+                  onChange={(e) => handleInputChange('holdingDuration', parseInt(e.target.value) || 0)}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="capitalGainsTax">
+                  Capital Gains Tax Rate
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Info className="h-4 w-4 inline-block ml-1 text-nepse-darkgray" />
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Tax rates automatically set based on investor type and holding period:<br />
+                        Individual, ≥365 days: 5%<br />
+                        Individual, &lt;365 days: 7.5%<br />
+                        Institutional: Always 10%</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </Label>
+                <Input 
+                  id="capitalGainsTax" 
+                  value={`${getTaxRate()}%`}
+                  disabled
+                  className="bg-gray-100"
+                />
+              </div>
+            </>
           )}
         </div>
         

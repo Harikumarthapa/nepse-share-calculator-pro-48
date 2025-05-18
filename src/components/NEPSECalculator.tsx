@@ -6,6 +6,7 @@ import { calculateResults } from './nepse-calculator/utils';
 import TransactionForm from './nepse-calculator/TransactionForm';
 import ResultsDisplay from './nepse-calculator/ResultsDisplay';
 import EmbedInfo from './nepse-calculator/EmbedInfo';
+import EducationalContent from './nepse-calculator/EducationalContent';
 
 const NEPSECalculator: React.FC = () => {
   // Initial state for inputs
@@ -67,6 +68,9 @@ const NEPSECalculator: React.FC = () => {
         
         {/* Embed Information */}
         <EmbedInfo />
+        
+        {/* Educational Content */}
+        <EducationalContent />
       </CardContent>
     </Card>
   );
