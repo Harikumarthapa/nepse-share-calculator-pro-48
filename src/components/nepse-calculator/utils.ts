@@ -1,5 +1,5 @@
 
-import { BROKER_COMMISSION_THRESHOLDS, BROKER_COMMISSION_RATES, SEBON_FEE_RATE, DP_CHARGE } from './constants';
+import { BROKER_COMMISSION_THRESHOLDS, BROKER_COMMISSION_RATES, SEBON_FEE_RATE, DP_CHARGE, CAPITAL_GAINS_TAX, HOLDING_PERIOD_THRESHOLD } from './constants';
 import { CalculationInputs, CalculationResults } from './types';
 
 // Calculate broker commission based on amount
@@ -22,15 +22,22 @@ export const calculateSEBONFee = (amount: number): number => {
   return amount * SEBON_FEE_RATE; // 0.015%
 };
 
-// Calculate capital gains tax using the rate from inputs
-export const calculateCGT = (profit: number, taxRate: number): number => {
+// Calculate capital gains tax
+export const calculateCGT = (profit: number, investorType: string, holdingDuration: number): number => {
   if (profit <= 0) return 0; // No CGT on loss
-  return profit * taxRate;
+  
+  if (investorType === 'individual') {
+    return holdingDuration >= HOLDING_PERIOD_THRESHOLD 
+      ? profit * CAPITAL_GAINS_TAX.INDIVIDUAL.LONG_TERM 
+      : profit * CAPITAL_GAINS_TAX.INDIVIDUAL.SHORT_TERM;
+  } else {
+    return profit * CAPITAL_GAINS_TAX.INSTITUTIONAL;
+  }
 };
 
 // Calculate results based on inputs
 export const calculateResults = (inputs: CalculationInputs): CalculationResults | null => {
-  const { transactionType, quantity, buyPrice, sellPrice, includeDpCharge, capitalGainsTaxRate } = inputs;
+  const { transactionType, quantity, buyPrice, sellPrice, investorType, holdingDuration, includeDpCharge } = inputs;
   
   // Validate inputs
   if (!quantity || quantity <= 0 || (transactionType === 'buy' && !buyPrice) || (transactionType === 'sell' && (!buyPrice || !sellPrice))) {
@@ -78,8 +85,8 @@ export const calculateResults = (inputs: CalculationInputs): CalculationResults 
     // Calculate profit/loss based on the correct capital gain formula
     profitLoss = netSellingPrice - totalCostOfAcquisition;
     
-    // Calculate capital gains tax if profit, using the tax rate from inputs
-    capitalGainsTax = calculateCGT(profitLoss, capitalGainsTaxRate);
+    // Calculate capital gains tax if profit
+    capitalGainsTax = calculateCGT(profitLoss, investorType, holdingDuration);
     
     // Final net receivable amount
     netReceivable = netSellingPrice - capitalGainsTax;
