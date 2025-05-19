@@ -61,8 +61,8 @@ const Index = () => {
           </p>
           <p>
             <Link to="/" className="text-nepse-blue hover:underline">Home</Link> | 
-            <Link to="/privacy" className="text-nepse-blue hover:underline">Privacy Policy</Link> | 
-            <Link to="/terms" className="text-nepse-blue hover:underline">Terms</Link> | 
+            <Link to="/privacy" className="text-nepse-blue hover:underline"> Privacy Policy</Link> | 
+            <Link to="/terms" className="text-nepse-blue hover:underline"> Terms</Link> | 
             <Link to="/disclaimer" className="text-nepse-blue hover:underline"> Disclaimer</Link> | 
             <Link to="/about" className="text-nepse-blue hover:underline"> About</Link> | 
             <Link to="/contact" className="text-nepse-blue hover:underline"> Contact</Link> | 
