@@ -90,3 +90,5 @@ const EmbedInfo: React.FC = () => {
     </div>
   );
 };
+
+export default EmbedInfo
