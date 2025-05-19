@@ -5,10 +5,9 @@ import NEPSECalculator from '@/components/NEPSECalculator';
 const Index = () => {
   return (
     <div className="min-h-screen bg-gray-100 py-8 px-4">
-      <div className="max-w-4xl mx-auto">
+      <div className="w-[80%] mx-auto">
         <header className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-nepse-blue">Share Calculator | Calculate how much you will receive after taxes</h1>
-          <p className="mt-2 text-gray-600">Calculate exact costs, taxes, and returns for your Nepal Stock Exchange transactions</p>
+          <h1 className="text-3xl font-bold text-nepse-blue">NEPSE Transaction Calculator</h1>
         </header>
         
         <NEPSECalculator />

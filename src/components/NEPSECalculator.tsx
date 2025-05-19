@@ -1,20 +1,23 @@
 
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CalculationInputs, CalculationResults } from './nepse-calculator/types';
 import { calculateResults } from './nepse-calculator/utils';
 import TransactionForm from './nepse-calculator/TransactionForm';
 import ResultsDisplay from './nepse-calculator/ResultsDisplay';
 import EmbedInfo from './nepse-calculator/EmbedInfo';
 import EducationalContent from './nepse-calculator/EducationalContent';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const NEPSECalculator: React.FC = () => {
-  // Initial state for inputs
+  const isMobile = useIsMobile();
+  
+  // Initial state for inputs with blank values
   const [inputs, setInputs] = useState<CalculationInputs>({
     transactionType: 'buy',
-    quantity: 10,
-    buyPrice: 100,
-    sellPrice: 110,
+    quantity: 0,
+    buyPrice: 0,
+    sellPrice: 0,
     investorType: 'individual',
     holdingDuration: 366,
     includeDpCharge: true,
@@ -32,9 +35,9 @@ const NEPSECalculator: React.FC = () => {
   const handleReset = () => {
     setInputs({
       transactionType: 'buy',
-      quantity: 10,
-      buyPrice: 100,
-      sellPrice: 110,
+      quantity: 0,
+      buyPrice: 0,
+      sellPrice: 0,
       investorType: 'individual',
       holdingDuration: 366,
       includeDpCharge: true,
@@ -47,30 +50,51 @@ const NEPSECalculator: React.FC = () => {
   }, [inputs]);
 
   return (
-    <Card className="w-full max-w-3xl mx-auto shadow-lg">
+    <Card className="w-full mx-auto shadow-lg">
       <CardHeader className="bg-nepse-blue text-white">
-        <CardTitle className="text-2xl font-bold">NEPSE Transaction Calculator</CardTitle>
-        <CardDescription className="text-white/80">
-          Calculate costs, taxes, and profit/loss for NEPSE share transactions
-        </CardDescription>
+        <CardTitle className="text-xl font-bold">Calculate costs, taxes, and profit/loss</CardTitle>
       </CardHeader>
       <CardContent className="p-6">
-        <TransactionForm 
-          inputs={inputs} 
-          handleInputChange={handleInputChange}
-          handleReset={handleReset}
-        />
+        <div className={`grid ${isMobile ? 'grid-cols-1 gap-8' : 'grid-cols-2 gap-6'}`}>
+          {/* Input Column */}
+          <div className="space-y-6">
+            <h2 className="text-lg font-medium mb-4">Transaction Details</h2>
+            <TransactionForm 
+              inputs={inputs} 
+              handleInputChange={handleInputChange}
+              handleReset={handleReset}
+            />
+            
+            {/* Educational Content - Only shown on desktop view in input column */}
+            {!isMobile && (
+              <div className="mt-6">
+                <EducationalContent />
+              </div>
+            )}
+          </div>
+          
+          {/* Results Column */}
+          <div className="space-y-6">
+            {results && (
+              <ResultsDisplay results={results} inputs={inputs} />
+            )}
+            
+            {/* EmbedInfo - Only shown on desktop view in results column */}
+            {!isMobile && <EmbedInfo />}
+          </div>
+        </div>
         
-        {/* Results Section */}
-        {results && (
-          <ResultsDisplay results={results} inputs={inputs} />
+        {/* Mobile-only sections at the bottom */}
+        {isMobile && (
+          <>
+            <div className="mt-8">
+              <EmbedInfo />
+            </div>
+            <div className="mt-6">
+              <EducationalContent />
+            </div>
+          </>
         )}
-        
-        {/* Embed Information */}
-        <EmbedInfo />
-        
-        {/* Educational Content */}
-        <EducationalContent />
       </CardContent>
     </Card>
   );

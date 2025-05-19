@@ -38,6 +38,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
       defaultValue="buy" 
       value={inputs.transactionType} 
       onValueChange={(value) => handleInputChange('transactionType', value)}
+      className="w-full"
     >
       <TabsList className="grid w-full grid-cols-2 mb-6">
         <TabsTrigger value="buy">Buy Calculation</TabsTrigger>
@@ -46,14 +47,15 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
       
       <div className="space-y-6">
         {/* Common inputs for both buy and sell */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4">
           <div className="space-y-2">
             <Label htmlFor="quantity">Share Quantity</Label>
             <Input 
               id="quantity" 
               type="number" 
               min="1"
-              value={inputs.quantity} 
+              placeholder="Enter quantity"
+              value={inputs.quantity || ''}
               onChange={(e) => handleInputChange('quantity', parseFloat(e.target.value) || 0)}
             />
           </div>
@@ -65,7 +67,8 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
               type="number"
               min="0.01"
               step="0.01"
-              value={inputs.buyPrice} 
+              placeholder="Enter buy price"
+              value={inputs.buyPrice || ''}
               onChange={(e) => handleInputChange('buyPrice', parseFloat(e.target.value) || 0)}
             />
           </div>
@@ -78,7 +81,8 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
                 type="number"
                 min="0.01"
                 step="0.01"
-                value={inputs.sellPrice} 
+                placeholder="Enter sell price"
+                value={inputs.sellPrice || ''}
                 onChange={(e) => handleInputChange('sellPrice', parseFloat(e.target.value) || 0)}
               />
             </div>
@@ -123,7 +127,8 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
                   id="holdingDuration" 
                   type="number"
                   min="1"
-                  value={inputs.holdingDuration} 
+                  placeholder="Enter holding period"
+                  value={inputs.holdingDuration || ''}
                   onChange={(e) => handleInputChange('holdingDuration', parseInt(e.target.value) || 0)}
                 />
               </div>

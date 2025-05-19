@@ -97,17 +97,17 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, inputs }) => {
   };
 
   return (
-    <div className="mt-8 border-t pt-6">
-      <h3 className="text-lg font-medium mb-4">Calculation Results</h3>
+    <div className="h-full flex flex-col">
+      <h2 className="text-lg font-medium mb-4">Calculation Results</h2>
       
-      <div ref={resultsRef} className="bg-white p-4 rounded-lg">
+      <div ref={resultsRef} className="bg-white p-4 rounded-lg flex-grow">
         <InputSummary inputs={inputs} />
         <FeeBreakdown results={results} />
         <TaxCalculation results={results} inputs={inputs} />
         <FinalResult results={results} inputs={inputs} />
       </div>
       
-      <div className="mt-4 flex flex-wrap gap-2">
+      <div className="mt-4 flex flex-wrap gap-2 justify-end">
         <Button 
           onClick={handleDownloadPDF}
           size="sm"
