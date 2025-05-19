@@ -8,6 +8,7 @@ import ResultsDisplay from './nepse-calculator/ResultsDisplay';
 import EmbedInfo from './nepse-calculator/EmbedInfo';
 import EducationalContent from './nepse-calculator/EducationalContent';
 import { useLanguage } from '@/contexts/LanguageContext';
+import LanguageToggle from './LanguageToggle';
 
 const NEPSECalculator: React.FC = () => {
   const { t } = useLanguage();
@@ -51,8 +52,9 @@ const NEPSECalculator: React.FC = () => {
 
   return (
     <Card className="w-full mx-auto shadow-lg">
-      <CardHeader className="bg-nepse-blue text-white">
+      <CardHeader className="bg-nepse-blue text-white flex flex-row justify-between items-center">
         <CardTitle className="text-xl font-bold">{t('calculator.title')}</CardTitle>
+        <LanguageToggle />
       </CardHeader>
       <CardContent className="p-6">
         {/* Main Calculator Section - Always 2 columns on desktop, 1 column on mobile */}

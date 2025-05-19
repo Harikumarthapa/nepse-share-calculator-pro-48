@@ -9,6 +9,7 @@ import TaxCalculation from './results/TaxCalculation';
 import FinalResult from './results/FinalResult';
 import html2canvas from 'html2canvas';
 import html2pdf from 'html2pdf.js';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface ResultsDisplayProps {
   results: CalculationResults | null;
@@ -17,6 +18,7 @@ interface ResultsDisplayProps {
 
 const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, inputs }) => {
   const resultsRef = useRef<HTMLDivElement>(null);
+  const { t, language } = useLanguage();
   
   // Check if we have valid results with actual values (not just empty placeholders)
   const hasValidResults = results && 
@@ -26,7 +28,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, inputs }) => {
 
   const generateWatermark = () => {
     const today = new Date();
-    const formattedDate = today.toLocaleDateString('en-US', {
+    const formattedDate = today.toLocaleDateString(language === 'ne' ? 'ne-NP' : 'en-US', {
       year: 'numeric',
       month: 'short',
       day: 'numeric',
@@ -102,7 +104,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, inputs }) => {
 
   return (
     <div className="h-full flex flex-col">
-      <h2 className="text-lg font-medium mb-4">Calculation Results</h2>
+      <h2 className="text-lg font-medium mb-4">{t('calculator.results')}</h2>
       
       <div 
         ref={resultsRef} 
@@ -125,7 +127,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, inputs }) => {
               className="flex items-center gap-1"
             >
               <Download size={16} />
-              Download PDF
+              {t('download.pdf')}
             </Button>
             
             <Button 
@@ -135,7 +137,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, inputs }) => {
               className="flex items-center gap-1"
             >
               <FileImage size={16} />
-              Download PNG
+              {t('download.png')}
             </Button>
           </>
         )}

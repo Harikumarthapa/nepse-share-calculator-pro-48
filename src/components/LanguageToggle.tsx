@@ -1,22 +1,21 @@
 
 import React from 'react';
-import { Globe } from 'lucide-react';
-import { Switch } from '@/components/ui/switch';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 const LanguageToggle: React.FC = () => {
   const { language, toggleLanguage } = useLanguage();
   
   return (
-    <div className="flex items-center gap-2">
-      <Globe className="h-4 w-4 text-gray-500" />
-      <span className={`text-sm ${language === 'en' ? 'font-medium' : ''}`}>EN</span>
-      <Switch 
-        checked={language === 'ne'}
-        onCheckedChange={toggleLanguage}
+    <div className="flex items-center gap-3">
+      <button 
+        onClick={toggleLanguage}
+        className="text-sm flex items-center bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded transition-colors"
         aria-label="Toggle language"
-      />
-      <span className={`text-sm ${language === 'ne' ? 'font-medium' : ''}`}>नेपाली</span>
+      >
+        <span className={language === 'en' ? 'font-medium' : 'opacity-75'}>EN</span>
+        <span className="mx-1.5">|</span>
+        <span className={language === 'ne' ? 'font-medium' : 'opacity-75'}>नेपाली</span>
+      </button>
     </div>
   );
 };

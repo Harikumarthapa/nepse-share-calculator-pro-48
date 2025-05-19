@@ -3,6 +3,7 @@ import React from 'react';
 import { ArrowUp, ArrowDown } from "lucide-react";
 import { CalculationInputs, CalculationResults } from '../types';
 import { formatCurrency, formatPercentage } from '../utils';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface FinalResultProps {
   results: CalculationResults | null;
@@ -10,14 +11,16 @@ interface FinalResultProps {
 }
 
 const FinalResult: React.FC<FinalResultProps> = ({ results, inputs }) => {
+  const { t } = useLanguage();
+  
   return (
     <div>
-      <h3 className="text-sm font-medium text-nepse-darkgray mb-2">Final Result</h3>
+      <h3 className="text-sm font-medium text-nepse-darkgray mb-2">{t('final.result')}</h3>
       <div className="bg-nepse-blue text-white p-4 rounded-md space-y-3">
         {inputs.transactionType === 'buy' ? (
           <>
             <div className="flex justify-between">
-              <span>Total Cost</span>
+              <span>{t('total.cost.final')}</span>
               <span className="font-medium">
                 {(results?.totalAmount !== undefined && 
                   results?.brokerCommission !== undefined && 
@@ -29,18 +32,18 @@ const FinalResult: React.FC<FinalResultProps> = ({ results, inputs }) => {
               </span>
             </div>
             <div className="flex justify-between">
-              <span>Cost Per Share</span>
+              <span>{t('cost.per.share.final')}</span>
               <span className="font-medium">{results?.costPerShare ? formatCurrency(results.costPerShare) : '-'}</span>
             </div>
           </>
         ) : (
           <>
             <div className="flex justify-between">
-              <span>Net Receivable</span>
+              <span>{t('net.receivable')}</span>
               <span className="font-medium">{results?.netReceivable ? formatCurrency(results.netReceivable) : '-'}</span>
             </div>
             <div className="flex justify-between">
-              <span>Profit/Loss</span>
+              <span>{t('profit.loss')}</span>
               <span className={`font-medium flex items-center ${
                 results?.profitLoss && results.profitLoss > 0 ? 'text-green-300' : 'text-red-300'
               }`}>
@@ -55,7 +58,7 @@ const FinalResult: React.FC<FinalResultProps> = ({ results, inputs }) => {
               </span>
             </div>
             <div className="flex justify-between">
-              <span>ROI</span>
+              <span>{t('roi')}</span>
               <span className={`font-medium ${
                 results?.roi && results.roi > 0 ? 'text-green-300' : 'text-red-300'
               }`}>{results?.roi ? formatPercentage(results.roi) : '-'}</span>

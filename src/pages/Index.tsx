@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { ChevronUp } from 'lucide-react';
 import NEPSECalculator from '@/components/NEPSECalculator';
 import { Button } from '@/components/ui/button';
-import LanguageToggle from '@/components/LanguageToggle';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 const Index = () => {
@@ -49,9 +48,6 @@ const Index = () => {
       <div className="w-[80%] mx-auto">
         <header className="flex flex-col md:flex-row justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-nepse-blue mb-4 md:mb-0">{t('app.title')}</h1>
-          <div className="flex items-center">
-            <LanguageToggle />
-          </div>
         </header>
         
         <NEPSECalculator />
@@ -64,13 +60,13 @@ const Index = () => {
               : ' सबै दरहरू हालको SEBON/NEPSE आधिकारिक निर्देशिकाहरूमा आधारित छन्।'}
           </p>
           <p>
-            <Link to={language === 'en' ? '/' : '/ne'} className="text-nepse-blue hover:underline">{t('footer.home')}</Link> | 
-            <Link to={language === 'en' ? '/privacy' : '/ne/privacy'} className="text-nepse-blue hover:underline"> {t('footer.privacy')}</Link> | 
-            <Link to={language === 'en' ? '/terms' : '/ne/terms'} className="text-nepse-blue hover:underline"> {t('footer.terms')}</Link> | 
-            <Link to={language === 'en' ? '/disclaimer' : '/ne/disclaimer'} className="text-nepse-blue hover:underline"> {t('footer.disclaimer')}</Link> | 
-            <Link to={language === 'en' ? '/about' : '/ne/about'} className="text-nepse-blue hover:underline"> {t('footer.about')}</Link> | 
-            <Link to={language === 'en' ? '/contact' : '/ne/contact'} className="text-nepse-blue hover:underline"> {t('footer.contact')}</Link> | 
-            <Link to={language === 'en' ? '/sitemap' : '/ne/sitemap'} className="text-nepse-blue hover:underline"> {t('footer.sitemap')}</Link>
+            <Link to="/" className="text-nepse-blue hover:underline">Home</Link> | 
+            <Link to="/privacy" className="text-nepse-blue hover:underline"> Privacy Policy</Link> | 
+            <Link to="/terms" className="text-nepse-blue hover:underline"> Terms</Link> | 
+            <Link to="/disclaimer" className="text-nepse-blue hover:underline"> Disclaimer</Link> | 
+            <Link to="/about" className="text-nepse-blue hover:underline"> About</Link> | 
+            <Link to="/contact" className="text-nepse-blue hover:underline"> Contact</Link> | 
+            <Link to="/sitemap" className="text-nepse-blue hover:underline"> Sitemap</Link>
           </p>
         </div>
       </div>

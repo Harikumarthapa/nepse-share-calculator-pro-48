@@ -21,8 +21,6 @@ const App = () => (
     <BrowserRouter>
       <LanguageProvider>
         <TooltipProvider>
-          <Toaster />
-          <Sonner />
           <Routes>
             {/* English Routes */}
             <Route path="/" element={<Index />} />
@@ -45,6 +43,8 @@ const App = () => (
             {/* Catch-all route */}
             <Route path="*" element={<NotFound />} />
           </Routes>
+          <Toaster />
+          <Sonner />
         </TooltipProvider>
       </LanguageProvider>
     </BrowserRouter>

@@ -10,6 +10,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { Info } from "lucide-react";
 import { CalculationInputs } from './types';
 import { CAPITAL_GAINS_TAX } from './constants';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface TransactionFormProps {
   inputs: CalculationInputs;
@@ -22,6 +23,8 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
   handleInputChange,
   handleReset 
 }) => {
+  const { t } = useLanguage();
+  
   // Calculate applicable tax rate based on investor type and holding duration
   const getTaxRate = () => {
     if (inputs.investorType === 'institutional') {
@@ -41,33 +44,33 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
       className="w-full"
     >
       <TabsList className="grid w-full grid-cols-2 mb-6">
-        <TabsTrigger value="buy">Buy Calculation</TabsTrigger>
-        <TabsTrigger value="sell">Sell Calculation</TabsTrigger>
+        <TabsTrigger value="buy">{t('buy')}</TabsTrigger>
+        <TabsTrigger value="sell">{t('sell')}</TabsTrigger>
       </TabsList>
       
       <div className="space-y-6">
         {/* Common inputs for both buy and sell */}
         <div className="grid grid-cols-1 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="quantity">Share Quantity</Label>
+            <Label htmlFor="quantity">{t('quantity')}</Label>
             <Input 
               id="quantity" 
               type="number" 
               min="1"
-              placeholder="Enter quantity"
+              placeholder={t('quantity')}
               value={inputs.quantity || ''}
               onChange={(e) => handleInputChange('quantity', parseFloat(e.target.value) || null)}
             />
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="buyPrice">Buy Price per Share</Label>
+            <Label htmlFor="buyPrice">{t('buy.price')}</Label>
             <Input 
               id="buyPrice" 
               type="number"
               min="0.01"
               step="0.01"
-              placeholder="Enter buy price"
+              placeholder={t('buy.price')}
               value={inputs.buyPrice || ''}
               onChange={(e) => handleInputChange('buyPrice', parseFloat(e.target.value) || null)}
             />
@@ -75,13 +78,13 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
           
           {inputs.transactionType === 'sell' && (
             <div className="space-y-2">
-              <Label htmlFor="sellPrice">Sell Price per Share</Label>
+              <Label htmlFor="sellPrice">{t('sell.price')}</Label>
               <Input 
                 id="sellPrice" 
                 type="number"
                 min="0.01"
                 step="0.01"
-                placeholder="Enter sell price"
+                placeholder={t('sell.price')}
                 value={inputs.sellPrice || ''}
                 onChange={(e) => handleInputChange('sellPrice', parseFloat(e.target.value) || null)}
               />
@@ -89,17 +92,17 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
           )}
           
           <div className="space-y-2">
-            <Label htmlFor="investorType">Investor Type</Label>
+            <Label htmlFor="investorType">{t('investor.type')}</Label>
             <Select 
               value={inputs.investorType} 
               onValueChange={(value) => handleInputChange('investorType', value)}
             >
               <SelectTrigger id="investorType">
-                <SelectValue placeholder="Select investor type" />
+                <SelectValue placeholder={t('investor.type')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="individual">Individual</SelectItem>
-                <SelectItem value="institutional">Institutional</SelectItem>
+                <SelectItem value="individual">{t('individual')}</SelectItem>
+                <SelectItem value="institutional">{t('institutional')}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -108,17 +111,14 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
             <>
               <div className="space-y-2">
                 <Label htmlFor="holdingDuration">
-                  Holding Period (days)
+                  {t('holding.period')}
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <Info className="h-4 w-4 inline-block ml-1 text-nepse-darkgray" />
                       </TooltipTrigger>
                       <TooltipContent>
-                        <p>Duration affects capital gains tax rate:<br />
-                        ≥ 365 days: 5% for individuals<br />
-                        &lt; 365 days: 7.5% for individuals<br />
-                        Institutional: Always 10%</p>
+                        <p>{t('cgt.tooltip')}</p>
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
@@ -127,24 +127,21 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
                   id="holdingDuration" 
                   type="number"
                   min="1"
-                  placeholder="Enter holding period"
+                  placeholder={t('holding.period')}
                   value={inputs.holdingDuration || ''}
                   onChange={(e) => handleInputChange('holdingDuration', parseInt(e.target.value) || 0)}
                 />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="capitalGainsTax">
-                  Capital Gains Tax Rate
+                  {t('capital.gains.tax')}
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <Info className="h-4 w-4 inline-block ml-1 text-nepse-darkgray" />
                       </TooltipTrigger>
                       <TooltipContent>
-                        <p>Tax rates automatically set based on investor type and holding period:<br />
-                        Individual, ≥365 days: 5%<br />
-                        Individual, &lt;365 days: 7.5%<br />
-                        Institutional: Always 10%</p>
+                        <p>{t('cgt.tooltip')}</p>
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
@@ -167,7 +164,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
             onCheckedChange={(checked) => handleInputChange('includeDpCharge', !!checked)}
           />
           <Label htmlFor="includeDpCharge" className="cursor-pointer">
-            Include DP charge (रू 25)
+            {t('include.dp')}
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -182,7 +179,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
         </div>
         
         <Button onClick={handleReset} variant="outline" className="w-full mt-4">
-          Reset Calculator
+          {t('reset')}
         </Button>
       </div>
     </Tabs>

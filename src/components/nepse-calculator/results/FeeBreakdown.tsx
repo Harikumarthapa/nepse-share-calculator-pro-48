@@ -4,23 +4,26 @@ import { Info } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { CalculationResults } from '../types';
 import { formatCurrency } from '../utils';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface FeeBreakdownProps {
   results: CalculationResults | null;
 }
 
 const FeeBreakdown: React.FC<FeeBreakdownProps> = ({ results }) => {
+  const { t } = useLanguage();
+  
   return (
     <div className="mb-6">
-      <h3 className="text-sm font-medium text-nepse-darkgray mb-2">Fee Breakdown</h3>
+      <h3 className="text-sm font-medium text-nepse-darkgray mb-2">{t('fee.breakdown')}</h3>
       <div className="bg-nepse-gray p-4 rounded-md space-y-3 text-sm">
         <div className="flex justify-between">
-          <span className="text-nepse-darkgray">Total Amount</span>
+          <span className="text-nepse-darkgray">{t('transaction.value')}</span>
           <span className="font-medium">{results?.totalAmount ? formatCurrency(results.totalAmount) : '-'}</span>
         </div>
         <div className="flex justify-between">
           <span className="text-nepse-darkgray flex items-center">
-            Broker Commission
+            {t('broker.commission')}
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -41,7 +44,7 @@ const FeeBreakdown: React.FC<FeeBreakdownProps> = ({ results }) => {
         </div>
         <div className="flex justify-between">
           <span className="text-nepse-darkgray flex items-center">
-            SEBON Fee
+            {t('sebon.fee')}
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -56,11 +59,11 @@ const FeeBreakdown: React.FC<FeeBreakdownProps> = ({ results }) => {
           <span className="font-medium">{results?.sebonFee ? formatCurrency(results.sebonFee) : '-'}</span>
         </div>
         <div className="flex justify-between">
-          <span className="text-nepse-darkgray">DP Charge</span>
+          <span className="text-nepse-darkgray">{t('dp.charge')}</span>
           <span className="font-medium">{results?.dpCharge ? formatCurrency(results.dpCharge) : '-'}</span>
         </div>
         <div className="border-t border-gray-300 pt-3 flex justify-between font-medium">
-          <span>Total Fees</span>
+          <span>{t('total.cost')}</span>
           <span>
             {(results?.brokerCommission !== undefined && results?.sebonFee !== undefined && results?.dpCharge !== undefined) ? 
               formatCurrency(results.brokerCommission + results.sebonFee + results.dpCharge) : 
