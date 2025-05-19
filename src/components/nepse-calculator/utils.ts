@@ -1,4 +1,3 @@
-
 import { BROKER_COMMISSION_THRESHOLDS, BROKER_COMMISSION_RATES, SEBON_FEE_RATE, DP_CHARGE, CAPITAL_GAINS_TAX, HOLDING_PERIOD_THRESHOLD } from './constants';
 import { CalculationInputs, CalculationResults } from './types';
 
@@ -78,24 +77,28 @@ export const calculateResults = (inputs: CalculationInputs): CalculationResults 
     brokerCommission = calculateBrokerCommission(sellAmount);
     sebonFee = calculateSEBONFee(sellAmount);
     dpCharge = includeDpCharge ? DP_CHARGE : 0;
+    totalAmount = sellAmount;
     
-    // Net selling price
+    // Net selling price before CGT
     netSellingPrice = sellAmount - brokerCommission - sebonFee - dpCharge;
     
-    // Calculate profit/loss based on the correct capital gain formula
+    // Calculate profit/loss before CGT
     profitLoss = netSellingPrice - totalCostOfAcquisition;
     
-    // Calculate capital gains tax if profit
+    // Calculate CGT if there's a profit
     capitalGainsTax = calculateCGT(profitLoss, investorType, holdingDuration);
     
-    // Final net receivable amount
+    // Final net receivable after CGT
     netReceivable = netSellingPrice - capitalGainsTax;
+    
+    // Recalculate final profit/loss after CGT
+    profitLoss = netReceivable - totalCostOfAcquisition;
     
     // Calculate ROI
     roi = ((netReceivable - totalCostOfAcquisition) / totalCostOfAcquisition) * 100;
     
     return {
-      totalAmount: sellAmount,
+      totalAmount,
       brokerCommission,
       sebonFee,
       dpCharge,
