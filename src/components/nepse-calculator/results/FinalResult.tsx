@@ -1,0 +1,62 @@
+
+import React from 'react';
+import { ArrowUp, ArrowDown } from "lucide-react";
+import { CalculationInputs, CalculationResults } from '../types';
+import { formatCurrency, formatPercentage } from '../utils';
+
+interface FinalResultProps {
+  results: CalculationResults;
+  inputs: CalculationInputs;
+}
+
+const FinalResult: React.FC<FinalResultProps> = ({ results, inputs }) => {
+  return (
+    <div>
+      <h4 className="text-sm font-medium text-nepse-darkgray mb-2">Final Result</h4>
+      <div className="bg-nepse-blue text-white p-4 rounded-md space-y-3">
+        {inputs.transactionType === 'buy' ? (
+          <>
+            <div className="flex justify-between">
+              <span>Total Cost</span>
+              <span className="font-medium">{formatCurrency(
+                results.totalAmount + results.brokerCommission + results.sebonFee + results.dpCharge
+              )}</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Cost Per Share</span>
+              <span className="font-medium">{formatCurrency(results.costPerShare)}</span>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="flex justify-between">
+              <span>Net Receivable</span>
+              <span className="font-medium">{formatCurrency(results.netReceivable || 0)}</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Profit/Loss</span>
+              <span className={`font-medium flex items-center ${
+                results.profitLoss && results.profitLoss > 0 ? 'text-green-300' : 'text-red-300'
+              }`}>
+                {formatCurrency(results.profitLoss || 0)}
+                {results.profitLoss && results.profitLoss > 0 ? (
+                  <ArrowUp className="ml-1 h-4 w-4" />
+                ) : (
+                  <ArrowDown className="ml-1 h-4 w-4" />
+                )}
+              </span>
+            </div>
+            <div className="flex justify-between">
+              <span>ROI</span>
+              <span className={`font-medium ${
+                results.roi && results.roi > 0 ? 'text-green-300' : 'text-red-300'
+              }`}>{formatPercentage(results.roi || 0)}</span>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default FinalResult;
