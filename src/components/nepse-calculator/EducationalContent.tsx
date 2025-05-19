@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -210,6 +209,11 @@ const EducationalContent: React.FC = () => {
                 <li>No tax is levied if you incur a loss</li>
                 <li>Your broker automatically deducts CGT at the time of selling shares</li>
               </ul>
+              
+              <div className="mt-4 p-3 bg-nepse-gray rounded">
+                <h5 className="font-medium">Tax on Buying and Selling Shares</h5>
+                <p className="mt-2">In Nepal's stock market, taxes are asymmetrically applied: there is no direct tax when buying shares, but Capital Gains Tax is applied when selling shares at a profit. However, both buy and sell transactions incur SEBON fees (0.015% each) and broker commissions. Understanding these tax implications is essential for calculating your true net returns, especially for short-term trading strategies where the higher 7.5% CGT rate applies for holdings under 365 days.</p>
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
@@ -229,21 +233,6 @@ const EducationalContent: React.FC = () => {
                   <li>Whether all regulatory fees are included</li>
                 </ul>
                 <p className="mt-2">This calculator follows the latest NEPSE guidelines and includes all applicable fees and taxes.</p>
-              </AccordionContent>
-            </AccordionItem>
-            
-            <AccordionItem value="item-2">
-              <AccordionTrigger className="text-base">
-                Can I use this calculator for bonus shares?
-              </AccordionTrigger>
-              <AccordionContent className="text-sm">
-                <p>Yes, you can use this calculator for bonus shares with some adjustments:</p>
-                <ul className="list-disc pl-5 mt-2">
-                  <li>For bonus shares, the "buy price" is technically zero</li>
-                  <li>However, bonus shares are not truly "free" as they're issued from the company's retained earnings</li>
-                  <li>For tax purposes, you should use an adjusted cost basis that accounts for your original shares and the bonus shares received</li>
-                </ul>
-                <p className="mt-2">We recommend consulting with a financial advisor for precise tax implications of bonus share sales.</p>
               </AccordionContent>
             </AccordionItem>
             

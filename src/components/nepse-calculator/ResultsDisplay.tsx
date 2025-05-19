@@ -9,7 +9,6 @@ import TaxCalculation from './results/TaxCalculation';
 import FinalResult from './results/FinalResult';
 import html2canvas from 'html2canvas';
 import html2pdf from 'html2pdf.js';
-import { saveAs } from 'file-saver';
 
 interface ResultsDisplayProps {
   results: CalculationResults;
@@ -81,7 +80,15 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, inputs }) => {
       // Convert to Blob and download
       canvas.toBlob((blob) => {
         if (blob) {
-          saveAs(blob, 'nepse-calculation-result.png');
+          // Using native download method instead of file-saver
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = 'nepse-calculation-result.png';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          URL.revokeObjectURL(url);
         }
       }, 'image/png');
     } catch (error) {

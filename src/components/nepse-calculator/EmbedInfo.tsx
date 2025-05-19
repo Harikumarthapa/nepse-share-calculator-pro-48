@@ -4,10 +4,13 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { Copy } from "lucide-react";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
 const EmbedInfo: React.FC = () => {
   const [width, setWidth] = useState('100%');
   const [height, setHeight] = useState('800');
+  const [isOpen, setIsOpen] = useState(false);
   const { toast } = useToast();
   
   const embedCode = `<iframe src="${window.location.origin}" width="${width}" height="${height}" frameborder="0" title="NEPSE Share Calculator"></iframe>
@@ -26,7 +29,7 @@ const EmbedInfo: React.FC = () => {
   return (
     <div className="mt-8 pt-4 border-t">
       <h3 className="text-lg font-medium mb-4">Embed This Calculator</h3>
-      <p className="text-sm text-gray-500">Add this calculator to your website or blog by copying the code below:</p>
+      <p className="text-sm text-gray-500">Add this calculator to your website or blog by copying the embed code.</p>
       
       <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-2">
@@ -49,13 +52,32 @@ const EmbedInfo: React.FC = () => {
         </div>
       </div>
       
-      <div className="mt-4 p-3 bg-gray-100 rounded text-xs overflow-auto">
-        <code className="whitespace-pre-wrap break-all">{embedCode}</code>
-      </div>
+      <Collapsible open={isOpen} onOpenChange={setIsOpen} className="mt-4">
+        <div className="flex items-center justify-between">
+          <CollapsibleTrigger asChild>
+            <Button variant="outline" size="sm" className="text-xs">
+              {isOpen ? "Hide Code" : "Show Code"}
+            </Button>
+          </CollapsibleTrigger>
+          
+          <Button onClick={copyToClipboard} size="sm" className="flex items-center gap-1">
+            <Copy size={16} />
+            Copy Code
+          </Button>
+        </div>
+        
+        <CollapsibleContent>
+          <div className="mt-3 p-3 bg-gray-100 rounded text-xs overflow-auto">
+            <code className="whitespace-pre-wrap break-all">{embedCode}</code>
+          </div>
+        </CollapsibleContent>
+      </Collapsible>
       
-      <Button onClick={copyToClipboard} variant="outline" className="mt-4 w-full">
-        Copy Embed Code
-      </Button>
+      <div className="mt-4 p-3 bg-gray-50 border border-gray-200 rounded">
+        <p className="text-sm text-center text-gray-600">
+          Embed this calculator on your website to provide your visitors with a helpful NEPSE transaction calculation tool.
+        </p>
+      </div>
     </div>
   );
 };
