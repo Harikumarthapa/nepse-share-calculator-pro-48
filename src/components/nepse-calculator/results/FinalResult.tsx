@@ -12,7 +12,7 @@ interface FinalResultProps {
 const FinalResult: React.FC<FinalResultProps> = ({ results, inputs }) => {
   return (
     <div>
-      <h4 className="text-sm font-medium text-nepse-darkgray mb-2">Final Result</h4>
+      <h3 className="text-sm font-medium text-nepse-darkgray mb-2">Final Result</h3>
       <div className="bg-nepse-blue text-white p-4 rounded-md space-y-3">
         {inputs.transactionType === 'buy' ? (
           <>

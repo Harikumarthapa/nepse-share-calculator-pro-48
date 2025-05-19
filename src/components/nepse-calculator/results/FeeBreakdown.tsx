@@ -12,7 +12,7 @@ interface FeeBreakdownProps {
 const FeeBreakdown: React.FC<FeeBreakdownProps> = ({ results }) => {
   return (
     <div className="mb-6">
-      <h4 className="text-sm font-medium text-nepse-darkgray mb-2">Fee Breakdown</h4>
+      <h3 className="text-sm font-medium text-nepse-darkgray mb-2">Fee Breakdown</h3>
       <div className="bg-nepse-gray p-4 rounded-md space-y-3 text-sm">
         <div className="flex justify-between">
           <span className="text-nepse-darkgray">Total Amount</span>

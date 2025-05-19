@@ -10,7 +10,7 @@ interface InputSummaryProps {
 const InputSummary: React.FC<InputSummaryProps> = ({ inputs }) => {
   return (
     <div className="mb-6">
-      <h4 className="text-sm font-medium text-nepse-darkgray mb-2">Input Summary</h4>
+      <h3 className="text-sm font-medium text-nepse-darkgray mb-2">Input Summary</h3>
       <div className="bg-nepse-gray p-4 rounded-md grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
         <div>
           <span className="block text-nepse-darkgray">Transaction</span>

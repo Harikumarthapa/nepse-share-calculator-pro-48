@@ -49,7 +49,7 @@ const NEPSECalculator: React.FC = () => {
   return (
     <Card className="w-full mx-auto shadow-lg">
       <CardHeader className="bg-nepse-blue text-white">
-        <CardTitle className="text-xl font-bold">Calculate costs, taxes, and profit/loss</CardTitle>
+        <CardTitle className="text-xl font-bold">Share Calculator - Buy & Sell</CardTitle>
       </CardHeader>
       <CardContent className="p-6">
         {/* Main Calculator Section - Always 2 columns on desktop, 1 column on mobile */}

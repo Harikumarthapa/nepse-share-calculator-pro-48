@@ -27,8 +27,8 @@ const EmbedInfo: React.FC = () => {
   };
 
   return (
-    <div className="mt-8 pt-4 border-t">
-      <h3 className="text-lg font-medium mb-4">Embed This Calculator</h3>
+    <div className="mt-8 pt-4 border-t w-[70%] mx-auto">
+      <h2 className="text-lg font-medium mb-4">Embed This Calculator</h2>
       <p className="text-sm text-gray-500">Add this calculator to your website or blog by copying the embed code.</p>
       
       <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
