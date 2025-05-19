@@ -1,33 +1,32 @@
+
 import React from 'react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Link } from "react-router-dom";
-import { Info, Book, Calculator, HelpCircle, FileText, Link2 } from "lucide-react";
+import { Info, Book, Calculator, FileText, Link2 } from "lucide-react";
 
 const EducationalContent: React.FC = () => {
   return (
     <div className="mt-8 pt-4 border-t">
-      <h2 className="text-2xl font-semibold mb-6">Learn About NEPSE Share Trading</h2>
+      <h2 className="text-2xl font-semibold mb-6">About Share Calculator</h2>
       
-      <Tabs defaultValue="basics">
+      <Tabs defaultValue="about">
         <TabsList className="grid grid-cols-3 mb-6">
-          <TabsTrigger value="basics">Basics</TabsTrigger>
+          <TabsTrigger value="about">About</TabsTrigger>
           <TabsTrigger value="fees">Fees & Taxes</TabsTrigger>
           <TabsTrigger value="faq">FAQ</TabsTrigger>
         </TabsList>
         
-        <TabsContent value="basics" className="space-y-6">
+        <TabsContent value="about" className="space-y-6">
           <Card>
             <CardHeader className="pb-3">
               <CardTitle className="flex items-center gap-2">
                 <Info className="h-5 w-5 text-nepse-blue" />
-                What is NEPSE?
+                Share Calculator App
               </CardTitle>
             </CardHeader>
             <CardContent className="text-sm">
-              <p>NEPSE (Nepal Stock Exchange) is Nepal's only stock exchange, established in 1993 to facilitate the trading of securities. It operates as a platform where investors can buy and sell shares of listed companies through licensed brokers.</p>
-              <p className="mt-2">NEPSE uses an automated trading system that matches buy and sell orders electronically, ensuring fair and transparent price discovery.</p>
+              <p>Instantly calculate your share profit/loss, average price, and capital gains tax (CGT) for stocks listed on the Nepal Stock Exchange. Accurate, fast, and updated for FY 2080/81.</p>
             </CardContent>
           </Card>
           
@@ -35,37 +34,36 @@ const EducationalContent: React.FC = () => {
             <CardHeader className="pb-3">
               <CardTitle className="flex items-center gap-2">
                 <Calculator className="h-5 w-5 text-nepse-blue" />
-                How Share Transactions Work in Nepal
+                Features
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4 text-sm">
-              <div>
-                <h4 className="font-medium">1. Account Setup</h4>
-                <p>Before trading, you need:</p>
-                <ul className="list-disc pl-5 mt-1">
-                  <li>DEMAT account (for electronic share ownership)</li>
-                  <li>Trading account with a broker</li>
-                  <li>Bank account linked to your trading account</li>
-                </ul>
-              </div>
-              
-              <div>
-                <h4 className="font-medium">2. Trading Process</h4>
-                <p>The typical trading process includes:</p>
-                <ul className="list-disc pl-5 mt-1">
-                  <li>Placing order through broker or TMS</li>
-                  <li>Order matching in the NEPSE system</li>
-                  <li>Settlement of trades (T+2 days)</li>
-                  <li>Payment and share transfer</li>
-                </ul>
-              </div>
-              
-              <div>
-                <h4 className="font-medium">3. Trading Hours</h4>
-                <p>NEPSE operates Sunday through Thursday:</p>
-                <p className="mt-1">Pre-open: 10:30 AM - 11:00 AM</p>
-                <p>Regular trading: 11:00 AM - 3:00 PM</p>
-              </div>
+            <CardContent className="space-y-3 text-sm">
+              <ul className="space-y-2">
+                <li className="flex items-start gap-2">
+                  <span className="text-nepse-blue font-medium">✓</span>
+                  <span>Calculate buying costs including broker commission, SEBON fees, and DP charges</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-nepse-blue font-medium">✓</span>
+                  <span>Compute selling proceeds after deducting all applicable fees and taxes</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-nepse-blue font-medium">✓</span>
+                  <span>Accurate capital gains tax (CGT) calculation based on holding period and investor type</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-nepse-blue font-medium">✓</span>
+                  <span>Visualize fee breakdowns and transaction costs clearly</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-nepse-blue font-medium">✓</span>
+                  <span>Export calculation results as PDF or PNG for record keeping</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-nepse-blue font-medium">✓</span>
+                  <span>Free to use with no registration required</span>
+                </li>
+              </ul>
             </CardContent>
           </Card>
           
@@ -73,30 +71,29 @@ const EducationalContent: React.FC = () => {
             <CardHeader className="pb-3">
               <CardTitle className="flex items-center gap-2">
                 <Book className="h-5 w-5 text-nepse-blue" />
-                Tips for First-Time Stock Investors
+                How It Works
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-3 text-sm">
-              <ul className="space-y-2">
-                <li className="border-b pb-2">
-                  <span className="font-medium">Research before investing:</span> Understand company fundamentals, industry trends, and financial statements.
-                </li>
-                <li className="border-b pb-2">
-                  <span className="font-medium">Start small:</span> Begin with a modest amount until you gain experience and confidence.
-                </li>
-                <li className="border-b pb-2">
-                  <span className="font-medium">Diversify your portfolio:</span> Don't put all your money in one stock or sector.
-                </li>
-                <li className="border-b pb-2">
-                  <span className="font-medium">Have a long-term perspective:</span> Stock markets reward patience and long-term investors.
-                </li>
-                <li className="border-b pb-2">
-                  <span className="font-medium">Understand all costs:</span> Be aware of broker commissions, DP charges, and taxes that affect returns.
-                </li>
-                <li>
-                  <span className="font-medium">Stay updated:</span> Keep track of market news, company announcements, and regulatory changes.
-                </li>
-              </ul>
+            <CardContent className="space-y-4 text-sm">
+              <div>
+                <h4 className="font-medium">1. Choose Transaction Type</h4>
+                <p>Select whether you're calculating the costs for buying shares or selling shares.</p>
+              </div>
+              
+              <div>
+                <h4 className="font-medium">2. Enter Transaction Details</h4>
+                <p>Provide share quantity, price per share, and other relevant information.</p>
+              </div>
+              
+              <div>
+                <h4 className="font-medium">3. Get Detailed Breakdown</h4>
+                <p>View comprehensive results including all fees, taxes, and net profit/loss.</p>
+              </div>
+              
+              <div>
+                <h4 className="font-medium">4. Save or Share Results</h4>
+                <p>Download the calculation results as PDF or PNG for your records or to share with others.</p>
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
@@ -212,7 +209,7 @@ const EducationalContent: React.FC = () => {
               
               <div className="mt-4 p-3 bg-nepse-gray rounded">
                 <h5 className="font-medium">Tax on Buying and Selling Shares</h5>
-                <p className="mt-2">In Nepal's stock market, taxes are asymmetrically applied: there is no direct tax when buying shares, but Capital Gains Tax is applied when selling shares at a profit. However, both buy and sell transactions incur SEBON fees (0.015% each) and broker commissions. Understanding these tax implications is essential for calculating your true net returns, especially for short-term trading strategies where the higher 7.5% CGT rate applies for holdings under 365 days.</p>
+                <p className="mt-2">In Nepal's stock market, taxes are asymmetrically applied: there is no direct tax when buying shares, but Capital Gains Tax is applied when selling shares at a profit. However, both buy and sell transactions incur SEBON fees (0.015% each) and broker commissions. Understanding these tax implications is essential for calculating your true net returns, especially for short-term trading strategies where the higher 7.5% CGT rate applies for holdings under 365 days. Our calculator factors in all these elements to give you the most accurate estimation of your actual returns after all costs.</p>
               </div>
             </CardContent>
           </Card>

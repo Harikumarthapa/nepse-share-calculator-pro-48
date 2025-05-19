@@ -13,7 +13,7 @@ const EmbedInfo: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { toast } = useToast();
   
-  const embedCode = `<iframe src="${window.location.origin}" width="${width}" height="${height}" frameborder="0" title="NEPSE Share Calculator"></iframe>
+  const embedCode = `<iframe src="${window.location.origin}" width="${width}" height="${height}" frameborder="0" title="Share Calculator"></iframe>
 <div style="text-align: right; margin-top: 5px; font-size: 12px;">
   <a href="https://sharecalculator.app/" target="_blank" rel="noopener">Powered by Share Calculator App</a>
 </div>`;
@@ -52,19 +52,19 @@ const EmbedInfo: React.FC = () => {
         </div>
       </div>
       
+      <div className="flex justify-end mt-4">
+        <Button onClick={copyToClipboard} size="sm" className="flex items-center gap-1">
+          <Copy size={16} />
+          Copy Embed Code
+        </Button>
+      </div>
+      
       <Collapsible open={isOpen} onOpenChange={setIsOpen} className="mt-4">
-        <div className="flex items-center justify-between">
-          <CollapsibleTrigger asChild>
-            <Button variant="outline" size="sm" className="text-xs">
-              {isOpen ? "Hide Code" : "Show Code"}
-            </Button>
-          </CollapsibleTrigger>
-          
-          <Button onClick={copyToClipboard} size="sm" className="flex items-center gap-1">
-            <Copy size={16} />
-            Copy Code
+        <CollapsibleTrigger asChild>
+          <Button variant="outline" size="sm" className="text-xs">
+            {isOpen ? "Hide Code" : "Show Code"}
           </Button>
-        </div>
+        </CollapsibleTrigger>
         
         <CollapsibleContent>
           <div className="mt-3 p-3 bg-gray-100 rounded text-xs overflow-auto">

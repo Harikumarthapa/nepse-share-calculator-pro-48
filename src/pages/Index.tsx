@@ -7,7 +7,7 @@ const Index = () => {
     <div className="min-h-screen bg-gray-100 py-8 px-4">
       <div className="max-w-4xl mx-auto">
         <header className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-nepse-blue">NEPSE Share Transaction Calculator</h1>
+          <h1 className="text-3xl font-bold text-nepse-blue">Share Calculator | Calculate how much you will receive after taxes</h1>
           <p className="mt-2 text-gray-600">Calculate exact costs, taxes, and returns for your Nepal Stock Exchange transactions</p>
         </header>
         
@@ -24,7 +24,7 @@ const Index = () => {
             >
               View Source Code
             </a> | <a 
-              href="mailto:contact@example.com"
+              href="mailto:contact@sharecalculator.app"
               className="text-nepse-blue hover:underline"
             >
               Report Issues
@@ -37,7 +37,7 @@ const Index = () => {
               Share Calculator App
             </a>
           </p>
-          <p>© 2024 NEPSE Transaction Calculator. All rates based on current SEBON/NEPSE official guidelines.</p>
+          <p>© 2024 Share Calculator. All rates based on current SEBON/NEPSE official guidelines.</p>
         </div>
       </div>
     </div>

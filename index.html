@@ -4,18 +4,88 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NEPSE Transaction Calculator</title>
-    <meta name="description" content="Calculate the cost, tax, and net profit/loss from NEPSE share transactions" />
-    <meta name="author" content="NEPSE Calculator" />
+    <title>NEPSE Share Calculator – Calculate profit/loss, CGT & ROI</title>
+    <meta name="description" content="Calculate your share profit/loss, capital gains tax (CGT) and Return on Investment for free with NEPSE Share Calculator. Accurate, fast, and easy-to-use." />
+    <meta name="author" content="Hari Kumar Thapa" />
+    <link rel="canonical" href="https://sharecalculator.app/" />
 
-    <meta property="og:title" content="NEPSE Transaction Calculator" />
-    <meta property="og:description" content="Calculate the cost, tax, and net profit/loss from NEPSE share transactions" />
+    <meta property="og:title" content="NEPSE Share Calculator" />
+    <meta property="og:description" content="Calculate your share profit/loss, capital gains tax (CGT) and Return on Investment for free. Accurate, fast, and easy-to-use." />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <meta property="og:url" content="https://sharecalculator.app/" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@lovable_dev" />
     <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    
+    <!-- Schema Markup -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Share Calculator",
+        "url": "https://sharecalculator.app/",
+        "description": "Calculate your share profit/loss, capital gains tax (CGT) and Return on Investment for free with NEPSE Share Calculator.",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://sharecalculator.app/search?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Share Calculator",
+        "url": "https://sharecalculator.app/",
+        "description": "Instantly calculate your share profit/loss, average price, and capital gains tax (CGT) for stocks listed on the Nepal Stock Exchange.",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "All",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "author": {
+          "@type": "Person",
+          "name": "Hari Kumar Thapa"
+        }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Why is my profit different from other calculators?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Results may differ between calculators due to different rounding methods for tax calculations, whether DP charges are included, how broker commission slabs are applied, and whether all regulatory fees are included. This calculator follows the latest NEPSE guidelines and includes all applicable fees and taxes."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is WACC price?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "WACC (Weighted Average Cost of Capital) price in the context of NEPSE refers to the average price at which you acquired shares of a company, including all transaction costs."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How is ROI calculated?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "ROI (Return on Investment) is calculated as: ROI = (Net Profit / Total Cost of Investment) × 100%. This calculator accounts for all fees and taxes to give you the most accurate ROI figure."
+            }
+          }
+        ]
+      }
+    </script>
   </head>
 
   <body>
