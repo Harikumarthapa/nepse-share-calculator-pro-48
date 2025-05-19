@@ -4,9 +4,12 @@ import { Link } from 'react-router-dom';
 import { ChevronUp } from 'lucide-react';
 import NEPSECalculator from '@/components/NEPSECalculator';
 import { Button } from '@/components/ui/button';
+import LanguageToggle from '@/components/LanguageToggle';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const Index = () => {
   const [showScrollButton, setShowScrollButton] = useState(false);
+  const { t, language } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,11 +30,28 @@ const Index = () => {
     });
   };
 
+  // Update document title based on language
+  useEffect(() => {
+    document.title = t('app.title');
+    
+    // Set html lang attribute
+    document.documentElement.lang = language;
+    
+    // Update meta description
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', t('app.description'));
+    }
+  }, [language, t]);
+
   return (
     <div className="min-h-screen bg-gray-100 py-8 px-4">
       <div className="w-[80%] mx-auto">
-        <header className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-nepse-blue">NEPSE Share Calculator - Detailed cost and tax breakdown for every buy and sell.</h1>
+        <header className="flex flex-col md:flex-row justify-between items-center mb-8">
+          <h1 className="text-3xl font-bold text-nepse-blue mb-4 md:mb-0">{t('app.title')}</h1>
+          <div className="flex items-center">
+            <LanguageToggle />
+          </div>
         </header>
         
         <NEPSECalculator />
@@ -39,16 +59,18 @@ const Index = () => {
         <div className="mt-8 space-y-4 text-center text-sm text-gray-600">
           <p>
             © 2025 <a href="https://sharecalculator.app/" className="text-nepse-blue hover:underline">Share Calculator</a>. 
-            All rates based on current SEBON/NEPSE official guidelines.
+            {language === 'en' 
+              ? ' All rates based on current SEBON/NEPSE official guidelines.'
+              : ' सबै दरहरू हालको SEBON/NEPSE आधिकारिक निर्देशिकाहरूमा आधारित छन्।'}
           </p>
           <p>
-            <Link to="/" className="text-nepse-blue hover:underline">Home</Link> | 
-            <Link to="/privacy" className="text-nepse-blue hover:underline"> Privacy Policy</Link> | 
-            <Link to="/terms" className="text-nepse-blue hover:underline"> Terms</Link> | 
-            <Link to="/disclaimer" className="text-nepse-blue hover:underline"> Disclaimer</Link> | 
-            <Link to="/about" className="text-nepse-blue hover:underline"> About Us</Link> | 
-            <Link to="/contact" className="text-nepse-blue hover:underline"> Contact</Link> | 
-            <Link to="/sitemap" className="text-nepse-blue hover:underline"> Sitemap</Link>
+            <Link to={language === 'en' ? '/' : '/ne'} className="text-nepse-blue hover:underline">{t('footer.home')}</Link> | 
+            <Link to={language === 'en' ? '/privacy' : '/ne/privacy'} className="text-nepse-blue hover:underline"> {t('footer.privacy')}</Link> | 
+            <Link to={language === 'en' ? '/terms' : '/ne/terms'} className="text-nepse-blue hover:underline"> {t('footer.terms')}</Link> | 
+            <Link to={language === 'en' ? '/disclaimer' : '/ne/disclaimer'} className="text-nepse-blue hover:underline"> {t('footer.disclaimer')}</Link> | 
+            <Link to={language === 'en' ? '/about' : '/ne/about'} className="text-nepse-blue hover:underline"> {t('footer.about')}</Link> | 
+            <Link to={language === 'en' ? '/contact' : '/ne/contact'} className="text-nepse-blue hover:underline"> {t('footer.contact')}</Link> | 
+            <Link to={language === 'en' ? '/sitemap' : '/ne/sitemap'} className="text-nepse-blue hover:underline"> {t('footer.sitemap')}</Link>
           </p>
         </div>
       </div>

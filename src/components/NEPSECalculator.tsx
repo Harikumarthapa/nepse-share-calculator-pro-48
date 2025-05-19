@@ -7,8 +7,11 @@ import TransactionForm from './nepse-calculator/TransactionForm';
 import ResultsDisplay from './nepse-calculator/ResultsDisplay';
 import EmbedInfo from './nepse-calculator/EmbedInfo';
 import EducationalContent from './nepse-calculator/EducationalContent';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const NEPSECalculator: React.FC = () => {
+  const { t } = useLanguage();
+  
   // Initial state for inputs with blank values
   const [inputs, setInputs] = useState<CalculationInputs>({
     transactionType: 'buy',
@@ -49,14 +52,14 @@ const NEPSECalculator: React.FC = () => {
   return (
     <Card className="w-full mx-auto shadow-lg">
       <CardHeader className="bg-nepse-blue text-white">
-        <CardTitle className="text-xl font-bold">Share Calculator - Buy & Sell</CardTitle>
+        <CardTitle className="text-xl font-bold">{t('calculator.title')}</CardTitle>
       </CardHeader>
       <CardContent className="p-6">
         {/* Main Calculator Section - Always 2 columns on desktop, 1 column on mobile */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Input Column */}
           <div className="space-y-6">
-            <h2 className="text-lg font-medium mb-4">Transaction Details</h2>
+            <h2 className="text-lg font-medium mb-4">{t('calculator.transaction.details')}</h2>
             <TransactionForm 
               inputs={inputs} 
               handleInputChange={handleInputChange}
