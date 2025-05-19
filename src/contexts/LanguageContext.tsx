@@ -67,7 +67,7 @@ export const useLanguage = (): LanguageContextType => {
 const translations: Record<Language, Record<string, string>> = {
   en: {
     // Page titles and descriptions
-    'app.title': 'NEPSE Share Calculator - Detailed cost and tax breakdown for every buy and sell.',
+    'app.title': 'NEPSE Share Calculator - cost and tax breakdown for every buy and sell.',
     'app.description': 'Calculate your share profit/loss, capital gains tax (CGT) and Return on Investment for free with NEPSE Share Calculator. Accurate, fast, and easy-to-use.',
     
     // Calculator headers
