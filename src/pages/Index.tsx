@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import NEPSECalculator from '@/components/NEPSECalculator';
 
 const Index = () => {
@@ -13,30 +14,19 @@ const Index = () => {
         <NEPSECalculator />
         
         <div className="mt-8 space-y-4 text-center text-sm text-gray-600">
-          <p>This calculator follows official SEBON/NEPSE guidelines for all fee calculations.</p>
           <p>
-            <a 
-              href="https://github.com/yourusername/nepse-calculator" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-nepse-blue hover:underline"
-            >
-              View Source Code
-            </a> | <a 
-              href="mailto:contact@sharecalculator.app"
-              className="text-nepse-blue hover:underline"
-            >
-              Report Issues
-            </a> | <a 
-              href="https://sharecalculator.app/"
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-nepse-blue hover:underline"
-            >
-              Share Calculator App
-            </a>
+            © 2025 <a href="https://sharecalculator.app/" className="text-nepse-blue hover:underline">Share Calculator</a>. 
+            All rates based on current SEBON/NEPSE official guidelines.
           </p>
-          <p>© 2024 Share Calculator. All rates based on current SEBON/NEPSE official guidelines.</p>
+          <p>
+            <Link to="/" className="text-nepse-blue hover:underline">Home</Link> | 
+            <Link to="/privacy" className="text-nepse-blue hover:underline"> Privacy Policy</Link> | 
+            <Link to="/terms" className="text-nepse-blue hover:underline"> Terms</Link> | 
+            <Link to="/disclaimer" className="text-nepse-blue hover:underline"> Disclaimer</Link> | 
+            <Link to="/about" className="text-nepse-blue hover:underline"> About Us</Link> | 
+            <Link to="/contact" className="text-nepse-blue hover:underline"> Contact</Link> | 
+            <Link to="/sitemap" className="text-nepse-blue hover:underline"> Sitemap</Link>
+          </p>
         </div>
       </div>
     </div>

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -27,6 +26,7 @@ const EducationalContent: React.FC = () => {
             </CardHeader>
             <CardContent className="text-sm">
               <p>Instantly calculate your share profit/loss, average price, and capital gains tax (CGT) for stocks listed on the Nepal Stock Exchange. Accurate, fast, and updated for FY 2080/81.</p>
+              <p className="mt-3">This calculator follows official SEBON/NEPSE guidelines for all fee calculations.</p>
             </CardContent>
           </Card>
           

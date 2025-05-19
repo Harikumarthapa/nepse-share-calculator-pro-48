@@ -24,15 +24,15 @@ const InputSummary: React.FC<InputSummaryProps> = ({ inputs }) => {
           <span className="block text-nepse-darkgray">Price</span>
           <span className="font-medium">
             {inputs.transactionType === 'buy' ? 
-              (inputs.buyPrice ? formatCurrency(inputs.buyPrice, 'रू') : '-') : 
-              (inputs.sellPrice ? formatCurrency(inputs.sellPrice, 'रू') : '-')}
+              (inputs.buyPrice ? formatCurrency(inputs.buyPrice) : '-') : 
+              (inputs.sellPrice ? formatCurrency(inputs.sellPrice) : '-')}
           </span>
         </div>
         {inputs.transactionType === 'sell' && (
           <>
             <div>
               <span className="block text-nepse-darkgray">Buy Price</span>
-              <span className="font-medium">{inputs.buyPrice ? formatCurrency(inputs.buyPrice, 'रू') : '-'}</span>
+              <span className="font-medium">{inputs.buyPrice ? formatCurrency(inputs.buyPrice) : '-'}</span>
             </div>
             <div>
               <span className="block text-nepse-darkgray">Holding Period</span>
