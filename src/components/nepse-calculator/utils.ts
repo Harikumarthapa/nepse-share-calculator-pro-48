@@ -117,7 +117,7 @@ export const formatCurrency = (amount: number): string => {
     currency: 'NPR',
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
-  }).format(amount);
+  }).format(amount).replace('NPR', 'रू');
 };
 
 // Format number as percentage

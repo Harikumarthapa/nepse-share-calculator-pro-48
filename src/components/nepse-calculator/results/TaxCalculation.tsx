@@ -22,19 +22,19 @@ const TaxCalculation: React.FC<TaxCalculationProps> = ({ results, inputs }) => {
         <div className="flex justify-between">
           <span className="text-nepse-darkgray">Total Cost of Acquisition</span>
           <span className="font-medium">
-            {results?.totalCostOfAcquisition ? formatCurrency(results.totalCostOfAcquisition, 'रू') : '-'}
+            {results?.totalCostOfAcquisition ? formatCurrency(results.totalCostOfAcquisition) : '-'}
           </span>
         </div>
         <div className="flex justify-between">
           <span className="text-nepse-darkgray">Net Selling Price</span>
           <span className="font-medium">
-            {results?.netSellingPrice ? formatCurrency(results.netSellingPrice, 'रू') : '-'}
+            {results?.netSellingPrice ? formatCurrency(results.netSellingPrice) : '-'}
           </span>
         </div>
         <div className="flex justify-between">
           <span className="text-nepse-darkgray">Capital Gain/Loss</span>
           <span className={`font-medium ${results?.profitLoss && results.profitLoss > 0 ? 'text-nepse-green' : 'text-nepse-red'}`}>
-            {results?.profitLoss ? formatCurrency(results.profitLoss, 'रू') : '-'}
+            {results?.profitLoss ? formatCurrency(results.profitLoss) : '-'}
           </span>
         </div>
         <div className="flex justify-between">
@@ -55,7 +55,7 @@ const TaxCalculation: React.FC<TaxCalculationProps> = ({ results, inputs }) => {
               </Tooltip>
             </TooltipProvider>
           </span>
-          <span className="font-medium">{results?.capitalGainsTax ? formatCurrency(results.capitalGainsTax, 'रू') : '-'}</span>
+          <span className="font-medium">{results?.capitalGainsTax ? formatCurrency(results.capitalGainsTax) : '-'}</span>
         </div>
       </div>
     </div>

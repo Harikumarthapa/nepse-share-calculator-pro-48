@@ -16,7 +16,7 @@ const FeeBreakdown: React.FC<FeeBreakdownProps> = ({ results }) => {
       <div className="bg-nepse-gray p-4 rounded-md space-y-3 text-sm">
         <div className="flex justify-between">
           <span className="text-nepse-darkgray">Total Amount</span>
-          <span className="font-medium">{results?.totalAmount ? formatCurrency(results.totalAmount, 'रू') : '-'}</span>
+          <span className="font-medium">{results?.totalAmount ? formatCurrency(results.totalAmount) : '-'}</span>
         </div>
         <div className="flex justify-between">
           <span className="text-nepse-darkgray flex items-center">
@@ -37,7 +37,7 @@ const FeeBreakdown: React.FC<FeeBreakdownProps> = ({ results }) => {
               </Tooltip>
             </TooltipProvider>
           </span>
-          <span className="font-medium">{results?.brokerCommission ? formatCurrency(results.brokerCommission, 'रू') : '-'}</span>
+          <span className="font-medium">{results?.brokerCommission ? formatCurrency(results.brokerCommission) : '-'}</span>
         </div>
         <div className="flex justify-between">
           <span className="text-nepse-darkgray flex items-center">
@@ -53,17 +53,17 @@ const FeeBreakdown: React.FC<FeeBreakdownProps> = ({ results }) => {
               </Tooltip>
             </TooltipProvider>
           </span>
-          <span className="font-medium">{results?.sebonFee ? formatCurrency(results.sebonFee, 'रू') : '-'}</span>
+          <span className="font-medium">{results?.sebonFee ? formatCurrency(results.sebonFee) : '-'}</span>
         </div>
         <div className="flex justify-between">
           <span className="text-nepse-darkgray">DP Charge</span>
-          <span className="font-medium">{results?.dpCharge ? formatCurrency(results.dpCharge, 'रू') : '-'}</span>
+          <span className="font-medium">{results?.dpCharge ? formatCurrency(results.dpCharge) : '-'}</span>
         </div>
         <div className="border-t border-gray-300 pt-3 flex justify-between font-medium">
           <span>Total Fees</span>
           <span>
             {(results?.brokerCommission !== undefined && results?.sebonFee !== undefined && results?.dpCharge !== undefined) ? 
-              formatCurrency(results.brokerCommission + results.sebonFee + results.dpCharge, 'रू') : 
+              formatCurrency(results.brokerCommission + results.sebonFee + results.dpCharge) : 
               '-'
             }
           </span>

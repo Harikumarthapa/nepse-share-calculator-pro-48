@@ -24,28 +24,27 @@ const FinalResult: React.FC<FinalResultProps> = ({ results, inputs }) => {
                   results?.sebonFee !== undefined && 
                   results?.dpCharge !== undefined) ? 
                   formatCurrency(
-                    results.totalAmount + results.brokerCommission + results.sebonFee + results.dpCharge,
-                    'रू'
+                    results.totalAmount + results.brokerCommission + results.sebonFee + results.dpCharge
                   ) : '-'}
               </span>
             </div>
             <div className="flex justify-between">
               <span>Cost Per Share</span>
-              <span className="font-medium">{results?.costPerShare ? formatCurrency(results.costPerShare, 'रू') : '-'}</span>
+              <span className="font-medium">{results?.costPerShare ? formatCurrency(results.costPerShare) : '-'}</span>
             </div>
           </>
         ) : (
           <>
             <div className="flex justify-between">
               <span>Net Receivable</span>
-              <span className="font-medium">{results?.netReceivable ? formatCurrency(results.netReceivable, 'रू') : '-'}</span>
+              <span className="font-medium">{results?.netReceivable ? formatCurrency(results.netReceivable) : '-'}</span>
             </div>
             <div className="flex justify-between">
               <span>Profit/Loss</span>
               <span className={`font-medium flex items-center ${
                 results?.profitLoss && results.profitLoss > 0 ? 'text-green-300' : 'text-red-300'
               }`}>
-                {results?.profitLoss ? formatCurrency(results.profitLoss, 'रू') : '-'}
+                {results?.profitLoss ? formatCurrency(results.profitLoss) : '-'}
                 {results?.profitLoss ? (
                   results.profitLoss > 0 ? (
                     <ArrowUp className="ml-1 h-4 w-4" />
