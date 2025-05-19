@@ -6,12 +6,12 @@ import { CalculationInputs, CalculationResults } from '../types';
 import { formatCurrency } from '../utils';
 
 interface TaxCalculationProps {
-  results: CalculationResults;
+  results: CalculationResults | null;
   inputs: CalculationInputs;
 }
 
 const TaxCalculation: React.FC<TaxCalculationProps> = ({ results, inputs }) => {
-  if (inputs.transactionType !== 'sell' || results.capitalGainsTax === undefined) {
+  if (inputs.transactionType !== 'sell') {
     return null;
   }
 
@@ -19,26 +19,22 @@ const TaxCalculation: React.FC<TaxCalculationProps> = ({ results, inputs }) => {
     <div className="mb-6">
       <h4 className="text-sm font-medium text-nepse-darkgray mb-2">Tax Calculation</h4>
       <div className="bg-nepse-gray p-4 rounded-md space-y-3 text-sm">
-        {results.totalCostOfAcquisition && (
-          <div className="flex justify-between">
-            <span className="text-nepse-darkgray">Total Cost of Acquisition</span>
-            <span className="font-medium">
-              {formatCurrency(results.totalCostOfAcquisition)}
-            </span>
-          </div>
-        )}
-        {results.netSellingPrice && (
-          <div className="flex justify-between">
-            <span className="text-nepse-darkgray">Net Selling Price</span>
-            <span className="font-medium">
-              {formatCurrency(results.netSellingPrice)}
-            </span>
-          </div>
-        )}
+        <div className="flex justify-between">
+          <span className="text-nepse-darkgray">Total Cost of Acquisition</span>
+          <span className="font-medium">
+            {results?.totalCostOfAcquisition ? formatCurrency(results.totalCostOfAcquisition, 'रू') : '-'}
+          </span>
+        </div>
+        <div className="flex justify-between">
+          <span className="text-nepse-darkgray">Net Selling Price</span>
+          <span className="font-medium">
+            {results?.netSellingPrice ? formatCurrency(results.netSellingPrice, 'रू') : '-'}
+          </span>
+        </div>
         <div className="flex justify-between">
           <span className="text-nepse-darkgray">Capital Gain/Loss</span>
-          <span className={`font-medium ${results.profitLoss && results.profitLoss > 0 ? 'text-nepse-green' : 'text-nepse-red'}`}>
-            {formatCurrency(results.profitLoss || 0)}
+          <span className={`font-medium ${results?.profitLoss && results.profitLoss > 0 ? 'text-nepse-green' : 'text-nepse-red'}`}>
+            {results?.profitLoss ? formatCurrency(results.profitLoss, 'रू') : '-'}
           </span>
         </div>
         <div className="flex justify-between">
@@ -59,7 +55,7 @@ const TaxCalculation: React.FC<TaxCalculationProps> = ({ results, inputs }) => {
               </Tooltip>
             </TooltipProvider>
           </span>
-          <span className="font-medium">{formatCurrency(results.capitalGainsTax)}</span>
+          <span className="font-medium">{results?.capitalGainsTax ? formatCurrency(results.capitalGainsTax, 'रू') : '-'}</span>
         </div>
       </div>
     </div>

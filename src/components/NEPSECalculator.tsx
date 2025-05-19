@@ -7,17 +7,14 @@ import TransactionForm from './nepse-calculator/TransactionForm';
 import ResultsDisplay from './nepse-calculator/ResultsDisplay';
 import EmbedInfo from './nepse-calculator/EmbedInfo';
 import EducationalContent from './nepse-calculator/EducationalContent';
-import { useIsMobile } from '@/hooks/use-mobile';
 
 const NEPSECalculator: React.FC = () => {
-  const isMobile = useIsMobile();
-  
   // Initial state for inputs with blank values
   const [inputs, setInputs] = useState<CalculationInputs>({
     transactionType: 'buy',
-    quantity: 0,
-    buyPrice: 0,
-    sellPrice: 0,
+    quantity: null,
+    buyPrice: null,
+    sellPrice: null,
     investorType: 'individual',
     holdingDuration: 366,
     includeDpCharge: true,
@@ -35,9 +32,9 @@ const NEPSECalculator: React.FC = () => {
   const handleReset = () => {
     setInputs({
       transactionType: 'buy',
-      quantity: 0,
-      buyPrice: 0,
-      sellPrice: 0,
+      quantity: null,
+      buyPrice: null,
+      sellPrice: null,
       investorType: 'individual',
       holdingDuration: 366,
       includeDpCharge: true,
@@ -55,7 +52,8 @@ const NEPSECalculator: React.FC = () => {
         <CardTitle className="text-xl font-bold">Calculate costs, taxes, and profit/loss</CardTitle>
       </CardHeader>
       <CardContent className="p-6">
-        <div className={`grid ${isMobile ? 'grid-cols-1 gap-8' : 'grid-cols-2 gap-6'}`}>
+        {/* Main Calculator Section - Always 2 columns on desktop, 1 column on mobile */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Input Column */}
           <div className="space-y-6">
             <h2 className="text-lg font-medium mb-4">Transaction Details</h2>
@@ -64,37 +62,22 @@ const NEPSECalculator: React.FC = () => {
               handleInputChange={handleInputChange}
               handleReset={handleReset}
             />
-            
-            {/* Educational Content - Only shown on desktop view in input column */}
-            {!isMobile && (
-              <div className="mt-6">
-                <EducationalContent />
-              </div>
-            )}
           </div>
           
-          {/* Results Column */}
+          {/* Results Column - Always render but show placeholders when no data */}
           <div className="space-y-6">
-            {results && (
-              <ResultsDisplay results={results} inputs={inputs} />
-            )}
-            
-            {/* EmbedInfo - Only shown on desktop view in results column */}
-            {!isMobile && <EmbedInfo />}
+            <ResultsDisplay results={results} inputs={inputs} />
           </div>
         </div>
         
-        {/* Mobile-only sections at the bottom */}
-        {isMobile && (
-          <>
-            <div className="mt-8">
-              <EmbedInfo />
-            </div>
-            <div className="mt-6">
-              <EducationalContent />
-            </div>
-          </>
-        )}
+        {/* Sections below the calculator - Always visible */}
+        <div className="mt-8 pt-6 border-t border-gray-200">
+          <EmbedInfo />
+        </div>
+        
+        <div className="mt-8 pt-6 border-t border-gray-200">
+          <EducationalContent />
+        </div>
       </CardContent>
     </Card>
   );

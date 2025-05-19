@@ -11,14 +11,18 @@ import html2canvas from 'html2canvas';
 import html2pdf from 'html2pdf.js';
 
 interface ResultsDisplayProps {
-  results: CalculationResults;
+  results: CalculationResults | null;
   inputs: CalculationInputs;
 }
 
 const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, inputs }) => {
   const resultsRef = useRef<HTMLDivElement>(null);
-
-  if (!results) return null;
+  
+  // Check if we have valid results with actual values (not just empty placeholders)
+  const hasValidResults = results && 
+    (inputs.quantity && 
+    ((inputs.transactionType === 'buy' && inputs.buyPrice) || 
+     (inputs.transactionType === 'sell' && inputs.buyPrice && inputs.sellPrice)));
 
   const generateWatermark = () => {
     const today = new Date();
@@ -100,32 +104,41 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, inputs }) => {
     <div className="h-full flex flex-col">
       <h2 className="text-lg font-medium mb-4">Calculation Results</h2>
       
-      <div ref={resultsRef} className="bg-white p-4 rounded-lg flex-grow">
+      <div 
+        ref={resultsRef} 
+        className="bg-white p-4 rounded-lg flex-grow"
+        style={{ minHeight: '400px' }}
+      >
         <InputSummary inputs={inputs} />
         <FeeBreakdown results={results} />
-        <TaxCalculation results={results} inputs={inputs} />
+        {inputs.transactionType === 'sell' && <TaxCalculation results={results} inputs={inputs} />}
         <FinalResult results={results} inputs={inputs} />
       </div>
       
-      <div className="mt-4 flex flex-wrap gap-2 justify-end">
-        <Button 
-          onClick={handleDownloadPDF}
-          size="sm"
-          className="flex items-center gap-1"
-        >
-          <Download size={16} />
-          Download PDF
-        </Button>
-        
-        <Button 
-          onClick={handleDownloadPNG}
-          size="sm"
-          variant="outline"
-          className="flex items-center gap-1"
-        >
-          <FileImage size={16} />
-          Download PNG
-        </Button>
+      {/* Always reserve space for the download buttons, but only show them for valid results */}
+      <div className="mt-4 flex flex-wrap gap-2 justify-end min-h-[38px]">
+        {hasValidResults && (
+          <>
+            <Button 
+              onClick={handleDownloadPDF}
+              size="sm"
+              className="flex items-center gap-1"
+            >
+              <Download size={16} />
+              Download PDF
+            </Button>
+            
+            <Button 
+              onClick={handleDownloadPNG}
+              size="sm"
+              variant="outline"
+              className="flex items-center gap-1"
+            >
+              <FileImage size={16} />
+              Download PNG
+            </Button>
+          </>
+        )}
       </div>
     </div>
   );

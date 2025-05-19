@@ -56,7 +56,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
               min="1"
               placeholder="Enter quantity"
               value={inputs.quantity || ''}
-              onChange={(e) => handleInputChange('quantity', parseFloat(e.target.value) || 0)}
+              onChange={(e) => handleInputChange('quantity', parseFloat(e.target.value) || null)}
             />
           </div>
           
@@ -69,7 +69,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
               step="0.01"
               placeholder="Enter buy price"
               value={inputs.buyPrice || ''}
-              onChange={(e) => handleInputChange('buyPrice', parseFloat(e.target.value) || 0)}
+              onChange={(e) => handleInputChange('buyPrice', parseFloat(e.target.value) || null)}
             />
           </div>
           
@@ -83,7 +83,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
                 step="0.01"
                 placeholder="Enter sell price"
                 value={inputs.sellPrice || ''}
-                onChange={(e) => handleInputChange('sellPrice', parseFloat(e.target.value) || 0)}
+                onChange={(e) => handleInputChange('sellPrice', parseFloat(e.target.value) || null)}
               />
             </div>
           )}
@@ -167,14 +167,14 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
             onCheckedChange={(checked) => handleInputChange('includeDpCharge', !!checked)}
           />
           <Label htmlFor="includeDpCharge" className="cursor-pointer">
-            Include DP charge (Rs. 25)
+            Include DP charge (रू 25)
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Info className="h-4 w-4 inline-block ml-1 text-nepse-darkgray" />
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>DP charge is Rs. 25 per company per trade</p>
+                  <p>DP charge is रू 25 per company per trade</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>

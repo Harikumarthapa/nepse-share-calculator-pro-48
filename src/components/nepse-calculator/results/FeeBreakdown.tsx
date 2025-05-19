@@ -6,7 +6,7 @@ import { CalculationResults } from '../types';
 import { formatCurrency } from '../utils';
 
 interface FeeBreakdownProps {
-  results: CalculationResults;
+  results: CalculationResults | null;
 }
 
 const FeeBreakdown: React.FC<FeeBreakdownProps> = ({ results }) => {
@@ -16,7 +16,7 @@ const FeeBreakdown: React.FC<FeeBreakdownProps> = ({ results }) => {
       <div className="bg-nepse-gray p-4 rounded-md space-y-3 text-sm">
         <div className="flex justify-between">
           <span className="text-nepse-darkgray">Total Amount</span>
-          <span className="font-medium">{formatCurrency(results.totalAmount)}</span>
+          <span className="font-medium">{results?.totalAmount ? formatCurrency(results.totalAmount, 'रू') : '-'}</span>
         </div>
         <div className="flex justify-between">
           <span className="text-nepse-darkgray flex items-center">
@@ -28,16 +28,16 @@ const FeeBreakdown: React.FC<FeeBreakdownProps> = ({ results }) => {
                 </TooltipTrigger>
                 <TooltipContent>
                   <p>Commission rates:<br />
-                  0.36% up to Rs. 50,000<br />
-                  0.33% for Rs. 50,000–500,000<br />
-                  0.31% for Rs. 500,000–2,000,000<br />
-                  0.27% for Rs. 2,000,000–10,000,000<br />
-                  0.24% above Rs. 10,000,000</p>
+                  0.36% up to रू 50,000<br />
+                  0.33% for रू 50,000–500,000<br />
+                  0.31% for रू 500,000–2,000,000<br />
+                  0.27% for रू 2,000,000–10,000,000<br />
+                  0.24% above रू 10,000,000</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
           </span>
-          <span className="font-medium">{formatCurrency(results.brokerCommission)}</span>
+          <span className="font-medium">{results?.brokerCommission ? formatCurrency(results.brokerCommission, 'रू') : '-'}</span>
         </div>
         <div className="flex justify-between">
           <span className="text-nepse-darkgray flex items-center">
@@ -53,15 +53,20 @@ const FeeBreakdown: React.FC<FeeBreakdownProps> = ({ results }) => {
               </Tooltip>
             </TooltipProvider>
           </span>
-          <span className="font-medium">{formatCurrency(results.sebonFee)}</span>
+          <span className="font-medium">{results?.sebonFee ? formatCurrency(results.sebonFee, 'रू') : '-'}</span>
         </div>
         <div className="flex justify-between">
           <span className="text-nepse-darkgray">DP Charge</span>
-          <span className="font-medium">{formatCurrency(results.dpCharge)}</span>
+          <span className="font-medium">{results?.dpCharge ? formatCurrency(results.dpCharge, 'रू') : '-'}</span>
         </div>
         <div className="border-t border-gray-300 pt-3 flex justify-between font-medium">
           <span>Total Fees</span>
-          <span>{formatCurrency(results.brokerCommission + results.sebonFee + results.dpCharge)}</span>
+          <span>
+            {(results?.brokerCommission !== undefined && results?.sebonFee !== undefined && results?.dpCharge !== undefined) ? 
+              formatCurrency(results.brokerCommission + results.sebonFee + results.dpCharge, 'रू') : 
+              '-'
+            }
+          </span>
         </div>
       </div>
     </div>
