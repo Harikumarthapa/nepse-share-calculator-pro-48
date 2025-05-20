@@ -1,61 +1,10 @@
+
 import React, { createContext, useState, useContext, useEffect, ReactNode } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 type Language = 'en' | 'ne';
 
-interface LanguageContextType {
-  language: Language;
-  toggleLanguage: () => void;
-  t: (key: string) => string;
-}
-
-const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
-
-interface LanguageProviderProps {
-  children: ReactNode;
-}
-
-export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
-  const location = useLocation();
-  const navigate = useNavigate();
-  
-  const initialLanguage: Language = location.pathname.startsWith('/ne') ? 'ne' : 'en';
-  const [language, setLanguage] = useState<Language>(initialLanguage);
-  
-  useEffect(() => {
-    const currentPath = location.pathname;
-    const isNepaliPath = currentPath.startsWith('/ne');
-    
-    if (language === 'ne' && !isNepaliPath) {
-      navigate(`/ne${currentPath === '/' ? '' : currentPath}`, { replace: true });
-    } else if (language === 'en' && isNepaliPath) {
-      navigate(currentPath.replace(/^\/ne/, '') || '/', { replace: true });
-    }
-  }, [language, location.pathname, navigate]);
-
-  const toggleLanguage = () => {
-    setLanguage(prevLang => (prevLang === 'en' ? 'ne' : 'en'));
-  };
-
-  const t = (key: string): string => {
-    return translations[language][key] || key;
-  };
-
-  return (
-    <LanguageContext.Provider value={{ language, toggleLanguage, t }}>
-      {children}
-    </LanguageContext.Provider>
-  );
-};
-
-export const useLanguage = (): LanguageContextType => {
-  const context = useContext(LanguageContext);
-  if (context === undefined) {
-    throw new Error('useLanguage must be used within a LanguageProvider');
-  }
-  return context;
-};
-
+// Define translations before using them
 const translations: Record<Language, Record<string, string>> = {
   en: {
     'app.title': 'Share Calculator Nepal – NEPSE Buy/Sell Tax & Fees',
@@ -309,3 +258,57 @@ const translations: Record<Language, Record<string, string>> = {
     'download.png': 'PNG डाउनलोड गर्नुहोस्'
   }
 };
+
+interface LanguageContextType {
+  language: Language;
+  toggleLanguage: () => void;
+  t: (key: string) => string;
+}
+
+const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+
+interface LanguageProviderProps {
+  children: ReactNode;
+}
+
+export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  
+  const initialLanguage: Language = location.pathname.startsWith('/ne') ? 'ne' : 'en';
+  const [language, setLanguage] = useState<Language>(initialLanguage);
+  
+  useEffect(() => {
+    const currentPath = location.pathname;
+    const isNepaliPath = currentPath.startsWith('/ne');
+    
+    if (language === 'ne' && !isNepaliPath) {
+      navigate(`/ne${currentPath === '/' ? '' : currentPath}`, { replace: true });
+    } else if (language === 'en' && isNepaliPath) {
+      navigate(currentPath.replace(/^\/ne/, '') || '/', { replace: true });
+    }
+  }, [language, location.pathname, navigate]);
+
+  const toggleLanguage = () => {
+    setLanguage(prevLang => (prevLang === 'en' ? 'ne' : 'en'));
+  };
+
+  const t = (key: string): string => {
+    return translations[language][key] || key;
+  };
+
+  return (
+    <LanguageContext.Provider value={{ language, toggleLanguage, t }}>
+      {children}
+    </LanguageContext.Provider>
+  );
+};
+
+export const useLanguage = (): LanguageContextType => {
+  const context = useContext(LanguageContext);
+  if (context === undefined) {
+    throw new Error('useLanguage must be used within a LanguageProvider');
+  }
+  return context;
+};
+
