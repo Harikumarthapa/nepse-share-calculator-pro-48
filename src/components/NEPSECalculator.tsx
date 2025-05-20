@@ -9,9 +9,11 @@ import EmbedInfo from './nepse-calculator/EmbedInfo';
 import EducationalContent from './nepse-calculator/EducationalContent';
 import { useLanguage } from '@/contexts/LanguageContext';
 import LanguageToggle from './LanguageToggle';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const NEPSECalculator: React.FC = () => {
   const { t } = useLanguage();
+  const isMobile = useIsMobile();
   
   // Initial state for inputs with blank values
   const [inputs, setInputs] = useState<CalculationInputs>({
@@ -52,16 +54,16 @@ const NEPSECalculator: React.FC = () => {
 
   return (
     <Card className="w-full mx-auto shadow-lg">
-      <CardHeader className="bg-nepse-blue text-white flex flex-row justify-between items-center">
-        <CardTitle className="text-xl font-bold">{t('calculator.title')}</CardTitle>
+      <CardHeader className="bg-nepse-blue text-white flex flex-row justify-between items-center p-4 sm:p-6">
+        <CardTitle className="text-lg sm:text-xl font-bold">{t('calculator.title')}</CardTitle>
         <LanguageToggle />
       </CardHeader>
-      <CardContent className="p-6">
+      <CardContent className="p-4 sm:p-6">
         {/* Main Calculator Section - Always 2 columns on desktop, 1 column on mobile */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Input Column */}
-          <div className="space-y-6">
-            <h2 className="text-lg font-medium mb-4">{t('calculator.transaction.details')}</h2>
+          <div className="space-y-4 sm:space-y-6">
+            <h2 className="text-base sm:text-lg font-medium mb-2 sm:mb-4">{t('calculator.transaction.details')}</h2>
             <TransactionForm 
               inputs={inputs} 
               handleInputChange={handleInputChange}
@@ -70,17 +72,17 @@ const NEPSECalculator: React.FC = () => {
           </div>
           
           {/* Results Column - Always render but show placeholders when no data */}
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             <ResultsDisplay results={results} inputs={inputs} />
           </div>
         </div>
         
         {/* Sections below the calculator - Always visible */}
-        <div className="mt-8 pt-6 border-t border-gray-200">
+        <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-200">
           <EmbedInfo />
         </div>
         
-        <div className="mt-8 pt-6 border-t border-gray-200">
+        <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-200">
           <EducationalContent />
         </div>
       </CardContent>

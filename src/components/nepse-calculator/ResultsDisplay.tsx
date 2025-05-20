@@ -10,6 +10,7 @@ import FinalResult from './results/FinalResult';
 import html2canvas from 'html2canvas';
 import html2pdf from 'html2pdf.js';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface ResultsDisplayProps {
   results: CalculationResults | null;
@@ -19,6 +20,7 @@ interface ResultsDisplayProps {
 const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, inputs }) => {
   const resultsRef = useRef<HTMLDivElement>(null);
   const { t, language } = useLanguage();
+  const isMobile = useIsMobile();
   
   // Check if we have valid results with actual values (not just empty placeholders)
   const hasValidResults = results && 
@@ -104,12 +106,12 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, inputs }) => {
 
   return (
     <div className="h-full flex flex-col">
-      <h2 className="text-lg font-medium mb-4">{t('calculator.results')}</h2>
+      <h2 className="text-base sm:text-lg font-medium mb-2 sm:mb-4">{t('calculator.results')}</h2>
       
       <div 
         ref={resultsRef} 
-        className="bg-white p-4 rounded-lg flex-grow"
-        style={{ minHeight: '400px' }}
+        className="bg-white p-3 sm:p-4 rounded-lg flex-grow"
+        style={{ minHeight: isMobile ? '300px' : '400px' }}
       >
         <InputSummary inputs={inputs} />
         <FeeBreakdown results={results} />
@@ -118,25 +120,25 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, inputs }) => {
       </div>
       
       {/* Always reserve space for the download buttons, but only show them for valid results */}
-      <div className="mt-4 flex flex-wrap gap-2 justify-end min-h-[38px]">
+      <div className="mt-3 sm:mt-4 flex flex-wrap gap-2 justify-end min-h-[32px] sm:min-h-[38px]">
         {hasValidResults && (
           <>
             <Button 
               onClick={handleDownloadPDF}
-              size="sm"
-              className="flex items-center gap-1"
+              size={isMobile ? "sm" : "default"}
+              className="flex items-center gap-1 text-xs sm:text-sm h-8 sm:h-10"
             >
-              <Download size={16} />
+              <Download size={isMobile ? 14 : 16} />
               {t('download.pdf')}
             </Button>
             
             <Button 
               onClick={handleDownloadPNG}
-              size="sm"
+              size={isMobile ? "sm" : "default"}
               variant="outline"
-              className="flex items-center gap-1"
+              className="flex items-center gap-1 text-xs sm:text-sm h-8 sm:h-10"
             >
-              <FileImage size={16} />
+              <FileImage size={isMobile ? 14 : 16} />
               {t('download.png')}
             </Button>
           </>
