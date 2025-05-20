@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CalculationInputs, CalculationResults } from './nepse-calculator/types';
@@ -10,6 +9,7 @@ import EducationalContent from './nepse-calculator/EducationalContent';
 import { useLanguage } from '@/contexts/LanguageContext';
 import LanguageToggle from './LanguageToggle';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { Button } from '@/components/ui/button';
 
 const NEPSECalculator: React.FC = () => {
   const { t } = useLanguage();
@@ -74,6 +74,18 @@ const NEPSECalculator: React.FC = () => {
           {/* Results Column - Always render but show placeholders when no data */}
           <div className="space-y-4 sm:space-y-6">
             <ResultsDisplay results={results} inputs={inputs} />
+            {/* Move Reset button here on mobile */}
+            {isMobile && (
+              <div className="mt-4">
+                <Button 
+                  onClick={handleReset} 
+                  variant="outline" 
+                  className="w-full text-sm h-9"
+                >
+                  {t('reset')}
+                </Button>
+              </div>
+            )}
           </div>
         </div>
         

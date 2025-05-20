@@ -1,29 +1,78 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
+import { Card, CardContent } from "@/components/ui/card";
+import TransactionForm from '../components/nepse-calculator/TransactionForm';
 import ResultsDisplay from '../components/nepse-calculator/ResultsDisplay';
 import { CalculationInputs, CalculationResults } from '../components/nepse-calculator/types';
-
-// You can prefill inputs or add form for embed users later if needed
-const defaultInputs: CalculationInputs = {
-  quantity: 100,
-  buyPrice: 100,
-  sellPrice: 120,
-  transactionType: 'sell',
-  // add other required input fields here with reasonable defaults
-};
-
-const defaultResults: CalculationResults | null = null; // or calculate initial results
+import { calculateResults } from '../components/nepse-calculator/utils';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const EmbedPage: React.FC = () => {
-  const [inputs, setInputs] = useState(defaultInputs);
-  const [results, setResults] = useState<CalculationResults | null>(defaultResults);
+  const { t } = useLanguage();
+  
+  // Initial state for inputs with default values
+  const [inputs, setInputs] = useState<CalculationInputs>({
+    transactionType: 'buy',
+    quantity: 100,
+    buyPrice: 100,
+    sellPrice: 120,
+    investorType: 'individual',
+    holdingDuration: 366,
+    includeDpCharge: true,
+  });
 
-  // Optionally: add minimal UI to allow users to input data in embed mode
+  // State for calculation results
+  const [results, setResults] = useState<CalculationResults | null>(null);
+
+  // Handle input changes
+  const handleInputChange = (name: keyof CalculationInputs, value: any) => {
+    setInputs(prev => ({ ...prev, [name]: value }));
+  };
+
+  // Reset form
+  const handleReset = () => {
+    setInputs({
+      transactionType: 'buy',
+      quantity: 100,
+      buyPrice: 100,
+      sellPrice: 120,
+      investorType: 'individual',
+      holdingDuration: 366,
+      includeDpCharge: true,
+    });
+  };
+
+  // Calculate results whenever inputs change
+  useEffect(() => {
+    setResults(calculateResults(inputs));
+  }, [inputs]);
 
   return (
-    <div style={{ padding: 20, background: '#fff', maxWidth: 600, margin: '0 auto' }}>
-      <ResultsDisplay results={results} inputs={inputs} />
-      <div style={{ textAlign: 'right', marginTop: 10, fontSize: 12 }}>
-        <a href="https://sharecalculator.app" target="_blank" rel="noopener noreferrer">
+    <div className="p-3 sm:p-4 bg-gray-100 min-h-screen">
+      <Card className="shadow-md max-w-4xl mx-auto">
+        <CardContent className="p-4">
+          <h2 className="text-lg font-medium mb-4">{t('calculator.transaction.details')}</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Input Column */}
+            <div className="space-y-4">
+              <TransactionForm 
+                inputs={inputs} 
+                handleInputChange={handleInputChange}
+                handleReset={handleReset}
+              />
+            </div>
+            
+            {/* Results Column */}
+            <div className="space-y-4">
+              <ResultsDisplay results={results} inputs={inputs} />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+      
+      <div className="text-right mt-2 text-xs text-gray-500">
+        <a href="https://sharecalculator.app" target="_blank" rel="noopener noreferrer" className="hover:underline text-nepse-blue">
           Powered by Share Calculator App
         </a>
       </div>
