@@ -1,36 +1,37 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NEPSE Share Calculator – Calculate profit/loss, CGT & ROI</title>
-    <meta name="description" content="Calculate your share profit/loss, capital gains tax (CGT) and Return on Investment for free with NEPSE Share Calculator. Accurate, fast, and easy-to-use." />
+    <title>Share Calculator Nepal – NEPSE Buy/Sell Tax & Fees</title>
+    <meta name="description" content="Accurate share calculator for NEPSE. Instantly compute your buy/sell profit, capital gains tax (CGT), fees, and ROI. Trusted by Nepalese investors." />
     <meta name="author" content="Hari Kumar Thapa" />
     <link rel="canonical" href="https://sharecalculator.app/" />
 
-    <meta property="og:title" content="NEPSE Share Calculator" />
-    <meta property="og:description" content="Calculate your share profit/loss, capital gains tax (CGT) and Return on Investment for free. Accurate, fast, and easy-to-use." />
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Share Calculator for NEPSE – Fees, Tax & ROI Breakdown" />
+    <meta property="og:description" content="Use our NEPSE share calculator to compute your profit/loss, taxes, and fees on every stock trade in Nepal. Fast, accurate, and 100% free." />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <meta property="og:image" content="https://sharecalculator.app/public/sharecalculator.png" />
     <meta property="og:url" content="https://sharecalculator.app/" />
 
+    <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-    
+    <meta name="twitter:image" content="https://sharecalculator.app/public/sharecalculator.png" />
+
     <!-- Language Alternates -->
     <link rel="alternate" hreflang="en" href="https://sharecalculator.app/" />
     <link rel="alternate" hreflang="ne" href="https://sharecalculator.app/ne/" />
-    
+
     <!-- Schema Markup -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "WebSite",
-        "name": "Share Calculator",
+        "name": "Share Calculator Nepal",
         "url": "https://sharecalculator.app/",
-        "description": "Calculate your share profit/loss, capital gains tax (CGT) and Return on Investment for free with NEPSE Share Calculator.",
+        "description": "Use our NEPSE share calculator to compute your profit/loss, taxes, and fees on every stock trade in Nepal. Fast, accurate, and 100% free.",
         "potentialAction": {
           "@type": "SearchAction",
           "target": "https://sharecalculator.app/search?q={search_term_string}",
@@ -42,7 +43,7 @@
       {
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        "name": "Share Calculator",
+        "name": "Share Calculator Nepal",
         "url": "https://sharecalculator.app/",
         "description": "Instantly calculate your share profit/loss, average price, and capital gains tax (CGT) for stocks listed on the Nepal Stock Exchange.",
         "applicationCategory": "FinanceApplication",
@@ -90,20 +91,33 @@
         ]
       }
     </script>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-0WYGSJB6SX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-0WYGSJB6SX');
-</script>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0WYGSJB6SX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-0WYGSJB6SX');
+    </script>
   </head>
 
   <body>
-    <div id="root"></div>
-    <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
+    <div id="root">
+      <!-- Logo -->
+      <img src="/public/sharecalculator.png" alt="Share Calculator Logo" style="max-width: 150px; margin-bottom: 20px;" />
+
+      <!-- H1 Heading -->
+      <h1>NEPSE Share Calculator – Detailed Fees, Tax & ROI for Every Trade</h1>
+
+      <!-- Tagline -->
+      <p>A complete NEPSE share calculator that includes broker commissions, DP charges, SEBON fees, capital gains tax, and ROI.</p>
+
+      <!-- H2 Subheading -->
+      <h2>Share Buy & Sell Calculator for NEPSE Trades</h2>
+    </div>
+
+    <!-- Scripts -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
