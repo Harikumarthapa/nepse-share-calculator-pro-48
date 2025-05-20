@@ -212,8 +212,8 @@ const translations: Record<Language, Record<string, string>> = {
     'faq.trading.hours.question': 'What are the latest NEPSE trading hours?',
     'faq.trading.hours.answer': 'NEPSE trading hours (as of 2024):',
     'faq.trading.hours.days': 'Trading Days: Sunday to Thursday (Nepal follows a Sunday-Friday week)',
-    'faq.trading.hours.preopen': 'Pre-open Session: 10:30 AM - 11:00 AM',
-    'faq.trading.hours.regular': 'Regular Trading Hours: 11:00 AM - 3:00 PM',
+    'faq.trading.hours.preopen': 'Pre-open SHours: 11:00 AM - 3:00 PM',ession: 10:30 AM - 11:00 AM',
+    'faq.trading.hours.regular': 'Regular Trading 
     'faq.trading.hours.closed': 'Closed: Friday, Saturday, and public holidays',
     'faq.trading.hours.note': 'Note: Trading hours may change, so always check the official NEPSE website for the most current information.',
     
