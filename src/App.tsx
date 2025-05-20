@@ -13,6 +13,7 @@ import Disclaimer from "./pages/Disclaimer";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Sitemap from "./pages/Sitemap";
+import EmbedPage from "./pages/EmbedPage"; // or adjust the path as needed
 
 const queryClient = new QueryClient();
 
@@ -30,7 +31,8 @@ const App = () => (
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/sitemap" element={<Sitemap />} />
-            
+            <Route path="/embed" element={<EmbedPage />} />
+
             {/* Nepali Routes */}
             <Route path="/ne" element={<Index />} />
             <Route path="/ne/privacy" element={<Privacy />} />
