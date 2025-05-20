@@ -83,6 +83,21 @@ const translations: Record<Language, Record<string, string>> = {
     'fees.tab': 'Fees & Taxes',
     'faq.tab': 'FAQ',
     'embed.title': 'Embed This Calculator',
+    embed: {
+  title: "Embed Code",
+  description: "Add this calculator to your website or blog by copying the embed code.",
+  width: "Width",
+  height: "Height",
+  copy: "Copy Embed Code",
+  copied: "Copied!",
+  copied: {
+    description: "Embed code copied to clipboard.",
+  },
+  show: "Show Code",
+  hide: "Hide Code",
+  info: "You can customize the width and height to match your site layout.",
+}
+
     
     // About tab content
     'about.calculator.title': 'Share Calculator App',
@@ -240,6 +255,7 @@ const translations: Record<Language, Record<string, string>> = {
     'fees.tab': 'शुल्क र करहरू',
     'faq.tab': 'प्राय सोधिने प्रश्नहरू',
     'embed.title': 'Embed This Calculator',
+    
     
     // About tab content
     'about.calculator.title': 'सेयर क्याल्कुलेटर एप',
