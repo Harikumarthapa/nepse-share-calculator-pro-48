@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronUp } from 'lucide-react';
@@ -46,7 +47,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 py-6 px-3 sm:py-8 sm:px-4">
-      <div className={`mx-auto ${isMobile ? 'w-[95%]' : 'w-[80%] max-w-4xl'}`}>
+      <div className={`mx-auto ${isMobile ? 'w-[95%]' : 'w-[85%] max-w-4xl'}`}>
         <header className="flex flex-col items-center mb-6 sm:mb-8">
           {/* Logo */}
           <div className="mb-3 sm:mb-4">

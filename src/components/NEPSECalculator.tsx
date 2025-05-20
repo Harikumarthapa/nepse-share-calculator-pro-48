@@ -1,7 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { CalculationInputs, CalculationResults } from './nepse-calculator/types';
 import { calculateResults } from './nepse-calculator/utils';
 import TransactionForm from './nepse-calculator/TransactionForm';
@@ -48,13 +47,6 @@ const NEPSECalculator: React.FC = () => {
     });
   };
 
-  // Listen for reset event from TransactionForm
-  useEffect(() => {
-    const resetListener = () => handleReset();
-    document.addEventListener('reset-form', resetListener);
-    return () => document.removeEventListener('reset-form', resetListener);
-  }, []);
-
   // Calculate results whenever inputs change
   useEffect(() => {
     setResults(calculateResults(inputs));
@@ -75,23 +67,13 @@ const NEPSECalculator: React.FC = () => {
             <TransactionForm 
               inputs={inputs} 
               handleInputChange={handleInputChange}
-              hideResetButton={isMobile}
+              handleReset={handleReset}
             />
           </div>
           
           {/* Results Column - Always render but show placeholders when no data */}
           <div className="space-y-4 sm:space-y-6">
             <ResultsDisplay results={results} inputs={inputs} />
-            {/* Reset button for mobile below results */}
-            {isMobile && (
-              <Button 
-                onClick={handleReset} 
-                variant="outline" 
-                className="w-full mt-2 text-sm sm:text-base h-9 sm:h-10"
-              >
-                {t('reset')}
-              </Button>
-            )}
           </div>
         </div>
         

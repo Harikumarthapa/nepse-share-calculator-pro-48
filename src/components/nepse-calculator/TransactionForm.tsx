@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -15,13 +16,13 @@ import { useIsMobile } from '@/hooks/use-mobile';
 interface TransactionFormProps {
   inputs: CalculationInputs;
   handleInputChange: (name: keyof CalculationInputs, value: any) => void;
-  hideResetButton?: boolean;
+  handleReset: () => void;
 }
 
 const TransactionForm: React.FC<TransactionFormProps> = ({ 
   inputs, 
   handleInputChange,
-  hideResetButton = false
+  handleReset 
 }) => {
   const { t } = useLanguage();
   const isMobile = useIsMobile();
@@ -184,18 +185,13 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
           </Label>
         </div>
         
-        {!hideResetButton && (
-          <Button 
-            onClick={() => {
-              const resetEvent = new CustomEvent('reset-form');
-              document.dispatchEvent(resetEvent);
-            }} 
-            variant="outline" 
-            className="w-full mt-3 sm:mt-4 text-sm sm:text-base h-9 sm:h-10"
-          >
-            {t('reset')}
-          </Button>
-        )}
+        <Button 
+          onClick={handleReset} 
+          variant="outline" 
+          className="w-full mt-3 sm:mt-4 text-sm sm:text-base h-9 sm:h-10"
+        >
+          {t('reset')}
+        </Button>
       </div>
     </Tabs>
   );
