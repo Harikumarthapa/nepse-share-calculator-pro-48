@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronUp } from 'lucide-react';
@@ -11,6 +12,7 @@ const Index = () => {
 
   useEffect(() => {
     const handleScroll = () => {
+      // Show button when scrolled 30% of the page height
       const scrollThreshold = document.documentElement.scrollHeight * 0.3;
       const scrolled = window.scrollY;
       setShowScrollButton(scrolled > scrollThreshold);
@@ -27,24 +29,25 @@ const Index = () => {
     });
   };
 
+  // Update document title based on language
+  useEffect(() => {
+    document.title = t('app.title');
+    
+    // Set html lang attribute
+    document.documentElement.lang = language;
+    
+    // Update meta description
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', t('app.description'));
+    }
+  }, [language, t]);
+
   return (
     <div className="min-h-screen bg-gray-100 py-8 px-4">
       <div className="w-[80%] mx-auto">
-        <header className="flex flex-col items-center mb-8">
-          <img 
-            src="/sharecalculator.png" 
-            alt="Share Calculator Logo" 
-            className="w-32 h-32 mb-4"
-          />
-          <h1 className="text-3xl font-bold text-nepse-blue text-center mb-4">
-            NEPSE Share Calculator – Detailed Fees, Tax & ROI for Every Trade
-          </h1>
-          <p className="text-lg text-gray-600 text-center mb-6">
-            A complete NEPSE share calculator that includes broker commissions, DP charges, SEBON fees, capital gains tax, and ROI.
-          </p>
-          <h2 className="text-2xl font-semibold text-gray-800 mb-8">
-            Share Buy & Sell Calculator for NEPSE Trades
-          </h2>
+        <header className="flex flex-col md:flex-row justify-between items-center mb-8">
+          <h1 className="text-3xl font-bold text-nepse-blue mb-4 md:mb-0">{t('app.title')}</h1>
         </header>
         
         <NEPSECalculator />
@@ -68,6 +71,7 @@ const Index = () => {
         </div>
       </div>
 
+      {/* Scroll to Top Button */}
       {showScrollButton && (
         <Button
           onClick={scrollToTop}
