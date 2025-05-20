@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import ResultsDisplay from '../components/ResultsDisplay';
-import { CalculationInputs, CalculationResults } from '../components/types';
+import ResultsDisplay from '../components/nepse-calculator/ResultsDisplay';
+import { CalculationInputs, CalculationResults } from '../components/nepse-calculator/types';
 
 // You can prefill inputs or add form for embed users later if needed
 const defaultInputs: CalculationInputs = {
