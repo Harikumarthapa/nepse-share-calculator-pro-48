@@ -67,6 +67,8 @@ const translations: Record<Language, Record<string, string>> = {
     'net.receivable': 'Net Receivable',
     'profit.loss': 'Profit/Loss',
     'roi': 'ROI',
+
+// Final result section
     
     // Footer links
     'footer.home': 'Home',
