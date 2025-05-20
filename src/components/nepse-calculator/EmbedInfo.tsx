@@ -23,8 +23,8 @@ const EmbedInfo: React.FC = () => {
   const copyToClipboard = () => {
     navigator.clipboard.writeText(embedCode);
     toast({
-      title: t('embed.copied'),
-      description: t('embed.copied.description'),
+      title: t('embed.copied') || 'Copied!',
+      description: t('embed.copied.description') || 'Embed code copied to clipboard.',
     });
   };
 
@@ -40,11 +40,13 @@ const EmbedInfo: React.FC = () => {
             <Share size={18} className="text-nepse-blue" />
             {t('embed.title')}
           </h2>
-          <p className="text-xs sm:text-sm text-gray-500">{t('embed.description')}</p>
+          <p className="text-xs sm:text-sm text-gray-500">
+          {t('embed.description') || 'Add this calculator to your website or blog by copying the embed code.'}
+          </p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
             <div className="space-y-1 sm:space-y-2">
-              <Label htmlFor="embedWidth" className="text-sm">{t('embed.width')}</Label>
+              <Label htmlFor="embedWidth" className="text-sm">{t('embed.width') || 'Width'}</Label>
               <Input 
                 id="embedWidth" 
                 value={width}
@@ -54,7 +56,7 @@ const EmbedInfo: React.FC = () => {
               />
             </div>
             <div className="space-y-1 sm:space-y-2">
-              <Label htmlFor="embedHeight" className="text-sm">{t('embed.height')}</Label>
+              <Label htmlFor="embedHeight" className="text-sm">{t('embed.height') || 'Height'}</Label>
               <Input 
                 id="embedHeight" 
                 value={height}
@@ -68,14 +70,14 @@ const EmbedInfo: React.FC = () => {
           <div className="flex justify-end mt-3 sm:mt-4">
             <Button onClick={copyToClipboard} size={window.innerWidth < 640 ? "sm" : "default"} className="flex items-center gap-1 h-8 sm:h-10 text-xs sm:text-sm">
               <Copy size={window.innerWidth < 640 ? 14 : 16} />
-              {t('embed.copy')}
+              {t('embed.copy') || 'Copy Embed Code'}
             </Button>
           </div>
           
           <Collapsible open={isOpen} onOpenChange={setIsOpen}>
             <CollapsibleTrigger asChild>
               <Button variant="outline" size="sm" className="text-xs h-8">
-                {isOpen ? t('embed.hide') : t('embed.show')}
+                {isOpen ? (t('embed.hide') || 'Hide Code') : (t('embed.show') || 'Show Code')}
               </Button>
             </CollapsibleTrigger>
             
@@ -87,8 +89,8 @@ const EmbedInfo: React.FC = () => {
           </Collapsible>
           
           <div className="mt-3 sm:mt-4 p-3 bg-white/50 backdrop-blur-sm rounded border border-white/40">
-            <p className="text-xs sm:text-sm text-center text-gray-600">
-              {t('embed.info')}
+             <p className="text-xs sm:text-sm text-center text-gray-600">
+              {t('embed.info') || 'You can customize the width and height to match your site layout.'}
             </p>
           </div>
         </div>
