@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import ResultsDisplay from './ResultsDisplay';
-import { CalculationInputs, CalculationResults } from './types';
+import ResultsDisplay from '../components/ResultsDisplay';
+import { CalculationInputs, CalculationResults } from '../components/types';
 
 // You can prefill inputs or add form for embed users later if needed
 const defaultInputs: CalculationInputs = {
