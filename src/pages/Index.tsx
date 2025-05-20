@@ -46,8 +46,21 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gray-100 py-8 px-4">
       <div className="w-[80%] mx-auto">
-        <header className="flex flex-col md:flex-row justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-nepse-blue mb-4 md:mb-0">{t('app.title')}</h1>
+        <header className="flex flex-col items-center mb-8">
+          {/* Logo */}
+          <div className="mb-4">
+            <img 
+              src="/sharecalculator.png" 
+              alt="Share Calculator Logo" 
+              className="h-16 w-auto"
+            />
+          </div>
+          
+          {/* H1 Title */}
+          <h1 className="text-3xl font-bold text-nepse-blue mb-2 text-center">{t('app.title')}</h1>
+          
+          {/* Tagline */}
+          <p className="text-center text-gray-600 mb-4">{t('app.tagline')}</p>
         </header>
         
         <NEPSECalculator />
