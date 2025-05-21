@@ -17,9 +17,60 @@ const Sitemap: React.FC = () => {
       metaDescription.setAttribute('content', "Complete sitemap of Share Calculator - find all pages and resources available on our NEPSE transaction calculator website.");
     }
     
+    // Add canonical link
+    let canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (!canonicalLink) {
+      canonicalLink = document.createElement('link');
+      canonicalLink.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonicalLink);
+    }
+    canonicalLink.setAttribute('href', window.location.href);
+    
+    // Add OpenGraph and Twitter card images
+    const setupMetaImage = (name, content) => {
+      let meta = document.querySelector(`meta[property="${name}"]`);
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.setAttribute('property', name);
+        document.head.appendChild(meta);
+      }
+      meta.setAttribute('content', content);
+    };
+    
+    const imageUrl = `${window.location.origin}/sharecalculatornepal.webp`;
+    
+    // OpenGraph
+    setupMetaImage('og:image', imageUrl);
+    setupMetaImage('og:image:width', '1200');
+    setupMetaImage('og:image:height', '630');
+    setupMetaImage('og:title', 'Sitemap - Share Calculator Nepal');
+    setupMetaImage('og:description', 'Complete sitemap of all pages available on our NEPSE calculator website.');
+    
+    // Twitter Card
+    let twitterMeta = document.querySelector('meta[name="twitter:card"]');
+    if (!twitterMeta) {
+      twitterMeta = document.createElement('meta');
+      twitterMeta.setAttribute('name', 'twitter:card');
+      document.head.appendChild(twitterMeta);
+    }
+    twitterMeta.setAttribute('content', 'summary_large_image');
+    
+    let twitterImage = document.querySelector('meta[name="twitter:image"]');
+    if (!twitterImage) {
+      twitterImage = document.createElement('meta');
+      twitterImage.setAttribute('name', 'twitter:image');
+      document.head.appendChild(twitterImage);
+    }
+    twitterImage.setAttribute('content', imageUrl);
+    
     return () => {
       // Clean up effect if component unmounts
       document.title = "Share Calculator Nepal – NEPSE Buy/Sell Tax & Fees";
+      
+      // Remove the canonical link and meta tags on unmount
+      if (canonicalLink) {
+        document.head.removeChild(canonicalLink);
+      }
     };
   }, []);
 
@@ -85,9 +136,9 @@ const Sitemap: React.FC = () => {
                 <h2 className="text-lg font-bold mb-2">XML Sitemap</h2>
                 <p>
                   For search engines, an XML sitemap is available at:
-                  <a href="https://sharecalculator.app/sitemap.xml" className="text-nepse-blue hover:underline block mt-1">
-                    https://sharecalculator.app/sitemap.xml
-                  </a>
+                  <Link to="/sitemap.xml" className="text-nepse-blue hover:underline block mt-1">
+                    /sitemap.xml
+                  </Link>
                 </p>
               </div>
             </div>
@@ -96,7 +147,7 @@ const Sitemap: React.FC = () => {
         
         <div className="mt-8 text-center text-sm text-gray-600">
           <p>
-            © 2025 <a href="https://sharecalculator.app/" className="text-nepse-blue hover:underline">Share Calculator</a>.
+            © 2025 <Link to="/" className="text-nepse-blue hover:underline">Share Calculator</Link>.
             All rates based on current SEBON/NEPSE official guidelines.
           </p>
           <p className="mt-2">
