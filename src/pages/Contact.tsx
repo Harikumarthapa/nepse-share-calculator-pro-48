@@ -17,9 +17,60 @@ const Contact: React.FC = () => {
       metaDescription.setAttribute('content', "Get in touch with the Share Calculator team - contact information for feedback, support, and partnership inquiries.");
     }
     
+    // Add canonical link
+    let canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (!canonicalLink) {
+      canonicalLink = document.createElement('link');
+      canonicalLink.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonicalLink);
+    }
+    canonicalLink.setAttribute('href', window.location.origin + "/contact");
+    
+    // Add ContactPage schema markup
+    const script = document.createElement('script');
+    script.setAttribute('type', 'application/ld+json');
+    const schemaData = {
+      "@context": "https://schema.org",
+      "@type": "ContactPage",
+      "name": "Contact Share Calculator Nepal",
+      "description": "Get in touch with the Share Calculator team for feedback, support, and partnership inquiries.",
+      "url": window.location.origin + "/contact",
+      "mainEntity": {
+        "@type": "Organization",
+        "name": "Share Calculator Nepal",
+        "email": "hello@sharecalculator.app",
+        "contactPoint": [
+          {
+            "@type": "ContactPoint",
+            "contactType": "customer support",
+            "email": "support@sharecalculator.app",
+            "availableLanguage": ["English", "Nepali"]
+          },
+          {
+            "@type": "ContactPoint",
+            "contactType": "technical support",
+            "email": "feedback@sharecalculator.app"
+          },
+          {
+            "@type": "ContactPoint",
+            "contactType": "partnerships",
+            "email": "partners@sharecalculator.app"
+          }
+        ]
+      }
+    };
+    script.textContent = JSON.stringify(schemaData);
+    document.head.appendChild(script);
+    
     return () => {
       // Clean up effect if component unmounts
       document.title = "Share Calculator Nepal – NEPSE Buy/Sell Tax & Fees";
+      // Remove canonical link on unmount
+      const canonical = document.querySelector('link[rel="canonical"]');
+      if (canonical) document.head.removeChild(canonical);
+      // Remove schema markup on unmount
+      const schemaScript = document.querySelector('script[type="application/ld+json"]');
+      if (schemaScript) document.head.removeChild(schemaScript);
     };
   }, []);
 

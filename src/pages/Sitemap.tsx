@@ -17,9 +17,21 @@ const Sitemap: React.FC = () => {
       metaDescription.setAttribute('content', "Complete sitemap of Share Calculator - find all pages and resources available on our NEPSE transaction calculator website.");
     }
     
+    // Add canonical link
+    let canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (!canonicalLink) {
+      canonicalLink = document.createElement('link');
+      canonicalLink.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonicalLink);
+    }
+    canonicalLink.setAttribute('href', window.location.origin + "/sitemap");
+    
     return () => {
       // Clean up effect if component unmounts
       document.title = "Share Calculator Nepal – NEPSE Buy/Sell Tax & Fees";
+      // Remove canonical link on unmount
+      const canonical = document.querySelector('link[rel="canonical"]');
+      if (canonical) document.head.removeChild(canonical);
     };
   }, []);
 

@@ -17,9 +17,41 @@ const About: React.FC = () => {
       metaDescription.setAttribute('content', "Learn about Share Calculator - our mission to provide Nepali investors with accurate, transparent information about NEPSE transaction costs and returns.");
     }
     
+    // Add canonical link
+    let canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (!canonicalLink) {
+      canonicalLink = document.createElement('link');
+      canonicalLink.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonicalLink);
+    }
+    canonicalLink.setAttribute('href', window.location.origin + "/about");
+    
+    // Add Organization schema markup
+    const script = document.createElement('script');
+    script.setAttribute('type', 'application/ld+json');
+    const schemaData = {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Share Calculator Nepal",
+      "description": "A calculator tool for NEPSE share transactions, helping Nepali investors understand fees, taxes, and returns on stock market investments.",
+      "url": window.location.origin,
+      "sameAs": [
+        "https://sharecalculator.app"
+      ],
+      "logo": window.location.origin + "/sharecalculatornepal.webp"
+    };
+    script.textContent = JSON.stringify(schemaData);
+    document.head.appendChild(script);
+    
     return () => {
       // Clean up effect if component unmounts
       document.title = "Share Calculator Nepal – NEPSE Buy/Sell Tax & Fees";
+      // Remove canonical link on unmount
+      const canonical = document.querySelector('link[rel="canonical"]');
+      if (canonical) document.head.removeChild(canonical);
+      // Remove schema markup on unmount
+      const schemaScript = document.querySelector('script[type="application/ld+json"]');
+      if (schemaScript) document.head.removeChild(schemaScript);
     };
   }, []);
 

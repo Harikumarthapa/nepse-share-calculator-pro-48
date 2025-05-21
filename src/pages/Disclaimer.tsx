@@ -17,9 +17,21 @@ const Disclaimer: React.FC = () => {
       metaDescription.setAttribute('content', "Important disclaimer for Share Calculator users - our tool provides estimates only and should not be considered financial or investment advice.");
     }
     
+    // Add canonical link
+    let canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (!canonicalLink) {
+      canonicalLink = document.createElement('link');
+      canonicalLink.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonicalLink);
+    }
+    canonicalLink.setAttribute('href', window.location.origin + "/disclaimer");
+    
     return () => {
       // Clean up effect if component unmounts
       document.title = "Share Calculator Nepal – NEPSE Buy/Sell Tax & Fees";
+      // Remove canonical link on unmount
+      const canonical = document.querySelector('link[rel="canonical"]');
+      if (canonical) document.head.removeChild(canonical);
     };
   }, []);
 
