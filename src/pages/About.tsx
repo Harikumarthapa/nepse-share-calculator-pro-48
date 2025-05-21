@@ -1,11 +1,28 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { ChevronLeft } from 'lucide-react';
 
 const About: React.FC = () => {
+  // Add meta tags when component mounts
+  useEffect(() => {
+    // Update page title
+    document.title = "About Share Calculator - NEPSE Investment Tool";
+    
+    // Update meta description
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', "Learn about Share Calculator - our mission to provide Nepali investors with accurate, transparent information about NEPSE transaction costs and returns.");
+    }
+    
+    return () => {
+      // Clean up effect if component unmounts
+      document.title = "Share Calculator Nepal – NEPSE Buy/Sell Tax & Fees";
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-gray-100 py-8 px-4">
       <div className="w-[80%] mx-auto">

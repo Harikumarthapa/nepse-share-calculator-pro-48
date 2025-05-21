@@ -1,11 +1,28 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { ChevronLeft } from 'lucide-react';
 
 const Terms: React.FC = () => {
+  // Add meta tags when component mounts
+  useEffect(() => {
+    // Update page title
+    document.title = "Terms and Conditions - Share Calculator Nepal";
+    
+    // Update meta description
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', "Terms of use for the Share Calculator tool, outlining acceptable use policies, intellectual property rights, and liability limitations.");
+    }
+    
+    return () => {
+      // Clean up effect if component unmounts
+      document.title = "Share Calculator Nepal – NEPSE Buy/Sell Tax & Fees";
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-gray-100 py-8 px-4">
       <div className="w-[80%] mx-auto">
