@@ -1,4 +1,3 @@
-
 import React, { createContext, useState, useContext, useEffect, ReactNode } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -85,6 +84,13 @@ const translations: Record<Language, Record<string, string>> = {
     'fees.tab': 'Fees & Taxes',
     'faq.tab': 'FAQ',
     'embed.title': 'Embed This Calculator',
+    'embed.description': 'Add this calculator to your website or blog by copying the embed code.',
+    'embed.width': 'Width',
+    'embed.height': 'Height',
+    'embed.copy': 'Copy Embed Code',
+    'embed.show': 'Show Code',
+    'embed.hide': 'Hide Code',
+    'embed.info': 'Embed this calculator on your website to provide your visitors with a helpful NEPSE transaction calculation tool.',
     
     // About tab content
     'about.calculator.title': 'Share Calculator App',
@@ -241,8 +247,14 @@ const translations: Record<Language, Record<string, string>> = {
     'about.tab': 'बारेमा',
     'fees.tab': 'शुल्क र करहरू',
     'faq.tab': 'प्राय सोधिने प्रश्नहरू',
-    'embed.title': 'Embed This Calculator',
-    
+    'embed.title': 'यो क्याल्कुलेटर एम्बेड गर्नुहोस्',
+    'embed.description': 'एम्बेड कोड कपी गरेर आफ्नो वेबसाइट वा ब्लगमा यो क्याल्कुलेटर थप्नुहोस्।',
+    'embed.width': 'चौडाइ',
+    'embed.height': 'उचाइ',
+    'embed.copy': 'एम्बेड कोड कपी गर्नुहोस्',
+    'embed.show': 'कोड देखाउनुहोस्',
+    'embed.hide': 'कोड लुकाउनुहोस्',
+    'embed.info': 'आफ्नो वेबसाइटमा यो क्याल्कुलेटर एम्बेड गरेर आफ्ना आगन्तुकहरूलाई उपयोगी नेप्से कारोबार गणना उपकरण प्रदान गर्नुहोस्।',
     
     // About tab content
     'about.calculator.title': 'सेयर क्याल्कुलेटर एप',
