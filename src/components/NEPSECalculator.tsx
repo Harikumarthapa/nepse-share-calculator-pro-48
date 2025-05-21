@@ -62,8 +62,6 @@ const NEPSECalculator: React.FC = () => {
   <LanguageToggle />
 </CardHeader>
       <CardContent className="p-4 sm:p-6">
-        {/* Main Calculator Section title */}
-        <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 text-nepse-blue">Share Buy & Sell Calculator for NEPSE Trades</h2>
         
         {/* Main Calculator Section - Always 2 columns on desktop, 1 column on mobile */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
