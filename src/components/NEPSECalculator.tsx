@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CalculationInputs, CalculationResults } from './nepse-calculator/types';
@@ -59,11 +60,14 @@ const NEPSECalculator: React.FC = () => {
         <LanguageToggle />
       </CardHeader>
       <CardContent className="p-4 sm:p-6">
+        {/* Main Calculator Section title */}
+        <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 text-nepse-blue">Share Buy & Sell Calculator for NEPSE Trades</h2>
+        
         {/* Main Calculator Section - Always 2 columns on desktop, 1 column on mobile */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Input Column */}
           <div className="space-y-4 sm:space-y-6">
-            <h2 className="text-base sm:text-lg font-medium mb-2 sm:mb-4">{t('calculator.transaction.details')}</h2>
+            <h3 className="text-base sm:text-lg font-medium mb-2 sm:mb-4">{t('calculator.transaction.details')}</h3>
             <TransactionForm 
               inputs={inputs} 
               handleInputChange={handleInputChange}

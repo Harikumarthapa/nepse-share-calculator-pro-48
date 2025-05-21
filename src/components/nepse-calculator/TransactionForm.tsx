@@ -185,13 +185,16 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
           </Label>
         </div>
         
-        <Button 
-          onClick={handleReset} 
-          variant="outline" 
-          className="w-full mt-3 sm:mt-4 text-sm sm:text-base h-9 sm:h-10"
-        >
-          {t('reset')}
-        </Button>
+        {/* Desktop-only reset button - hidden on mobile */}
+        {!isMobile && (
+          <Button 
+            onClick={handleReset} 
+            variant="outline" 
+            className="w-full mt-3 sm:mt-4 text-sm sm:text-base h-9 sm:h-10"
+          >
+            {t('reset')}
+          </Button>
+        )}
       </div>
     </Tabs>
   );

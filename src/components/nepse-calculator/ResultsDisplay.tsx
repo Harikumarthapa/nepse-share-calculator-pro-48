@@ -1,3 +1,4 @@
+
 import React, { useRef } from 'react';
 import { FileImage, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -124,7 +125,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, inputs }) => {
 
   return (
     <div className="h-full flex flex-col">
-      <h2 className="text-base sm:text-lg font-medium mb-2 sm:mb-4">{t('calculator.results')}</h2>
+      <h3 className="text-base sm:text-lg font-medium mb-2 sm:mb-4">{t('calculator.results')}</h3>
 
       <div
         ref={resultsRef}
