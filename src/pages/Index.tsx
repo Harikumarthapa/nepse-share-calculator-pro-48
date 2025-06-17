@@ -6,11 +6,20 @@ import NEPSECalculator from '@/components/NEPSECalculator';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { useSEO } from '@/hooks/useSEO';
 
 const Index = () => {
   const [showScrollButton, setShowScrollButton] = useState(false);
   const { t, language } = useLanguage();
   const isMobile = useIsMobile();
+
+  // SEO optimization
+  useSEO({
+    title: t('app.document.title'),
+    description: t('app.description'),
+    canonical: 'https://sharecalculator.app/',
+    ogImage: 'https://sharecalculator.app/sharecalculatornepal.webp'
+  });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,30 +40,50 @@ const Index = () => {
     });
   };
 
-  // Update document title based on language
+  // Set html lang attribute
   useEffect(() => {
-    document.title = t('app.document.title');
-    
-    // Set html lang attribute
     document.documentElement.lang = language;
     
-    // Update meta description
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute('content', t('app.description'));
+    // Add breadcrumb structured data
+    const breadcrumbSchema = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://sharecalculator.app/"
+        }
+      ]
+    };
+    
+    // Remove existing breadcrumb schema if any
+    const existingBreadcrumb = document.querySelector('script[data-breadcrumb]');
+    if (existingBreadcrumb) {
+      existingBreadcrumb.remove();
     }
-  }, [language, t]);
+    
+    // Add new breadcrumb schema
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.setAttribute('data-breadcrumb', 'true');
+    script.textContent = JSON.stringify(breadcrumbSchema);
+    document.head.appendChild(script);
+  }, [language]);
 
   return (
     <div className="min-h-screen bg-gray-100 py-6 px-3 sm:py-8 sm:px-4">
       <div className={`mx-auto ${isMobile ? 'w-full' : 'w-[90%] max-w-6xl'}`}>
         <header className="flex flex-col items-center mb-6 sm:mb-8">
-          {/* Logo */}
+          {/* Logo with optimized loading */}
           <div className="mb-3 sm:mb-4">
             <img 
               src="/sharecalculator.png" 
               alt="Share Calculator Logo" 
               className="h-12 sm:h-16 w-auto"
+              loading="eager"
+              decoding="async"
             />
           </div>
           
