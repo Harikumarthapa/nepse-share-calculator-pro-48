@@ -33,7 +33,7 @@ const Index = () => {
 
   // Update document title based on language
   useEffect(() => {
-    document.title = t('app.title');
+    document.title = t('app.document.title');
     
     // Set html lang attribute
     document.documentElement.lang = language;

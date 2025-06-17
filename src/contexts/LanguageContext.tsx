@@ -13,6 +13,7 @@ interface LanguageContextType {
 const translations: Record<Language, Record<string, string>> = {
   en: {
     // Page titles and descriptions
+    'app.document.title': 'Share Calculator Nepal – NEPSE Buy/Sell Tax & Fees',
     'app.title': 'NEPSE Share Calculator – Detailed Fees, Tax & ROI for Every Trade',
     'app.description': 'Accurate share calculator for NEPSE. Instantly compute your buy/sell profit, capital gains tax (CGT), fees, and ROI. Trusted by Nepalese investors.',
     'app.tagline': 'A complete NEPSE share calculator that includes broker commissions, DP charges, SEBON fees, capital gains tax, and ROI.',
@@ -179,6 +180,7 @@ const translations: Record<Language, Record<string, string>> = {
   },
   ne: {
     // Page titles and descriptions
+    'app.document.title': 'सेयर क्याल्कुलेटर नेपाल – नेप्से खरिद/बिक्री कर तथा शुल्क',
     'app.title': 'नेप्से सेयर क्याल्कुलेटर – हरेक ट्रेडको लागि विस्तृत शुल्क, कर तथा ROI',
     'app.description': 'नेप्सेको लागि सटीक सेयर क्याल्कुलेटर। तपाईंको खरिद/बिक्री नाफा, पुँजीगत लाभ कर (CGT), शुल्क, र ROI तुरुन्तै गणना गर्नुहोस्। नेपाली लगानीकर्ताद्वारा विश्वासित।',
     'app.tagline': 'एक पूर्ण नेप्से सेयर क्याल्कुलेटर जसमा ब्रोकर कमिशन, डिपी शुल्क, सेबोन शुल्क, पूँजीगत लाभ कर, र ROI समावेश छ।',
@@ -322,7 +324,7 @@ const translations: Record<Language, Record<string, string>> = {
     
     'faq.roi.question': 'ROI कसरी गणना गरिन्छ?',
     'faq.roi.answer': 'ROI (लगानीमा प्रतिफल) यसरी गणना गरिन्छ:',
-    'faq.roi.formula': 'ROI = (खुद नाफा / लगानीको कुल लागत) × १००%',
+    'faq.roi.formula': 'ROI = (Net Profit / Total Cost of Investment) × 100%',
     'faq.roi.where': 'जहाँ:',
     'faq.roi.netprofit': 'खुद नाफा = खुद बिक्री मूल्य - प्राप्तिको कुल लागत',
     'faq.roi.netselling': 'खुद बिक्री मूल्य = बिक्री रकम - बिक्री लागतहरू (ब्रोकर कमिशन, सेबोन शुल्क, डिपी शुल्क, CGT)',
