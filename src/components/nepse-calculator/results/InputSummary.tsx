@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { CalculationInputs } from '../types';
 import { formatCurrency } from '../utils';
@@ -10,6 +9,20 @@ interface InputSummaryProps {
 
 const InputSummary: React.FC<InputSummaryProps> = ({ inputs }) => {
   const { t } = useLanguage();
+  
+  // Helper function to get CGT rate display text
+  const getCgtRateDisplayText = (rate: number) => {
+    switch (rate) {
+      case 0.05:
+        return t('cgt.rate.individual.longterm') || '5% (Individual, ≥365 days)';
+      case 0.075:
+        return t('cgt.rate.individual.shortterm') || '7.5% (Individual, <365 days)';
+      case 0.10:
+        return t('cgt.rate.institutional') || '10% (Institutional)';
+      default:
+        return `${(rate * 100).toFixed(1)}%`;
+    }
+  };
   
   return (
     <div className="mb-6">
@@ -38,8 +51,8 @@ const InputSummary: React.FC<InputSummaryProps> = ({ inputs }) => {
               <span className="font-medium">{inputs.buyPrice ? formatCurrency(inputs.buyPrice) : '-'}</span>
             </div>
             <div>
-              <span className="block text-nepse-darkgray">{t('holding.period')}</span>
-              <span className="font-medium">{inputs.holdingDuration} {t('days')}</span>
+              <span className="block text-nepse-darkgray">{t('capital.gains.tax')}</span>
+              <span className="font-medium">{getCgtRateDisplayText(inputs.selectedCgtRate)}</span>
             </div>
           </>
         )}

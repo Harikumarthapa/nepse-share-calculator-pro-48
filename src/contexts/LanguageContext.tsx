@@ -34,11 +34,16 @@ const translations: Record<Language, Record<string, string>> = {
     'investor.type': 'Investor Type',
     'individual': 'Individual',
     'institutional': 'Institutional',
-    'holding.period': 'Holding Period',
-    'days': 'days',
     'include.dp': 'Include DP Charge',
     'calculate': 'Calculate',
     'reset': 'Reset',
+    
+    // CGT Rate options
+    'capital.gains.tax': 'Capital Gains Tax',
+    'cgt.rate.individual.longterm': '5% (Individual, ≥365 days)',
+    'cgt.rate.individual.shortterm': '7.5% (Individual, <365 days)',
+    'cgt.rate.institutional': '10% (Institutional)',
+    'cgt.tooltip': 'Select the appropriate Capital Gains Tax rate based on your investor type and holding period:\n• Individual investors holding ≥365 days: 5%\n• Individual investors holding <365 days: 7.5%\n• Institutional investors: 10%\n• No tax on capital loss',
     
     // Result sections
     'input.summary': 'Input Summary',
@@ -58,8 +63,6 @@ const translations: Record<Language, Record<string, string>> = {
     'cost.of.acquisition': 'Total Cost of Acquisition',
     'net.selling.price': 'Net Selling Price',
     'capital.gain.loss': 'Capital Gain/Loss',
-    'capital.gains.tax': 'Capital Gains Tax',
-    'cgt.tooltip': 'CGT Rates:\nIndividual, ≥365 days: 5%\nIndividual, <365 days: 7.5%\nInstitutional: 10%\nNo tax on capital loss',
     
     // Final result section
     'total.cost.final': 'Total Cost',
@@ -201,11 +204,16 @@ const translations: Record<Language, Record<string, string>> = {
     'investor.type': 'लगानीकर्ता प्रकार',
     'individual': 'व्यक्तिगत',
     'institutional': 'संस्थागत',
-    'holding.period': 'होल्डिङ अवधि',
-    'days': 'दिन',
     'include.dp': 'डिपी शुल्क समावेश गर्नुहोस्',
     'calculate': 'गणना गर्नुहोस्',
     'reset': 'रिसेट',
+    
+    // CGT Rate options
+    'capital.gains.tax': 'पूँजीगत लाभ कर',
+    'cgt.rate.individual.longterm': '५% (व्यक्तिगत, ≥३६५ दिन)',
+    'cgt.rate.individual.shortterm': '७.५% (व्यक्तिगत, <३६५ दिन)',
+    'cgt.rate.institutional': '१०% (संस्थागत)',
+    'cgt.tooltip': 'तपाईंको लगानीकर्ता प्रकार र होल्डिङ अवधिको आधारमा उपयुक्त पूँजीगत लाभ कर दर छान्नुहोस्:\n• व्यक्तिगत लगानीकर्ता ≥३६५ दिन होल्डिङ: ५%\n• व्यक्तिगत लगानीकर्ता <३६५ दिन होल्डिङ: ७.५%\n• संस्थागत लगानीकर्ता: १०%\n• घाटामा कर लाग्दैन',
     
     // Result sections
     'input.summary': 'इनपुट सारांश',
@@ -225,8 +233,6 @@ const translations: Record<Language, Record<string, string>> = {
     'cost.of.acquisition': 'प्राप्तिको कुल लागत',
     'net.selling.price': 'खुद बिक्री मूल्य',
     'capital.gain.loss': 'पूँजीगत लाभ/घाटा',
-    'capital.gains.tax': 'पूँजीगत लाभ कर',
-    'cgt.tooltip': 'पूँजीगत लाभ कर दरहरू:\nव्यक्तिगत, ≥३६५ दिन: ५%\nव्यक्तिगत, <३६५ दिन: ७.५%\nसंस्थागत: १०%\nघाटामा कर लाग्दैन',
     
     // Final result section
     'total.cost.final': 'कुल लागत',

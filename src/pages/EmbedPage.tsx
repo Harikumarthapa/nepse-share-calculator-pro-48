@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import TransactionForm from '../components/nepse-calculator/TransactionForm';
@@ -17,7 +16,7 @@ const EmbedPage: React.FC = () => {
     buyPrice: 100,
     sellPrice: 120,
     investorType: 'individual',
-    holdingDuration: 366,
+    selectedCgtRate: 0.05, // Default to 5% (Individual, ≥365 days)
     includeDpCharge: true,
   });
 
@@ -37,7 +36,7 @@ const EmbedPage: React.FC = () => {
       buyPrice: 100,
       sellPrice: 120,
       investorType: 'individual',
-      holdingDuration: 366,
+      selectedCgtRate: 0.05, // Default to 5% (Individual, ≥365 days)
       includeDpCharge: true,
     });
   };

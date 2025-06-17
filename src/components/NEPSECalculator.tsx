@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CalculationInputs, CalculationResults } from './nepse-calculator/types';
@@ -23,7 +22,7 @@ const NEPSECalculator: React.FC = () => {
     buyPrice: null,
     sellPrice: null,
     investorType: 'individual',
-    holdingDuration: 366,
+    selectedCgtRate: 0.05, // Default to 5% (Individual, ≥365 days)
     includeDpCharge: true,
   });
 
@@ -43,7 +42,7 @@ const NEPSECalculator: React.FC = () => {
       buyPrice: null,
       sellPrice: null,
       investorType: 'individual',
-      holdingDuration: 366,
+      selectedCgtRate: 0.05, // Default to 5% (Individual, ≥365 days)
       includeDpCharge: true,
     });
   };

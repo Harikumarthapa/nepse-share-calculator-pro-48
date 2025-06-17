@@ -1,4 +1,3 @@
-
 // Types for our NEPSE calculator
 export interface CalculationInputs {
   transactionType: 'buy' | 'sell';
@@ -6,7 +5,7 @@ export interface CalculationInputs {
   buyPrice: number;
   sellPrice: number;
   investorType: 'individual' | 'institutional';
-  holdingDuration: number;
+  selectedCgtRate: number;
   includeDpCharge: boolean;
 }
 

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -9,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Info } from "lucide-react";
 import { CalculationInputs } from './types';
-import { CAPITAL_GAINS_TAX } from './constants';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useIsMobile } from '@/hooks/use-mobile';
 
@@ -27,14 +25,17 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
   const { t } = useLanguage();
   const isMobile = useIsMobile();
   
-  // Calculate applicable tax rate based on investor type and holding duration
-  const getTaxRate = () => {
-    if (inputs.investorType === 'institutional') {
-      return CAPITAL_GAINS_TAX.INSTITUTIONAL * 100;
-    } else {
-      return inputs.holdingDuration >= 365 ? 
-        CAPITAL_GAINS_TAX.INDIVIDUAL.LONG_TERM * 100 : 
-        CAPITAL_GAINS_TAX.INDIVIDUAL.SHORT_TERM * 100;
+  // Helper function to get CGT rate display text
+  const getCgtRateDisplayText = (rate: number) => {
+    switch (rate) {
+      case 0.05:
+        return t('cgt.rate.individual.longterm') || '5% (Individual, ≥365 days)';
+      case 0.075:
+        return t('cgt.rate.individual.shortterm') || '7.5% (Individual, <365 days)';
+      case 0.10:
+        return t('cgt.rate.institutional') || '10% (Institutional)';
+      default:
+        return `${(rate * 100).toFixed(1)}%`;
     }
   };
 
@@ -113,53 +114,40 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
           </div>
           
           {inputs.transactionType === 'sell' && (
-            <>
-              <div className="space-y-1 sm:space-y-2">
-                <Label htmlFor="holdingDuration" className="text-sm sm:text-base">
-                  {t('holding.period')}
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Info className="h-3 w-3 sm:h-4 sm:w-4 inline-block ml-1 text-nepse-darkgray" />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p className="text-xs sm:text-sm">{t('cgt.tooltip')}</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                </Label>
-                <Input 
-                  id="holdingDuration" 
-                  type="number"
-                  min="1"
-                  placeholder={t('holding.period')}
-                  value={inputs.holdingDuration || ''}
-                  onChange={(e) => handleInputChange('holdingDuration', parseInt(e.target.value) || 0)}
-                  className="text-sm sm:text-base h-9 sm:h-10"
-                />
-              </div>
-              <div className="space-y-1 sm:space-y-2">
-                <Label htmlFor="capitalGainsTax" className="text-sm sm:text-base">
-                  {t('capital.gains.tax')}
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Info className="h-3 w-3 sm:h-4 sm:w-4 inline-block ml-1 text-nepse-darkgray" />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p className="text-xs sm:text-sm">{t('cgt.tooltip')}</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                </Label>
-                <Input 
-                  id="capitalGainsTax" 
-                  value={`${getTaxRate()}%`}
-                  disabled
-                  className="bg-gray-100 text-sm sm:text-base h-9 sm:h-10"
-                />
-              </div>
-            </>
+            <div className="space-y-1 sm:space-y-2">
+              <Label htmlFor="capitalGainsTax" className="text-sm sm:text-base">
+                {t('capital.gains.tax')}
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Info className="h-3 w-3 sm:h-4 sm:w-4 inline-block ml-1 text-nepse-darkgray" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p className="text-xs sm:text-sm">{t('cgt.tooltip')}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </Label>
+              <Select 
+                value={inputs.selectedCgtRate.toString()} 
+                onValueChange={(value) => handleInputChange('selectedCgtRate', parseFloat(value))}
+              >
+                <SelectTrigger id="capitalGainsTax" className="text-sm sm:text-base h-9 sm:h-10">
+                  <SelectValue placeholder={t('capital.gains.tax')} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="0.05">
+                    {t('cgt.rate.individual.longterm') || '5% (Individual, ≥365 days)'}
+                  </SelectItem>
+                  <SelectItem value="0.075">
+                    {t('cgt.rate.individual.shortterm') || '7.5% (Individual, <365 days)'}
+                  </SelectItem>
+                  <SelectItem value="0.10">
+                    {t('cgt.rate.institutional') || '10% (Institutional)'}
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           )}
         </div>
         
