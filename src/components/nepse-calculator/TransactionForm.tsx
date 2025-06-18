@@ -6,6 +6,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
+import { Info } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { CalculationInputs } from './types';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -93,8 +95,18 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
           )}
           
           <div className="space-y-1 sm:space-y-2">
-            <Label htmlFor="transactionFees" className="text-sm sm:text-base">
+            <Label htmlFor="transactionFees" className="text-sm sm:text-base flex items-center">
               Transaction Fees (Optional)
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Info className="h-4 w-4 inline-block ml-1 text-gray-500" />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Withdraw Fund Charge by Banks or Other payment Gateway - Add for accurate calculation</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </Label>
             <Input 
               id="transactionFees" 
@@ -106,26 +118,26 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
               onChange={(e) => handleInputChange('transactionFees', parseFloat(e.target.value) || null)}
               className="text-sm sm:text-base h-9 sm:h-10"
             />
-            <p className="text-xs text-gray-600">
-              Withdraw Fund Charge by Banks or Other payment Gateway - Add for accurate calculation
-            </p>
           </div>
           
-          <div className="space-y-1 sm:space-y-2">
-            <Label htmlFor="investorType" className="text-sm sm:text-base">{t('investor.type')}</Label>
-            <Select 
-              value={inputs.investorType} 
-              onValueChange={(value) => handleInputChange('investorType', value)}
-            >
-              <SelectTrigger id="investorType" className="text-sm sm:text-base h-9 sm:h-10">
-                <SelectValue placeholder={t('investor.type')} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="individual">{t('individual')}</SelectItem>
-                <SelectItem value="institutional">{t('institutional')}</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+          {/* Only show investor type in sell tab */}
+          {inputs.transactionType === 'sell' && (
+            <div className="space-y-1 sm:space-y-2">
+              <Label htmlFor="investorType" className="text-sm sm:text-base">{t('investor.type')}</Label>
+              <Select 
+                value={inputs.investorType} 
+                onValueChange={(value) => handleInputChange('investorType', value)}
+              >
+                <SelectTrigger id="investorType" className="text-sm sm:text-base h-9 sm:h-10">
+                  <SelectValue placeholder={t('investor.type')} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="individual">{t('individual')}</SelectItem>
+                  <SelectItem value="institutional">{t('institutional')}</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          )}
           
           {inputs.transactionType === 'sell' && (
             <div className="space-y-1 sm:space-y-2">
@@ -151,13 +163,29 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
                   )}
                 </SelectContent>
               </Select>
-              <div className="text-xs text-gray-600 space-y-1">
-                <p><strong>Individual Investors:</strong></p>
-                <p>• 5% - Long term holding (≥365 days)</p>
-                <p>• 7.5% - Short term holding (&lt;365 days)</p>
-                <p><strong>Institutional Investors:</strong></p>
-                <p>• 10% - Fixed rate</p>
-                <p className="mt-2 text-gray-500">No tax applies on capital loss</p>
+              
+              {/* Improved Capital Gains Tax Info Design */}
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mt-2">
+                <div className="text-xs text-blue-800 space-y-2">
+                  <div className="font-medium text-blue-900">Capital Gains Tax Rates:</div>
+                  <div className="grid grid-cols-1 gap-1">
+                    <div className="flex justify-between">
+                      <span className="text-blue-700">Individual (≥365 days):</span>
+                      <span className="font-medium">5%</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-blue-700">Individual (&lt;365 days):</span>
+                      <span className="font-medium">7.5%</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-blue-700">Institutional:</span>
+                      <span className="font-medium">10%</span>
+                    </div>
+                  </div>
+                  <div className="text-blue-600 font-medium text-center pt-1 border-t border-blue-200">
+                    ⓘ No tax applies on capital loss
+                  </div>
+                </div>
               </div>
             </div>
           )}
@@ -170,13 +198,20 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
             onCheckedChange={(checked) => handleInputChange('includeDpCharge', !!checked)}
             className="h-3.5 w-3.5 sm:h-4 sm:w-4"
           />
-          <Label htmlFor="includeDpCharge" className="cursor-pointer text-sm sm:text-base">
+          <Label htmlFor="includeDpCharge" className="cursor-pointer text-sm sm:text-base flex items-center">
             {t('include.dp')}
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Info className="h-4 w-4 inline-block ml-1 text-gray-500" />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>DP charge is रू 25 per company per trade</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </Label>
         </div>
-        <p className="text-xs text-gray-600 ml-6">
-          DP charge is रू 25 per company per trade
-        </p>
         
         {/* Desktop-only reset button - hidden on mobile */}
         {!isMobile && (
