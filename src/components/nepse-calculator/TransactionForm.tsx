@@ -1,12 +1,11 @@
-import React from 'react';
+
+import React, { useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Info } from "lucide-react";
 import { CalculationInputs } from './types';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -25,19 +24,15 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
   const { t } = useLanguage();
   const isMobile = useIsMobile();
   
-  // Helper function to get CGT rate display text
-  const getCgtRateDisplayText = (rate: number) => {
-    switch (rate) {
-      case 0.05:
-        return t('cgt.rate.individual.longterm') || '5% (Individual, ≥365 days)';
-      case 0.075:
-        return t('cgt.rate.individual.shortterm') || '7.5% (Individual, <365 days)';
-      case 0.10:
-        return t('cgt.rate.institutional') || '10% (Institutional)';
-      default:
-        return `${(rate * 100).toFixed(1)}%`;
+  // Auto-select CGT rate when investor type changes
+  useEffect(() => {
+    if (inputs.investorType === 'institutional') {
+      handleInputChange('selectedCgtRate', 0.10);
+    } else if (inputs.investorType === 'individual' && inputs.selectedCgtRate === 0.10) {
+      // Reset to default individual rate if switching from institutional
+      handleInputChange('selectedCgtRate', 0.05);
     }
-  };
+  }, [inputs.investorType, inputs.selectedCgtRate, handleInputChange]);
 
   return (
     <Tabs 
@@ -98,6 +93,25 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
           )}
           
           <div className="space-y-1 sm:space-y-2">
+            <Label htmlFor="transactionFees" className="text-sm sm:text-base">
+              Transaction Fees (Optional)
+            </Label>
+            <Input 
+              id="transactionFees" 
+              type="number"
+              min="0"
+              step="0.01"
+              placeholder="Enter transaction fees"
+              value={inputs.transactionFees || ''}
+              onChange={(e) => handleInputChange('transactionFees', parseFloat(e.target.value) || null)}
+              className="text-sm sm:text-base h-9 sm:h-10"
+            />
+            <p className="text-xs text-gray-600">
+              Withdraw Fund Charge by Banks or Other payment Gateway - Add for accurate calculation
+            </p>
+          </div>
+          
+          <div className="space-y-1 sm:space-y-2">
             <Label htmlFor="investorType" className="text-sm sm:text-base">{t('investor.type')}</Label>
             <Select 
               value={inputs.investorType} 
@@ -117,36 +131,34 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
             <div className="space-y-1 sm:space-y-2">
               <Label htmlFor="capitalGainsTax" className="text-sm sm:text-base">
                 {t('capital.gains.tax')}
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Info className="h-3 w-3 sm:h-4 sm:w-4 inline-block ml-1 text-nepse-darkgray" />
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p className="text-xs sm:text-sm">{t('cgt.tooltip')}</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
               </Label>
               <Select 
                 value={inputs.selectedCgtRate.toString()} 
                 onValueChange={(value) => handleInputChange('selectedCgtRate', parseFloat(value))}
+                disabled={inputs.investorType === 'institutional'}
               >
                 <SelectTrigger id="capitalGainsTax" className="text-sm sm:text-base h-9 sm:h-10">
                   <SelectValue placeholder={t('capital.gains.tax')} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="0.05">
-                    {t('cgt.rate.individual.longterm') || '5% (Individual, ≥365 days)'}
-                  </SelectItem>
-                  <SelectItem value="0.075">
-                    {t('cgt.rate.individual.shortterm') || '7.5% (Individual, <365 days)'}
-                  </SelectItem>
-                  <SelectItem value="0.10">
-                    {t('cgt.rate.institutional') || '10% (Institutional)'}
-                  </SelectItem>
+                  {inputs.investorType === 'individual' ? (
+                    <>
+                      <SelectItem value="0.05">5%</SelectItem>
+                      <SelectItem value="0.075">7.5%</SelectItem>
+                    </>
+                  ) : (
+                    <SelectItem value="0.10">10%</SelectItem>
+                  )}
                 </SelectContent>
               </Select>
+              <div className="text-xs text-gray-600 space-y-1">
+                <p><strong>Individual Investors:</strong></p>
+                <p>• 5% - Long term holding (≥365 days)</p>
+                <p>• 7.5% - Short term holding (&lt;365 days)</p>
+                <p><strong>Institutional Investors:</strong></p>
+                <p>• 10% - Fixed rate</p>
+                <p className="mt-2 text-gray-500">No tax applies on capital loss</p>
+              </div>
             </div>
           )}
         </div>
@@ -160,18 +172,11 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
           />
           <Label htmlFor="includeDpCharge" className="cursor-pointer text-sm sm:text-base">
             {t('include.dp')}
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Info className="h-3 w-3 sm:h-4 sm:w-4 inline-block ml-1 text-nepse-darkgray" />
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p className="text-xs sm:text-sm">DP charge is रू 25 per company per trade</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
           </Label>
         </div>
+        <p className="text-xs text-gray-600 ml-6">
+          DP charge is रू 25 per company per trade
+        </p>
         
         {/* Desktop-only reset button - hidden on mobile */}
         {!isMobile && (

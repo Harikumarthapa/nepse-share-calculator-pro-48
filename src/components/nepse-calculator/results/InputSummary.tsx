@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { CalculationInputs } from '../types';
 import { formatCurrency } from '../utils';
@@ -14,11 +15,11 @@ const InputSummary: React.FC<InputSummaryProps> = ({ inputs }) => {
   const getCgtRateDisplayText = (rate: number) => {
     switch (rate) {
       case 0.05:
-        return t('cgt.rate.individual.longterm') || '5% (Individual, ≥365 days)';
+        return '5%';
       case 0.075:
-        return t('cgt.rate.individual.shortterm') || '7.5% (Individual, <365 days)';
+        return '7.5%';
       case 0.10:
-        return t('cgt.rate.institutional') || '10% (Institutional)';
+        return '10%';
       default:
         return `${(rate * 100).toFixed(1)}%`;
     }
@@ -60,6 +61,12 @@ const InputSummary: React.FC<InputSummaryProps> = ({ inputs }) => {
           <span className="block text-nepse-darkgray">{t('investor.type')}</span>
           <span className="font-medium">{inputs.investorType === 'individual' ? t('individual') : t('institutional')}</span>
         </div>
+        {inputs.transactionFees && inputs.transactionFees > 0 && (
+          <div>
+            <span className="block text-nepse-darkgray">Transaction Fees</span>
+            <span className="font-medium">{formatCurrency(inputs.transactionFees)}</span>
+          </div>
+        )}
       </div>
     </div>
   );

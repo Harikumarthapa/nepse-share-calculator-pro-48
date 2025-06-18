@@ -24,6 +24,7 @@ const NEPSECalculator: React.FC = () => {
     investorType: 'individual',
     selectedCgtRate: 0.05, // Default to 5% (Individual, ≥365 days)
     includeDpCharge: true,
+    transactionFees: null,
   });
 
   // State for calculation results
@@ -44,6 +45,7 @@ const NEPSECalculator: React.FC = () => {
       investorType: 'individual',
       selectedCgtRate: 0.05, // Default to 5% (Individual, ≥365 days)
       includeDpCharge: true,
+      transactionFees: null,
     });
   };
 

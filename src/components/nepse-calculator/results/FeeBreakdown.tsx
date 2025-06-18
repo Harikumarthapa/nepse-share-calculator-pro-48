@@ -13,6 +13,11 @@ interface FeeBreakdownProps {
 const FeeBreakdown: React.FC<FeeBreakdownProps> = ({ results }) => {
   const { t } = useLanguage();
   
+  const totalFees = (results?.brokerCommission || 0) + 
+                   (results?.sebonFee || 0) + 
+                   (results?.dpCharge || 0) + 
+                   (results?.transactionFees || 0);
+  
   return (
     <div className="mb-6">
       <h4 className="text-sm font-medium text-nepse-darkgray mb-2">{t('fee.breakdown')}</h4>
@@ -62,14 +67,15 @@ const FeeBreakdown: React.FC<FeeBreakdownProps> = ({ results }) => {
           <span className="text-nepse-darkgray">{t('dp.charge')}</span>
           <span className="font-medium">{results?.dpCharge ? formatCurrency(results.dpCharge) : '-'}</span>
         </div>
+        {results?.transactionFees && results.transactionFees > 0 && (
+          <div className="flex justify-between">
+            <span className="text-nepse-darkgray">Transaction Fees</span>
+            <span className="font-medium">{formatCurrency(results.transactionFees)}</span>
+          </div>
+        )}
         <div className="border-t border-gray-300 pt-3 flex justify-between font-medium">
           <span>{t('total.cost')}</span>
-          <span>
-            {(results?.brokerCommission !== undefined && results?.sebonFee !== undefined && results?.dpCharge !== undefined) ? 
-              formatCurrency(results.brokerCommission + results.sebonFee + results.dpCharge) : 
-              '-'
-            }
-          </span>
+          <span>{totalFees > 0 ? formatCurrency(totalFees) : '-'}</span>
         </div>
       </div>
     </div>

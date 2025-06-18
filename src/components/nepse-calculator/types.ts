@@ -1,3 +1,4 @@
+
 // Types for our NEPSE calculator
 export interface CalculationInputs {
   transactionType: 'buy' | 'sell';
@@ -7,6 +8,7 @@ export interface CalculationInputs {
   investorType: 'individual' | 'institutional';
   selectedCgtRate: number;
   includeDpCharge: boolean;
+  transactionFees?: number;
 }
 
 export interface CalculationResults {
@@ -21,4 +23,5 @@ export interface CalculationResults {
   netReceivable?: number;
   totalCostOfAcquisition?: number;
   netSellingPrice?: number;
+  transactionFees?: number;
 }

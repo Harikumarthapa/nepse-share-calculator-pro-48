@@ -29,7 +29,7 @@ export const calculateCGT = (profit: number, rate: number): number => {
 
 // Calculate results based on inputs
 export const calculateResults = (inputs: CalculationInputs): CalculationResults | null => {
-  const { transactionType, quantity, buyPrice, sellPrice, selectedCgtRate, includeDpCharge } = inputs;
+  const { transactionType, quantity, buyPrice, sellPrice, selectedCgtRate, includeDpCharge, transactionFees } = inputs;
   
   // Validate inputs
   if (!quantity || quantity <= 0 || (transactionType === 'buy' && !buyPrice) || (transactionType === 'sell' && (!buyPrice || !sellPrice))) {
@@ -45,7 +45,7 @@ export const calculateResults = (inputs: CalculationInputs): CalculationResults 
     sebonFee = calculateSEBONFee(totalAmount);
     dpCharge = includeDpCharge ? DP_CHARGE : 0;
     
-    const totalCost = totalAmount + brokerCommission + sebonFee + dpCharge;
+    const totalCost = totalAmount + brokerCommission + sebonFee + dpCharge + (transactionFees || 0);
     costPerShare = totalCost / quantity;
     
     return {
@@ -54,6 +54,7 @@ export const calculateResults = (inputs: CalculationInputs): CalculationResults 
       sebonFee,
       dpCharge,
       costPerShare,
+      transactionFees: transactionFees || 0,
     };
   } else { // Sell calculation
     // Buy-side calculations
@@ -62,8 +63,8 @@ export const calculateResults = (inputs: CalculationInputs): CalculationResults 
     const buySebonFee = calculateSEBONFee(buyAmount);
     const buyDpCharge = includeDpCharge ? DP_CHARGE : 0;
     
-    // Total cost of acquisition
-    totalCostOfAcquisition = buyAmount + buyBrokerCommission + buySebonFee + buyDpCharge;
+    // Total cost of acquisition (including transaction fees for buy side)
+    totalCostOfAcquisition = buyAmount + buyBrokerCommission + buySebonFee + buyDpCharge + (transactionFees || 0);
     
     // Sell-side calculations
     const sellAmount = quantity * sellPrice;
@@ -72,13 +73,13 @@ export const calculateResults = (inputs: CalculationInputs): CalculationResults 
     dpCharge = includeDpCharge ? DP_CHARGE : 0;
     totalAmount = sellAmount;
     
-    // Net selling price before CGT
-    netSellingPrice = sellAmount - brokerCommission - sebonFee - dpCharge;
+    // Net selling price before CGT (transaction fees reduce net proceeds)
+    netSellingPrice = sellAmount - brokerCommission - sebonFee - dpCharge - (transactionFees || 0);
     
-    // Calculate profit/loss before CGT
+    // Calculate profit/loss before CGT (based on actual cash flows)
     profitLoss = netSellingPrice - totalCostOfAcquisition;
     
-    // Calculate CGT using the selected rate
+    // Calculate CGT using the selected rate (only on profit, not including transaction fees)
     capitalGainsTax = calculateCGT(profitLoss, selectedCgtRate);
     
     // Final net receivable after CGT
@@ -101,7 +102,8 @@ export const calculateResults = (inputs: CalculationInputs): CalculationResults 
       roi,
       netReceivable,
       totalCostOfAcquisition,
-      netSellingPrice
+      netSellingPrice,
+      transactionFees: transactionFees || 0
     };
   }
 };
