@@ -60,7 +60,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
               placeholder={t('quantity')}
               value={inputs.quantity || ''}
               onChange={(e) => handleInputChange('quantity', parseFloat(e.target.value) || null)}
-              className="text-sm sm:text-base h-9 sm:h-10"
+              className="h-9 sm:h-10"
             />
           </div>
           
@@ -74,7 +74,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
               placeholder={t('buy.price')}
               value={inputs.buyPrice || ''}
               onChange={(e) => handleInputChange('buyPrice', parseFloat(e.target.value) || null)}
-              className="text-sm sm:text-base h-9 sm:h-10"
+              className="h-9 sm:h-10"
             />
           </div>
           
@@ -89,7 +89,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
                 placeholder={t('sell.price')}
                 value={inputs.sellPrice || ''}
                 onChange={(e) => handleInputChange('sellPrice', parseFloat(e.target.value) || null)}
-                className="text-sm sm:text-base h-9 sm:h-10"
+                className="h-9 sm:h-10"
               />
             </div>
           )}
@@ -116,7 +116,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
               placeholder="Enter transaction fees"
               value={inputs.transactionFees || ''}
               onChange={(e) => handleInputChange('transactionFees', parseFloat(e.target.value) || null)}
-              className="text-sm sm:text-base h-9 sm:h-10"
+              className="h-9 sm:h-10"
             />
           </div>
           
@@ -128,7 +128,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
                 value={inputs.investorType} 
                 onValueChange={(value) => handleInputChange('investorType', value)}
               >
-                <SelectTrigger id="investorType" className="text-sm sm:text-base h-9 sm:h-10">
+                <SelectTrigger id="investorType" className="h-9 sm:h-10">
                   <SelectValue placeholder={t('investor.type')} />
                 </SelectTrigger>
                 <SelectContent>
@@ -149,7 +149,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
                 onValueChange={(value) => handleInputChange('selectedCgtRate', parseFloat(value))}
                 disabled={inputs.investorType === 'institutional'}
               >
-                <SelectTrigger id="capitalGainsTax" className="text-sm sm:text-base h-9 sm:h-10">
+                <SelectTrigger id="capitalGainsTax" className="h-9 sm:h-10">
                   <SelectValue placeholder={t('capital.gains.tax')} />
                 </SelectTrigger>
                 <SelectContent>
@@ -218,7 +218,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
           <Button 
             onClick={handleReset} 
             variant="outline" 
-            className="w-full mt-3 sm:mt-4 text-sm sm:text-base h-9 sm:h-10"
+            className="w-full mt-3 sm:mt-4 h-9 sm:h-10"
           >
             {t('reset')}
           </Button>
