@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -173,7 +174,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
                       <span className="font-medium">5%</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-blue-700">Individual (<365 days):</span>
+                      <span className="text-blue-700">Individual (&lt;365 days):</span>
                       <span className="font-medium">7.5%</span>
                     </div>
                     <div className="flex justify-between">
