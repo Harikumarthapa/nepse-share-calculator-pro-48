@@ -14,6 +14,8 @@ const FeeBreakdown: React.FC<FeeBreakdownProps> = ({ results }) => {
   const { t } = useLanguage();
   
   const totalFees = (results?.brokerCommission || 0) + 
+                   (results?.nepseLevy || 0) +
+                   (results?.sebonRegulatoryFee || 0) +
                    (results?.sebonFee || 0) + 
                    (results?.dpCharge || 0) + 
                    (results?.transactionFees || 0);
@@ -47,6 +49,42 @@ const FeeBreakdown: React.FC<FeeBreakdownProps> = ({ results }) => {
           </span>
           <span className="font-medium">{results?.brokerCommission ? formatCurrency(results.brokerCommission) : '-'}</span>
         </div>
+        {results?.nepseLevy && results.nepseLevy > 0 && (
+          <div className="flex justify-between">
+            <span className="text-nepse-darkgray flex items-center">
+              NEPSE Levy
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Info className="h-4 w-4 inline-block ml-1 text-nepse-darkgray" />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>NEPSE Levy: 15% of broker commission</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </span>
+            <span className="font-medium">{formatCurrency(results.nepseLevy)}</span>
+          </div>
+        )}
+        {results?.sebonRegulatoryFee && results.sebonRegulatoryFee > 0 && (
+          <div className="flex justify-between">
+            <span className="text-nepse-darkgray flex items-center">
+              SEBON Regulatory Fee
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Info className="h-4 w-4 inline-block ml-1 text-nepse-darkgray" />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>SEBON Regulatory Fee: 2.5% of broker commission</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </span>
+            <span className="font-medium">{formatCurrency(results.sebonRegulatoryFee)}</span>
+          </div>
+        )}
         <div className="flex justify-between">
           <span className="text-nepse-darkgray flex items-center">
             {t('sebon.fee')}
