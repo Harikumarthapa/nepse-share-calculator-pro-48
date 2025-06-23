@@ -24,7 +24,7 @@ const EmbedInfo: React.FC = () => {
     
     toast({
       title: 'Embed Code Copied!',
-      description: 'Now, paste this on your site page using HTML.',
+      description: 'Paste the code on your website to show Calculator.',
       duration: 2000, // Auto-dismiss after 2 seconds
     });
   };
