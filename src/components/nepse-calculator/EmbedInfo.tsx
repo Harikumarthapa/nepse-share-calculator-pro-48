@@ -24,7 +24,7 @@ const EmbedInfo: React.FC = () => {
     
     toast({
       title: 'Copied!',
-      description: 'Embed code copied to clipboard.',
+      description: 'Embed code copied, please paste this on your site.',
       duration: 2000, // Auto-dismiss after 2 seconds
     });
   };
