@@ -1,17 +1,14 @@
-
 import React, { useState } from 'react';
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { Copy, Share } from "lucide-react";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { useLanguage } from '@/contexts/LanguageContext';
 
 const EmbedInfo: React.FC = () => {
   const [width, setWidth] = useState('100%');
   const [height, setHeight] = useState('600');
-  const [isOpen, setIsOpen] = useState(false);
   const { toast } = useToast();
   const { t } = useLanguage();
   
@@ -74,19 +71,9 @@ const EmbedInfo: React.FC = () => {
             </Button>
           </div>
           
-          <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-            <CollapsibleTrigger asChild>
-              <Button variant="outline" size="sm" className="text-xs h-8">
-                {isOpen ? (t('embed.hide') || 'Hide Code') : (t('embed.show') || 'Show Code')}
-              </Button>
-            </CollapsibleTrigger>
-            
-            <CollapsibleContent>
-              <div className="mt-3 p-3 bg-white/50 backdrop-blur-sm rounded text-xs overflow-auto border border-white/40">
-                <code className="whitespace-pre-wrap break-all">{embedCode}</code>
-              </div>
-            </CollapsibleContent>
-          </Collapsible>
+          <div className="mt-3 p-3 bg-white/50 backdrop-blur-sm rounded text-xs overflow-auto border border-white/40">
+            <code className="whitespace-pre-wrap break-all">{embedCode}</code>
+          </div>
           
           <div className="mt-3 sm:mt-4 p-3 bg-white/50 backdrop-blur-sm rounded border border-white/40">
              <p className="text-xs sm:text-sm text-center text-gray-600">
