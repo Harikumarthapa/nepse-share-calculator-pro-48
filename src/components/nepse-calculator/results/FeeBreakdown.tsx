@@ -14,8 +14,7 @@ const FeeBreakdown: React.FC<FeeBreakdownProps> = ({ results }) => {
   const { t } = useLanguage();
   
   const totalFees = (results?.brokerCommission || 0) + 
-                   (results?.nepseLevy || 0) + 
-                   (results?.sebonRegFee || 0) + 
+                   (results?.sebonFee || 0) + 
                    (results?.dpCharge || 0) + 
                    (results?.transactionFees || 0);
   
@@ -49,18 +48,25 @@ const FeeBreakdown: React.FC<FeeBreakdownProps> = ({ results }) => {
           <span className="font-medium">{results?.brokerCommission ? formatCurrency(results.brokerCommission) : '-'}</span>
         </div>
         <div className="flex justify-between">
-          <span className="text-nepse-darkgray">NEPSE Levy</span>
-          <span className="font-medium">{results?.nepseLevy ? formatCurrency(results.nepseLevy) : '-'}</span>
-        </div>
-        <div className="flex justify-between">
-          <span className="text-nepse-darkgray">SEBON Reg. Fee</span>
-          <span className="font-medium">{results?.sebonRegFee ? formatCurrency(results.sebonRegFee) : '-'}</span>
+          <span className="text-nepse-darkgray flex items-center">
+            {t('sebon.fee')}
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Info className="h-4 w-4 inline-block ml-1 text-nepse-darkgray" />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>SEBON Fee: 0.015% of transaction amount</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </span>
+          <span className="font-medium">{results?.sebonFee ? formatCurrency(results.sebonFee) : '-'}</span>
         </div>
         <div className="flex justify-between">
           <span className="text-nepse-darkgray">{t('dp.charge')}</span>
           <span className="font-medium">{results?.dpCharge ? formatCurrency(results.dpCharge) : '-'}</span>
         </div>
-        {/* Only show Transaction Fees if there's a value */}
         {results?.transactionFees && results.transactionFees > 0 && (
           <div className="flex justify-between">
             <span className="text-nepse-darkgray">Transaction Fees</span>

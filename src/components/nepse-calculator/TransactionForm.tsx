@@ -52,47 +52,50 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
         {/* Common inputs for both buy and sell */}
         <div className="grid grid-cols-1 gap-3 sm:gap-4">
           <div className="space-y-1 sm:space-y-2">
-            <Label htmlFor="quantity">Quantity</Label>
+            <Label htmlFor="quantity" className="text-sm sm:text-base">{t('quantity')}</Label>
             <Input 
               id="quantity" 
               type="number" 
               min="1"
-              placeholder="Quantity"
+              placeholder={t('quantity')}
               value={inputs.quantity || ''}
               onChange={(e) => handleInputChange('quantity', parseFloat(e.target.value) || null)}
+              className="h-9 sm:h-10"
             />
           </div>
           
           <div className="space-y-1 sm:space-y-2">
-            <Label htmlFor="buyPrice">Buy Price</Label>
+            <Label htmlFor="buyPrice" className="text-sm sm:text-base">{t('buy.price')}</Label>
             <Input 
               id="buyPrice" 
               type="number"
               min="0.01"
               step="0.01"
-              placeholder="Buy Price"
+              placeholder={t('buy.price')}
               value={inputs.buyPrice || ''}
               onChange={(e) => handleInputChange('buyPrice', parseFloat(e.target.value) || null)}
+              className="h-9 sm:h-10"
             />
           </div>
           
           {inputs.transactionType === 'sell' && (
             <div className="space-y-1 sm:space-y-2">
-              <Label htmlFor="sellPrice">Sell Price</Label>
+              <Label htmlFor="sellPrice" className="text-sm sm:text-base">{t('sell.price')}</Label>
               <Input 
                 id="sellPrice" 
                 type="number"
                 min="0.01"
                 step="0.01"
-                placeholder="Sell Price"
+                placeholder={t('sell.price')}
                 value={inputs.sellPrice || ''}
                 onChange={(e) => handleInputChange('sellPrice', parseFloat(e.target.value) || null)}
+                className="h-9 sm:h-10"
               />
             </div>
           )}
           
           <div className="space-y-1 sm:space-y-2">
-            <Label htmlFor="transactionFees" className="flex items-center">
+            <Label htmlFor="transactionFees" className="text-sm sm:text-base flex items-center">
               Transaction Fees (Optional)
               <TooltipProvider>
                 <Tooltip>
@@ -113,23 +116,24 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
               placeholder="Enter transaction fees"
               value={inputs.transactionFees || ''}
               onChange={(e) => handleInputChange('transactionFees', parseFloat(e.target.value) || null)}
+              className="h-9 sm:h-10"
             />
           </div>
           
           {/* Only show investor type in sell tab */}
           {inputs.transactionType === 'sell' && (
             <div className="space-y-1 sm:space-y-2">
-              <Label htmlFor="investorType">Investor Type</Label>
+              <Label htmlFor="investorType" className="text-sm sm:text-base">{t('investor.type')}</Label>
               <Select 
                 value={inputs.investorType} 
                 onValueChange={(value) => handleInputChange('investorType', value)}
               >
-                <SelectTrigger id="investorType">
-                  <SelectValue placeholder="Investor Type" />
+                <SelectTrigger id="investorType" className="h-9 sm:h-10">
+                  <SelectValue placeholder={t('investor.type')} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="individual">Individual</SelectItem>
-                  <SelectItem value="institutional">Institutional</SelectItem>
+                  <SelectItem value="individual">{t('individual')}</SelectItem>
+                  <SelectItem value="institutional">{t('institutional')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -137,16 +141,16 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
           
           {inputs.transactionType === 'sell' && (
             <div className="space-y-1 sm:space-y-2">
-              <Label htmlFor="capitalGainsTax">
-                Capital Gains Tax
+              <Label htmlFor="capitalGainsTax" className="text-sm sm:text-base">
+                {t('capital.gains.tax')}
               </Label>
               <Select 
                 value={inputs.selectedCgtRate.toString()} 
                 onValueChange={(value) => handleInputChange('selectedCgtRate', parseFloat(value))}
                 disabled={inputs.investorType === 'institutional'}
               >
-                <SelectTrigger id="capitalGainsTax">
-                  <SelectValue placeholder="Capital Gains Tax" />
+                <SelectTrigger id="capitalGainsTax" className="h-9 sm:h-10">
+                  <SelectValue placeholder={t('capital.gains.tax')} />
                 </SelectTrigger>
                 <SelectContent>
                   {inputs.investorType === 'individual' ? (
@@ -192,9 +196,10 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
             id="includeDpCharge" 
             checked={inputs.includeDpCharge}
             onCheckedChange={(checked) => handleInputChange('includeDpCharge', !!checked)}
+            className="h-3.5 w-3.5 sm:h-4 sm:w-4"
           />
-          <Label htmlFor="includeDpCharge" className="cursor-pointer flex items-center">
-            Include DP Charge
+          <Label htmlFor="includeDpCharge" className="cursor-pointer text-sm sm:text-base flex items-center">
+            {t('include.dp')}
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -213,9 +218,9 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
           <Button 
             onClick={handleReset} 
             variant="outline" 
-            className="w-full mt-3 sm:mt-4"
+            className="w-full mt-3 sm:mt-4 h-9 sm:h-10"
           >
-            Reset
+            {t('reset')}
           </Button>
         )}
       </div>
