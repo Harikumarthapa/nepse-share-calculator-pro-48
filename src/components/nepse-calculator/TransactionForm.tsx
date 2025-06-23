@@ -63,7 +63,6 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
               className="h-9 sm:h-10"
             />
           </div>
-          
           <div className="space-y-1 sm:space-y-2">
             <Label htmlFor="buyPrice" className="text-sm sm:text-base">{t('buy.price')}</Label>
             <Input 
@@ -103,7 +102,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
                     <Info className="h-4 w-4 inline-block ml-1 text-gray-500" />
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Withdraw Fund Charge by Banks or Other payment Gateway - Add for accurate calculation</p>
+                    <p>Withdraw Fees Charged - Banks or Wallets</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
