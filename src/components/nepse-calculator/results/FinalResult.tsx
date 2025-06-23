@@ -24,12 +24,10 @@ const FinalResult: React.FC<FinalResultProps> = ({ results, inputs }) => {
               <span className="font-medium">
                 {(results?.totalAmount !== undefined && 
                   results?.brokerCommission !== undefined && 
-                  results?.nepseLevy !== undefined &&
-                  results?.sebonRegulatoryFee !== undefined &&
                   results?.sebonFee !== undefined && 
                   results?.dpCharge !== undefined) ? 
                   formatCurrency(
-                    results.totalAmount + results.brokerCommission + (results.nepseLevy || 0) + (results.sebonRegulatoryFee || 0) + results.sebonFee + results.dpCharge + (results.transactionFees || 0)
+                    results.totalAmount + results.brokerCommission + results.sebonFee + results.dpCharge
                   ) : '-'}
               </span>
             </div>
@@ -45,7 +43,7 @@ const FinalResult: React.FC<FinalResultProps> = ({ results, inputs }) => {
               <span className="font-medium">{results?.netReceivable ? formatCurrency(results.netReceivable) : '-'}</span>
             </div>
             <div className="flex justify-between">
-              <span>Capital Gain (Before Tax)</span>
+              <span>{t('profit.loss')}</span>
               <span className={`font-medium flex items-center ${
                 results?.profitLoss && results.profitLoss > 0 ? 'text-green-300' : 'text-red-300'
               }`}>
@@ -58,12 +56,6 @@ const FinalResult: React.FC<FinalResultProps> = ({ results, inputs }) => {
                   )
                 ) : null}
               </span>
-            </div>
-            <div className="flex justify-between">
-              <span>Net Profit (After Tax)</span>
-              <span className={`font-medium ${
-                results?.netProfitAfterTax && results.netProfitAfterTax > 0 ? 'text-green-300' : 'text-red-300'
-              }`}>{results?.netProfitAfterTax ? formatCurrency(results.netProfitAfterTax) : '-'}</span>
             </div>
             <div className="flex justify-between">
               <span>{t('roi')}</span>

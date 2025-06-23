@@ -18,13 +18,10 @@ export interface CalculationResults {
   dpCharge: number;
   costPerShare: number;
   capitalGainsTax?: number;
-  profitLoss?: number; // Capital gain BEFORE tax
+  profitLoss?: number;
   roi?: number;
   netReceivable?: number;
   totalCostOfAcquisition?: number;
   netSellingPrice?: number;
   transactionFees?: number;
-  nepseLevy?: number;
-  sebonRegulatoryFee?: number;
-  netProfitAfterTax?: number; // Net profit AFTER tax
 }

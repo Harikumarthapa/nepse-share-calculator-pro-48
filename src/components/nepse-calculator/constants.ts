@@ -18,10 +18,6 @@ export const BROKER_COMMISSION_RATES = {
 export const SEBON_FEE_RATE = 0.00015; // 0.015%
 export const DP_CHARGE = 25; // Rs. 25
 
-// New regulatory add-ons
-export const NEPSE_LEVY_RATE = 0.15; // 15% of brokerage
-export const SEBON_REGULATORY_FEE_RATE = 0.025; // 2.5% of brokerage
-
 export const CAPITAL_GAINS_TAX = {
   INDIVIDUAL: {
     LONG_TERM: 0.05,  // 5% for long term (≥365 days)
