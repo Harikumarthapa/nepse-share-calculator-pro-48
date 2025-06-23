@@ -23,8 +23,8 @@ const EmbedInfo: React.FC = () => {
     navigator.clipboard.writeText(embedCode);
     
     toast({
-      title: 'Copied!',
-      description: 'Embed code copied, please paste this on your site.',
+      title: 'Embed Code Copied!',
+      description: 'Now, paste this on your site page using HTML.',
       duration: 2000, // Auto-dismiss after 2 seconds
     });
   };
