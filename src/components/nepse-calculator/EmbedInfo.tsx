@@ -22,13 +22,9 @@ const EmbedInfo: React.FC = () => {
   const copyToClipboard = () => {
     navigator.clipboard.writeText(embedCode);
     
-    // Get translated text or use fallback
-    const title = t('embed.copied') || 'Copied!';
-    const description = t('embed.copied.description') || 'Embed code copied to clipboard.';
-    
     toast({
-      title: title,
-      description: description,
+      title: 'Copied!',
+      description: 'Embed code copied to clipboard.',
       duration: 2000, // Auto-dismiss after 2 seconds
     });
   };
@@ -72,7 +68,15 @@ const EmbedInfo: React.FC = () => {
             </div>
           </div>
           
-          <div className="flex justify-end mt-3 sm:mt-4">
+          <div className="flex justify-end gap-2 mt-3 sm:mt-4">
+            <Collapsible open={isOpen} onOpenChange={setIsOpen}>
+              <CollapsibleTrigger asChild>
+                <Button variant="outline" size={window.innerWidth < 640 ? "sm" : "default"} className="flex items-center gap-1 h-8 sm:h-10 text-xs sm:text-sm">
+                  {isOpen ? (t('embed.hide') || 'Hide Code') : (t('embed.show') || 'Show Code')}
+                </Button>
+              </CollapsibleTrigger>
+            </Collapsible>
+            
             <Button onClick={copyToClipboard} size={window.innerWidth < 640 ? "sm" : "default"} className="flex items-center gap-1 h-8 sm:h-10 text-xs sm:text-sm">
               <Copy size={window.innerWidth < 640 ? 14 : 16} />
               {t('embed.copy') || 'Copy Embed Code'}
@@ -80,12 +84,6 @@ const EmbedInfo: React.FC = () => {
           </div>
           
           <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-            <CollapsibleTrigger asChild>
-              <Button variant="outline" size="sm" className="text-xs h-8">
-                {isOpen ? (t('embed.hide') || 'Hide Code') : (t('embed.show') || 'Show Code')}
-              </Button>
-            </CollapsibleTrigger>
-            
             <CollapsibleContent>
               <div className="mt-3 p-3 bg-white/50 backdrop-blur-sm rounded text-xs overflow-auto border border-white/40">
                 <code className="whitespace-pre-wrap break-all">{embedCode}</code>
