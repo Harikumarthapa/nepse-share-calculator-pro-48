@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Info } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -67,7 +66,7 @@ const FeeBreakdown: React.FC<FeeBreakdownProps> = ({ results }) => {
           <span className="text-nepse-darkgray">{t('dp.charge')}</span>
           <span className="font-medium">{results?.dpCharge ? formatCurrency(results.dpCharge) : '-'}</span>
         </div>
-        {results?.transactionFees && results.transactionFees > 0 && (
+        {results?.transactionFees != null && results.transactionFees > 0 && (
           <div className="flex justify-between">
             <span className="text-nepse-darkgray">Transaction Fees</span>
             <span className="font-medium">{formatCurrency(results.transactionFees)}</span>
