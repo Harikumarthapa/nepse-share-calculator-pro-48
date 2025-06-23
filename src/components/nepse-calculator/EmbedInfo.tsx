@@ -9,7 +9,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 
 const EmbedInfo: React.FC = () => {
   const [width, setWidth] = useState('100%');
-  const [height, setHeight] = useState('800');
+  const [height, setHeight] = useState('650');
   const [isOpen, setIsOpen] = useState(false);
   const { toast } = useToast();
   const { t } = useLanguage();
@@ -73,10 +73,10 @@ const EmbedInfo: React.FC = () => {
                 id="embedHeight" 
                 value={height}
                 onChange={(e) => setHeight(e.target.value)}
-                placeholder="800"
+                placeholder="650"
                 className="bg-white/50 h-8 sm:h-10 text-sm"
               />
-              <p className="text-xs text-gray-500">Recommended: 700-900px</p>
+              <p className="text-xs text-gray-500">Recommended: 600-700px for minimal layout</p>
             </div>
           </div>
           
