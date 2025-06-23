@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -143,25 +142,28 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
               <Label htmlFor="capitalGainsTax" className="text-sm sm:text-base">
                 {t('capital.gains.tax')}
               </Label>
-              <Select 
-                value={inputs.selectedCgtRate.toString()} 
-                onValueChange={(value) => handleInputChange('selectedCgtRate', parseFloat(value))}
-                disabled={inputs.investorType === 'institutional'}
-              >
-                <SelectTrigger id="capitalGainsTax" className="h-9 sm:h-10">
-                  <SelectValue placeholder={t('capital.gains.tax')} />
-                </SelectTrigger>
-                <SelectContent>
-                  {inputs.investorType === 'individual' ? (
-                    <>
-                      <SelectItem value="0.05">5%</SelectItem>
-                      <SelectItem value="0.075">7.5%</SelectItem>
-                    </>
-                  ) : (
-                    <SelectItem value="0.10">10%</SelectItem>
-                  )}
-                </SelectContent>
-              </Select>
+              
+              {inputs.investorType === 'institutional' ? (
+                // Show fixed 10% for institutional investors
+                <div className="flex items-center justify-between h-9 sm:h-10 px-3 py-2 border border-input bg-background rounded-md text-sm ring-offset-background">
+                  <span>10%</span>
+                  <span className="text-xs text-muted-foreground">Fixed rate for institutional</span>
+                </div>
+              ) : (
+                // Show dropdown for individual investors
+                <Select 
+                  value={inputs.selectedCgtRate.toString()} 
+                  onValueChange={(value) => handleInputChange('selectedCgtRate', parseFloat(value))}
+                >
+                  <SelectTrigger id="capitalGainsTax" className="h-9 sm:h-10">
+                    <SelectValue placeholder={t('capital.gains.tax')} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="0.05">5%</SelectItem>
+                    <SelectItem value="0.075">7.5%</SelectItem>
+                  </SelectContent>
+                </Select>
+              )}
               
               {/* Improved Capital Gains Tax Info Design */}
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mt-2">
