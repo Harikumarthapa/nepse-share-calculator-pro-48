@@ -21,9 +21,15 @@ const EmbedInfo: React.FC = () => {
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(embedCode);
+    
+    // Get translated text or use fallback
+    const title = t('embed.copied') || 'Copied!';
+    const description = t('embed.copied.description') || 'Embed code copied to clipboard.';
+    
     toast({
-      title: t('embed.copied') || 'Copied!',
-      description: t('embed.copied.description') || 'Embed code copied to clipboard.',
+      title: title,
+      description: description,
+      duration: 2000, // Auto-dismiss after 2 seconds
     });
   };
 
@@ -37,10 +43,10 @@ const EmbedInfo: React.FC = () => {
         <div className="relative p-4 sm:p-6 space-y-3 sm:space-y-4">
           <h2 className="text-base sm:text-lg font-medium mb-2 sm:mb-4 flex items-center gap-2">
             <Share size={18} className="text-nepse-blue" />
-            {t('embed.title')}
+            {t('embed.title') || 'Embed This Calculator'}
           </h2>
           <p className="text-xs sm:text-sm text-gray-500">
-          {t('embed.description') || 'Add this calculator to your website or blog by copying the embed code.'}
+            {t('embed.description') || 'Add this calculator to your website or blog by copying the embed code.'}
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
