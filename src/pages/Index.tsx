@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { ChevronUp } from 'lucide-react';
 import NEPSECalculator from '@/components/NEPSECalculator';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useSEO } from '@/hooks/useSEO';
@@ -95,6 +96,55 @@ const Index = () => {
         </header>
         
         <NEPSECalculator />
+        
+        {/* Additional Tools Section */}
+        <div className="mt-6 sm:mt-8">
+          <h2 className="text-lg sm:text-xl font-semibold text-nepse-blue mb-4 text-center">
+            Other Financial Calculators
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Card className="hover:shadow-md transition-shadow">
+              <CardContent className="p-4">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="p-2 bg-nepse-blue/10 rounded-lg">
+                    <svg className="h-5 w-5 text-nepse-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                    </svg>
+                  </div>
+                  <h3 className="font-medium text-nepse-blue">IPO Returns Calculator</h3>
+                </div>
+                <p className="text-sm text-gray-600 mb-3">
+                  Calculate your IPO returns with circuit analysis for newly listed shares in Nepal
+                </p>
+                <Link 
+                  to="/ipo-calculator" 
+                  className="inline-flex items-center text-sm text-nepse-blue hover:underline"
+                >
+                  Try IPO Calculator →
+                </Link>
+              </CardContent>
+            </Card>
+            
+            <Card className="hover:shadow-md transition-shadow opacity-60">
+              <CardContent className="p-4">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="p-2 bg-gray-100 rounded-lg">
+                    <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+                    </svg>
+                  </div>
+                  <h3 className="font-medium text-gray-500">SIP Calculator</h3>
+                </div>
+                <p className="text-sm text-gray-500 mb-3">
+                  Calculate systematic investment plan returns (Coming Soon)
+                </p>
+                <span className="inline-flex items-center text-sm text-gray-400">
+                  Coming Soon
+                </span>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
         
         <div className="mt-6 sm:mt-8 space-y-3 sm:space-y-4 text-center text-xs sm:text-sm text-gray-600">
           <p>

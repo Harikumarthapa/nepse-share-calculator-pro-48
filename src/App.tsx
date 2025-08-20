@@ -14,6 +14,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Sitemap from "./pages/Sitemap";
 import EmbedPage from "./pages/EmbedPage"; // or adjust the path as needed
+import IPOCalculator from "./pages/IPOCalculator";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +33,7 @@ const App = () => (
             <Route path="/contact" element={<Contact />} />
             <Route path="/sitemap" element={<Sitemap />} />
             <Route path="/embed" element={<EmbedPage />} />
+            <Route path="/ipo-calculator" element={<IPOCalculator />} />
             
             {/* Nepali Routes */}
             <Route path="/ne" element={<Index />} />
@@ -41,6 +43,7 @@ const App = () => (
             <Route path="/ne/about" element={<About />} />
             <Route path="/ne/contact" element={<Contact />} />
             <Route path="/ne/sitemap" element={<Sitemap />} />
+            <Route path="/ne/ipo-calculator" element={<IPOCalculator />} />
             
             {/* Catch-all route */}
             <Route path="*" element={<NotFound />} />
